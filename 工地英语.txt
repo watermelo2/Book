@@ -1,0 +1,685 @@
+语法
+主语： 动作的执行者.
+谓语： 动作.
+宾语： 动作的承受者.
+定语： 修饰名词的成分. 一般由形容词充当 eg：Echo is a naive girl. "naive"就是定语 
+状语： 修饰动词、形容词、副词的成分.主要由副词担任.此外，形容词、介词短语、名词词组、动词不定式短语也可以作状语.
+       状语有分时间状语、地点状语、原因状语、条件状语、目的状语、方式状语、让步状语、情况状语;
+       eg:I'll buy the ring in this morning. “in this morning”就是时间状语。 
+补语：（只存在“主谓宾”结构中）宾语的动作或状态属性，所以“主谓宾”结构延伸出一个“主谓宾补”结构.宾补对宾语加以解释或描述。   
+       以下成分可以充当宾补：名词，代词，形容词，副词，ing形式，ed分词，不定式，介词短语，名词性从句。  
+表语：（只存在“主系表”结构中）表述主语的状态属性.
+
+一般情况下：Be形，形名，动副，副形
+Be+形：即Be动词一般修饰形容词，eg：She is good！不能说  She is well，因为well是副词
+形名：即形容词一般修饰名词
+动副：即副词一般修饰动词  
+副形：即副词一般修饰形容词
+
+
+以下单词如果带'*'号表示要求会读
+
+argument:论据
+expression:表示,表现
+operation:操作,运营
+disable:禁用,使残废
+important:重要的
+various:各种各样的
+specified:指定
+influence:对..有影响,影响力
+behavior:行为
+through:通过
+similar:相似
+resolver:媒介,旋转变压器
+retrieval:检索,恢复
+strategy:策略
+declared:宣布,断言
+-----------------------------------
+ordinary:普通的
+calcuator:计算器
+region:区域
+inherited:继承
+declare:声明
+argument:论据.  一般在编程中称为"参数"
+delegate:代表
+assignable:可归属的,可分配的
+assign:赋值
+concrete:具体的
+lead:领导,引导
+imporssible:不可能,做不到
+provider:提供者(商)
+inject:注入
+support:支持
+condition:条件
+batch:批量
+-------------------------------------
+dynamic:动态
+disallowed:不允许的
+platform:平台
+explain:解释
+persent:目前
+present:目前的
+producer:生产者
+fix:修理
+remark:备注
+compatible:兼容
+optional:可选择的
+aspect:方面
+original:原始的
+cascade:级联
+revert:恢复,回归
+standard:标准
+growth:成长值
+recharge:补给,充值
+member:成员,会员
+third:第三
+grade:等级
+company:公司
+transaction:交易
+digest:消化,吸收
+native:本地的
+summary:总结,摘要,概要
+since:自从,以后
+feature:特征 
+assist:帮助
+unified:统一的
+outside:在外面
+inside:在里面
+sidebar:侧边栏
+summary:概要,总结
+routing:路由
+confirm:确认
+features:特征
+publish:宣布
+exchange:交换
+mandatory:强制的;受委托的
+reward:奖励
+trigger:触发
+invoice:发票
+qualified:有资格的
+browser:浏览器
+past:过去的
+predicate:谓语,(dsl中表示断言)
+balance:平衡,余额
+aware:意识到,觉察
+which:哪一个
+receive:收到
+typically:典型的
+contain:包含
+compare:比较
+durable:持久的,耐用的
+iterable:可迭代的* 
+iteration:迭代*
+recover:恢复
+reject:拒绝
+completed:完整的
+incompleted:不完整的
+remote:远程的
+remoting:远程处理
+procedure:程序
+reply:回复
+deprecated:不赞成,反对(在Java中该注解表示'即将废弃'的意思)
+brand:品牌
+due:由于 
+detected:检测
+during:在..期间   
+during the verification:在检查期间
+lightweight:轻量化
+precious:珍贵的,宝贝的
+balance:平衡
+broker:中间人
+channel:通道
+protocol:协议
+delivery:传送
+contrast:对比
+N/A(not applicable):不适用的
+complement:补充
+navigation:导航  *
+deep:深的
+holiday:假期
+destination:目标,目的
+matching:匹配
+editors:编辑
+conversion:转换
+no matching editors or conversion strategy found:没有找到匹配的编辑器或转换策略
+pull:拉
+push:推
+drawbacks:弊端
+correlation:相关性
+level:水平
+triggered:触发
+edge:边缘,优势
+sale:卖
+gift:礼物,赠品
+fraction:分数
+the annotated element must be a number with in accepted range:注释的元素必须是一个可接受范围内的数字
+maximum number of integeral digits accepted for this number:此数字所接受的整数位数的最大数目
+maxumum number of fractional digits accepted for this number:这个数字接受的最大位数
+their respective wrapper types:他们各自的包装类型
+extract:提取,获得
+combine:结合
+combination:组合,结合
+goal:目标
+profile:简介
+fail:失败
+recyle:回收站
+offShelve:下架
+restore:还原
+bullet:子弹
+successor:继承人
+statement:陈述
+crash:崩溃
+mirrored:镜像
+load balance:负载均衡
+delay:延迟
+envelope:信封
+cluster:群
+master:主人
+slave:奴隶
+policy:政策
+acknowledge:承认
+disk:磁盘
+automatic:自动的
+manual:手动的
+coordinator:协调员
+Guarenteed Multicast:安全组播
+Guarenteed:守卫
+Multicast:组播
+mnesia:记忆缺失
+promote:促进
+failover:故障转移
+cancel:取消
+notification:通知
+poison:毒药
+mock:嘲弄,愚弄(在开发中通常为"模拟")
+offline:离线
+online:在线
+define:定义
+simultaneously:同时
+fetch:取出
+bags:袋子
+alternate:交替的
+phase:阶段
+introduction:介绍
+bottom:底部
+divide:分(除)
+subtract:减去
+multiply:乘
+banner:标语
+increment:增长
+capacity:容量
+access:入口,接近
+random access:随机存取  
+reduce:减少
+folder:目录
+previous:以前的,在...之前
+rotate:旋转
+distance:远处,距离
+threshold:门槛
+stable:稳定的
+remaining:剩下的
+runs to complete sort:运行到完成排序
+fancy:设想
+stuff:东西,材料
+fancy stuff:花哨的东西
+natural:自然的
+annotate:注释
+pointcut:切入点
+specify:指定
+lifecyle:生命周期
+notice:通知
+atomic:原子的
+swap:交换
+tablet:药片
+tablet computer:平板电脑
+technology:技术
+is covered:被覆盖
+provided:假如
+wanner:想要
+audit:审计
+purge:净化,清除
+extractor:萃取器,抽油烟机
+logistics:物流
+freight:运费
+emit:发出
+gap:缺口
+snapshot:快照
+undo:解开
+redo:重做
+storage:仓库
+archives:档案(存档)
+repeatable:可重复的
+performance:性能
+pessimistic:悲观的
+optimistic:乐观的
+multiversion:多版本
+race condition:竞争条件
+satisfied:满意的
+roll:卷
+segment:环节,段,部分
+fault:缺点,缺陷
+intersection:交叉
+spin:旋转
+spinlock:自旋锁
+simulation:模拟
+acquire:获得,学到
+release:释放
+race:比赛
+free:自由的
+Data-Race-Free:无数据竞争
+scan:扫描
+range:范围
+optimizer:优化器
+statistics:统计学
+cost:成本
+increase:增加
+putty:油灰
+蔚然可观:形容文采达到较高水平,草木茂盛很好看
+unsafe:不安全的
+compressed:压缩的
+sample:样品
+upgrade:升级
+cyclic:循环的
+signal:信号
+ensure:确保
+ensureSegment:紧接着
+bucket:水桶
+report:报告
+usage:使用
+stride:步幅,进展
+transfer:转移
+advance:提前
+absent:缺席的,缺少
+bound:跳跃
+reservation:预定,保留
+ReservationNode:保留节点
+reentrant:可重入的,再进去
+full:满的
+fair:公平的
+nanoseconds:纳秒
+half:一半
+efficient:有效率的
+bulk:大量的
+efficient bulk operation:高效批量操作
+chance:机会
+interact:交互,互动
+chance to interact:互动机会
+especially when:尤其是
+secrecy:保密
+lagging:滞后
+accommodate:适应,迁就
+terminates:终止
+dummyNode:哑节点
+garbage:垃圾
+marker:标记
+skill:技能
+shared:共享的
+postscripts:附言
+overview:概述
+logical:符合逻辑的
+established:已建立的
+pipeline:管道
+league:联盟
+legends:传说
+league of legends:英雄联盟
+consultation:咨询
+symbol:符号
+temporary:暂时的
+temporary table:临时表
+effective:有效的
+confusing:混淆
+descendant:后裔,后代
+ancestor:祖先
+distance:距离
+enhancement:偏移量
+proposal:提议
+JDK Enhancement Proposal:JDK增强方案
+Walkthrough:演练(预排).在JAVA注释中能碰到,表示的意思是阐述代码执行结果对应的含义.
+staturate:渗透
+fork:叉
+stealing:偷窃
+work stealing:工作窃取
+instrument:工具
+passion:激情 
+candidate:候选人
+subject:主语
+predicate:谓语
+object:宾语
+access control: 访问控制
+accessibility[əkˌsesə'bɪlətɪ]: 可访问能力,可访问性
+accessor method: 访问方法
+adapter pattern: 适配器模式
+annotation type: 注解类型
+anonymous class: 匿名类
+antipattern: 反模式
+API(Application Programming Interface): 应用编程接口
+array: 数组
+assertion: 断言
+binary compatibility[ˈbaɪnəri kəmˌpætəˈbɪlətɪ]: 二进制兼容性
+bit field: 位域
+wildcard ['waɪldkɑ:d]: 通配符
+bounded wildcard type: 有限制的通配符类型
+boxed primitive type: 基本包装类型
+callback: 回调
+callback framework: 回调框架
+checked exception: 受检异常
+code inspection: 代码检验
+comparator['kɒmpəˌreɪtə]: 比较器
+composition [ˌkɑ:mpəˈzɪʃn] : 复合
+concrete strategy: 具体策略
+constant-specific class body: 特定于常量的类的主体
+implementation[ˌɪmplɪmənˈteʃən]: 实施
+constant-specific method implementation: 特定于常量的方法实现
+copy constructor: 拷贝构造器
+covariant[koʊˈveriənt]: 协变的
+convariant return type: 协变返回类型
+custom serialized form: 自定义的序列化形式
+decorator[ˈdɛkəˌretɚ] : 装饰者
+decorator pattern: 装饰模式
+default access: 缺省访问
+default constructor: 缺省构造器
+defensive [dɪˈfɛnsɪv] :防守的
+defensive copy: 保护性拷贝
+delegation: 委托
+deserializing: 反序列化
+design pattern: 设计模式
+documentation comment: 文档注释
+idiom [ˈɪdiəm]: 习语
+double-check idiom: 双重检查模式,双检查法
+dynamically cast: 动态地转换
+encapsulation: 封装
+enclosing instance: 外围实例
+erasure [ɪˈreʃɚ] : 擦除
+chaining[tʃeɪnɪŋ]: 链锁
+exception chaining: 异常链
+exception translation: 异常转换
+explicit[ɪkˈsplɪsɪt] : 明确的
+explicit type parameter: 显式的类型参数
+exported API: 导出的API
+extend: 扩展
+failure atomicity: 失败原子性
+field: 域
+guardian[ˈgɑ:rdiən]: 守护者
+finalizer guardian: 终结方法守卫者
+forwarding method: 转发方法
+fuction object: 函数对象
+function pointer: 函数指针
+general contract: 通用约定
+generic [dʒəˈnɛrɪk]: 泛型
+generic array creation: 泛型数组创建
+generic method: 泛型方法
+generic singleton factory: 泛型单例工厂
+generic static factory method: 泛型静态工厂方法
+generification: 泛型化
+idiom: 习惯用法、模式
+immutable [ɪˈmjutəbəl]: 不可变的
+implement: 实现(用作动词)
+implementation: 实现(用作名词)
+implementation inheritance: 实现继承
+information hiding: 信息隐藏
+inheritance [ɪnˈhɛrɪtəns]: 继承
+inner class: 内部类
+int enum pattern: int枚举模式
+interface: 接口
+interface inheritance: 接口继承
+invariant  [ɪnˈveriənt]: 不可变的   [ɪnˈ veri ənt]
+lazy initialization: 延迟初始化
+local class: 局部类
+marker annotation: 标记接口
+marker interface: 标记接口
+member: 成员
+member class:成员类
+member interface: 成员接口
+memory footprint: 内存占用
+memory model: 内存模型
+meta-annotation: 元注解
+mixin: 混合类型
+module: 模块
+mutator ['mju:teɪtə]: 设值方法
+naming convention: 命名惯例
+naming pattern: 命名模式
+native method: 本地方法
+native object: 本地对象
+nested class: 嵌套类
+non-reifiable: 不可具体化的
+nonstatic member class: 非静态的成员类
+object: 对象
+object pool: 对象池
+object serialization: 对象序列化
+obsolete [ˌɑ:bsəˈli:t]: 过时的
+obsolete reference: 过期引用
+open call: 开放调用
+operation code: 操作码
+overload: 重载
+override: 覆盖
+package-private: 包级私有
+parameterized [pə'ræmɪtəraɪzd]: 参数化
+parameterized type: 参数化的类型
+performance[pərˈfɔ:rməns]: 性能
+performance model: 性能模型
+postcondition: 后置条件
+precondition: 前提条件
+precondition violation: 前提违例
+primitive: 基本类型
+raw type: 原生态类型
+recursive[rɪˈkɜ:rsɪv]: 递归的
+recursive type bound: 递归类型限制
+redundant[rɪˈdʌndənt]: 冗余
+redundant field: 冗余域
+reference type: 引用类型
+reflection: 反射机制
+register: 注册
+reifiable: 可具体化的
+reified: 具体化的
+remainder: 求余
+restricted[rɪˈstrɪktɪd]: 受限制的
+restricted marker interface: 有限制的标记接口
+rounding mode: 舍入模式
+runtime exception: 运行时异常
+safety[ˈsefti]: 安全性
+scalar type: 标量类型
+semantic[sɪˈmæntɪk]: 语义的
+semantic compatibility: 语义兼容性
+serial version UID: 序列版本UID
+serialization proxy: 序列化代理
+serialized form: 序列化形式
+serializing: 序列化
+service provider framework: 服务提供者框架
+signature: 签名
+singleton: 单例
+singleton pattern: 单例模式
+skeletal[ˈskɛlɪtl]: 骨骼的
+skeletal implementation: 骨架实现
+state transition: 状态转变
+stateless: 无状态的
+static factory method: 静态工厂方法
+static member class: 静态成员类
+storage pool: 存储池
+strategy enum: 策略枚举
+strategy interface: 策略接口
+strategy pattern: 策略模式
+stream unique identifier: 流的唯一标识符
+subclassing: 子类化
+subtyping: 子类型化
+synthetic[sɪnˈθɛtɪk]: 合成的
+synthetic field: 合成域
+thread group: 线程组
+thread safety: 线程安全性
+thread-safe: 线程安全的
+top-level class: 顶级类,顶层类
+type inference: 类型推导
+type parameter: 类型参数
+typesafe: 类型安全
+typesafe enum pattern: 类型安全的枚举模式
+unbounded wildcard type: 无限制的通配符类型
+unchecked exception: 未受检查异常
+unintentional[ˌʌnɪnˈtɛnʃənəl]: 无意的
+unintentional object retention: 无意识的对象保持
+untility class: 工具类
+value class: 值类
+value type: 值类型
+virgin state: 空白状态
+worker thread: 工作线程
+wrapper class: 包装类
+exponentiation[ˌekspoʊˌnenʃɪ'eɪʃən]: 求幂   ai ke si pou nei ni' xuan
+heterogeneous[ˌhetərəˈdʒi:niəs]: 异构的 [ˌhetərəˈ dʒi:niəs]   ha qiu er _ ju ni a s
+migration[maɪˈɡreʃən]: 迁移
+compatibility[kəmˌpætəˈbɪlətɪ]: 兼容性  [kəmˌ pætəˈ bɪlətɪ]
+migration compatibility: 移植兼容性
+typesafe heterogeneous container: 类型安全的异构容器
+typically[ˈtɪpɪklɪ]: 典型地
+clause[klɔz]: 条款(这个在SQL报错里经常看的到)
+decision[dɪˈsɪʒən]: 决策(源自SpringData TX中一个字段的注释)
+propagation [ˌprɑpəˈɡeʃən]: 传播(源自Transaction注解)
+appropriate[əˈproʊpriət]: 适当的(源自SpringData TX中事务管理器的一个方法名)
+concrete: 混凝土,具体的
+decorator: 装饰者
+compound: 复合
+duplicate: 复制品
+agile: 敏捷的
+duration: 持续时间
+legacy: 遗产
+hystrix: 豪猪. 豪猪周身长满了刺,能保护自己不受天敌的伤害,代表了一种防御机制.Netflix团队取这个名字正是这个意思.
+standard: 标准
+conversion: 转换
+bad smell: 坏味道  可以用来形容代码的.
+aggressive: 有侵略性的
+inner peace: 内心平和
+purpose: 目的
+series: 系列
+shared: 共享的
+independent: 独立的
+consider: 考虑
+indicate: 表明
+cursor: 光标
+trace: 痕迹
+detach: 派遣;分离
+subscribe: 订阅
+screen: 屏幕
+evaluating: 评估
+sharding: 分片、碎片
+logic: 逻辑
+determine: 决定
+cause: 原因
+done: 完成
+comma separated: 逗号分隔
+cardinality: 基数
+manual: 手动
+intermediate: 中间的
+compensant: 补偿
+camel: 骆驼
+repository: 仓库
+draft: 草稿
+practice: 实践
+diagram: 图表
+compensation: 补偿
+related: 相关的
+normal: 正常的,标准的
+expect: 期待
+presentation: 报告
+textual: 文本
+finite: 有限的
+reactive: 反应性,有反应的
+guide: 指导,指南
+always: 总是
+setup: 设置
+applicable
+applicable: 可应用的,适用
+least: 最小的,最少的
+pressure: 压力
+echo: 回声
+weekly: 每周的
+feedback: 反馈
+tiny: 小
+jammer: 干扰机
+carry: 携带
+fleet: 舰队
+terminal: 终端
+conflict: 冲突
+contact: 联系
+fake: 伪造的
+compiler: 编译程序,编著者
+skipped: 跳过
+hire: 雇佣
+coroutine: 携程
+correct: 校正
+ambiguous: 摸棱两可的
+precision: 精确,细致
+patch: 补丁
+boards: 主板
+mutex: 互斥
+overlooked: 忽略
+necessary: 必要
+guess: 猜测
+below: 下面
+supplied: 提供
+assists: 帮助
+navigate: 导航
+occur: 发生
+broken: 破碎的
+feature: 特征
+unsigned: 未签名的,无符号的
+machine: 原始的
+still: 仍然
+scenario: 脚本
+rounding: 舍入
+radix: 基数
+glad: 高兴
+refactor: 重构
+assemble: 聚集,收集 
+successor: 接班人
+inbound: 入站
+agent: 代理人
+contribution: 贡献
+side effects: 副作用
+collect: 收集
+characteristics: 特点
+supplier: 提供
+accumulator: 累加器
+combiner: 结合
+finisher: 整理
+cost: 常数
+division: 除法
+remainder: 取余,剩余
+negate: 取反,否定
+verbose: 详细的
+engineer: 工程师
+engineering: 工程学,工程
+engine: 发动机
+hotspot: 热点
+tenured: 终身
+generation: 代
+parallel: 平行
+sweep: 扫描
+tracing: 查找、跟踪器
+region: 区域
+verbose: 啰嗦的、详细
+minor: 少数的、较小的
+troubleshooting: 故障排除
+all in one: 一体式
+leak: 泄露
+permanent: 永久的
+edian: 字节序
+descriptor: 描述符
+our: 我们的
+preference: 偏爱
+cap: 帽子
+initialCaps: 首字母大写
+just in time: 及时
+on stack replacement: 栈上替换
+high-level intermediate representaion: 高级中间代码
+hierarchy: 阶层
+analysis: 分析
+aggregate: 总数、总计. JVM中称为'聚合量' 
+scalar: 标量
+assign: 分配
+precursor: 先导、前身
+captain: 队长
+kernel: 内核
+heavyweight: 重量级
+champions: 冠军 
+make no sense: 毫无意义
+hardcode: 硬编码
+allocation: 分配
+
+
