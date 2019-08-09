@@ -88,7 +88,7 @@ SqlSourceBuilder#parse: 将经过sqlNode处理后的sql解析占位符参数并�
 	 CRUD的时候给ParameterHandler处理一下然后直接丢给java.sql.PreparedStatement就行了. 所以说Raw在解析MappedStatement的时候
 	 就可以将除ParameterHandler意外的其它所有事都可以处理完. 而Dynamic需要根据实际参数来处理SqlNode(其中包含对${}占位符的处理
 	 ,TextSqlNode),通过SqlSourceBuilder来处理含#{}的SQL. 
-答: 问题本身问的有问题,应该是为Dynamic的SqlSource需要在执行MapperMethod时才会创建,而Raw在解析MappedMethod时就创建好了?
+答: 问题本身问的有问题,应该是为什么Dynamic的SqlSource需要在执行MapperMethod时才会创建,而Raw在解析MappedMethod时就创建好了?
       从上面的解析中可以看出Dynamic需要处理SqlNode、#{}、${},最主要的是需要处理SqlNode. SqlSource是通过SqlSourceBuilder来创建的,
     而SqlSourceBuilder需要的第一个参数就是需要经过SqlNode处理完后的'原生SQL',而动态SqlNode需要根据实际参数才能处理并返回SQL,这个
     是最主要的原因. 而Raw不存在这个问题,它的SqlNode只是单纯的StaticTextSqlNode,可以忽视.
