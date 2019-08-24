@@ -1,4 +1,10 @@
-  XPath、Reflector、TypeParameterResolver、ObjectFactory、Property工具集、MetaClass、ObjectWrapper、MetaObject
+mybatis issue代码修订: 
+支持JSR310的日期类型,处理不同时区的时间差以及类型转换问题(3.5.0~3.5.1). 主要修订是对ResultSet取、设值方法改为Object+ClassType.
+具体看修订信息: https://github.com/mybatis/mybatis-3/pull/1478
+PostgreSQL的时区类型字段转换报错: https://github.com/mybatis/mybatis-3/issues/1644 
+
+ 
+ XPath、Reflector、TypeParameterResolver、ObjectFactory、Property工具集、MetaClass、ObjectWrapper、MetaObject
 、TypeHandler、TypeHandlerRegistry、TypeAliasRegistry、、、、、、、、、、、、、、、、、、、、
 
 
