@@ -1,0 +1,104 @@
+参考: 《Think in Java 4》、《Effective Java 2》
+
+使用过程中的泛型"高级"部分在于"通配符".
+细分为(我自己这么叫的)上界通配符、下界通配符、无界通配符.
+上界通配符:
+先看一组代码:
+```
+Serializable[] objs = new Integer[10];
+objs[0] = new String("1");
+objs[1] = new Integer(1);
+objs[2] = new Double(1.0);
+```
+上面的代码展示了数组的"向上转型"(也称为"协变"),同时也展示了数组在这种情况下只有在运行期才能检查.
+而泛型的主要目标之一是将这种错误检测移入到编译器. 因此:
+```
+List<Serializable> slist = new ArrayList<String>();
+```
+这段代码在编译期间就会发现异常,因为"不能把一个涉及Serializable的泛型赋给一个涉及String的泛型."  与数组不同,泛型没有内建的"协变"类型.
+但是,有时候想要在两个类型之间建立某种类型的向上转型关系,"通配符"可以实现.
+```
+List<? extends Serializable> slist = new ArrayList<String>();
+// Compile Error: can't add any type of object:
+// slist.add(new String("1")); 
+// slist.add(new Integer(1));
+slist.add(null); // Legal but uninteresting
+```
+  flist类型现在是List<? extends Serializable>,可以读作"具有任何从Serializable继承的类型的列表". 但是,这并不意味者着这个List将持有
+任何类型的Serializable. 通配符引用的是明确的类型,因此它意味者"某种 slist引用 没有指定的具体类型". 因此这个被赋值的List必须持有诸如String、Integer
+这样的某种指定类型,但是为了向上转型为slit,这个类型并没有人关心.
+  虽然slist持有某种具体的Serializable或Serializable的子类型,但你已经不能再像slist中添加对象了. 因为当你用slist.add()的时候会发现参数变成了
+"? extends Serializable". 从这个描述中,编译器不能了解这里需要这里需要Serializable的哪个子类型,因此它不会接收任何类型的Serializable--编译器将直接
+拒绝对参数列表中涉及通配符的方法(如add())的调用. 在使用contains()和indexOf()时参数类型是Object,它不涉及任何通配符,因此编译器允许这个调用. 你已经发现
+它开始走极端了.是的,但编译器并不知道这一点.
+  不过事情还没有那么糟糕. 另一方面,如果你调用一个返回Serializable的方法,则是安全的. 因为编译器知道这个List中的任何对象至少有Serializable类型.
+
+下界通配符:
+  你还可以走另外一条路,即使用"超类型通配符". 在这里,可以声明"通配符"是由某个"特定类"的"任何基类"来界定的,可以用<? super MyClass>或者<? super T>.
+但你不能对泛型参数给出一个"超类型边界",即<T super MyClass>. 这使得你可以安全地传递一个类型对象到泛型类型中:
+```
+// 2.0
+List<? super Number> nlist = new ArrayList();
+nlist.add(new Integer(1));
+nlist.add(new Double(1.0));
+Integer num = (Integer)nlist.get(0); // maybe throw ClassCastException.
+```
+  "通配符"是Number或Number某种基类型的List,这样编译器可以确定可以在nlist中添加Number或Number的子类型(因为所有Number子类型都可以"协变"为Number某个基类型).
+Number也可以称为"下界".聪明的你会发现nlist.get(0);返回的是Object. 因为编译器只知道nlist的"下界"是Number类型,但是不能推导出"通配符"对应的Number的基类型(
+有疑问),它甚至在运行时都不能确定.所以只能返回任何对象的基类型Object. 举个例子:
+```
+// 2.1
+List<? super Integer> ilist = Arrays.asList(new Integer(1), new Long(1), new Double(1.1), new String("")); // Serializable
+```
+你会发现此时Arrays.asList(T...)中的泛型会为Serializable. 因为它同时是Integer的一个"基类",所以可以进行"逆变". "逆变"这么用代码描述:
+```
+// 2.2
+Son son = new Father(); // Fake code 
+Integer i = new Serializable(); // Fake code
+```
+如果将之前的代码(2.1)简化可以这么描述:
+```
+// 2.3
+List<? super Integer> ilist = new ArrayList<Serializable>();
+```
+
+Q: 因为"下界通配符"在"消费"时(add())只能是Integer的子类,那编译器可不可以根据ilist初始化就可以推断出"通配符"的实际类型呢? 比如上面的是Serializable.
+
+
+无界通配符:
+```
+List<?> unknowList = Arrays.asList(1,2,3,6);
+List anyList = Arrays.asList(1,2,3,6);
+```
+"无界通配符"和原生类型区别在于原生类型可以将任何类型的对象放入List. 而List<?>将持有某种具体类型的同构集合,因此不能只是向其中传递Object.
+anyList实际上表示"持有任何Object类型的原生List",而List<?>表示"我是想用Java的泛型来编写这段代码,我在这里并不是要用原生类型,而是在当前这种情况下
+,泛型参数可以持有任何类型(也可以这么说: 具有某种特定类型的非原生List,只是我们不知道那种类型是什么)."
+
+======================================================================================================================================
+还有一点需要补充的"助记符"能帮你记住要使用哪种通配符类型: producer-extends,consumer-super(PECS).
+以及一个结论: 如果某个输入参数既是生产者,又是消费者,那么通配符对你就没有什么好处了. 因为你需要的是严格的类型匹配,这是不用任何通配符就可以得到的.
+
+me: 
+写在前面: 双引号("")代表着重说明,单引号('')代表不只是字面意思,有它意.
+  这两段话是《Effective Java》里说到的.第一句我很想自己总结一套不一样的"说辞",因为我觉得它说的让我不是很容易弄明白,以至于我看了好几遍这个章节都不能弄
+明白(然而后来我在《Think in Java》里才摸到了点思绪). 可能我悟性太低(我认为"通配符" '用作'参数时用super,'用作'返回结果时用extends. 如果是这样的话,
+我想我大概明白书上说的是什么了)... 
+  (2019-8-24,在stackoverflow上找到了一个"高票"回答,https://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super)
+他的意思是说"PECS"这个规则是从集合的角度来说明的. 我认同.
+  
+
+  (2019/8/23废除这段,感觉反驳的太勉强了)第二句我是根据第一句的个人理解来继续推断第二句的. 我的立场是有必要的,代码:
+```
+UnifiedFunction<? super Number> unifiedFunction = new UnifiedFunction<Number>() {
+    @Override
+    public Number apply(Number number) {
+        return new Integer(1);
+    }
+}; // 这个函数接口等于Function<T,T>
+Number rs = (Number) unifiedFunction.apply(new Double(1.1));
+```  
+像这种函数接口用"下界通配符"同时作为producer和consumer我认为还是有用的. 因为"下界通配符"可以用(add和get).
+
+======================================================================================================================================
+
+

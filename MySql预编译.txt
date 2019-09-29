@@ -1,0 +1,26 @@
+文章: https://www.cnblogs.com/micrari/p/7112781.html
+
+mysql驱动
+连接实现com.mysql.jdbc.ConnectionImpl
+  默认不开启服务预编译及缓存的情况创建PreparedStatement: com.mysql.jdbc.JDBC42PreparedStatement; 走的是clientPrepareStatement().
+
+预编译: 分本地端(java端)和服务端(mysql服务端). 本地端的预编译存放在ParseInfo中,它里面存储预编译语句的一些结构和状态基本信息(具体的不太清楚有啥用),
+       如果配置了缓存预编译语句(cachePrepStmts)则会存放在PerConnectionLRU中.
+  
+  连接mysql服务端时设置useServerPrepStmts=true开启服务端预编译,由于未开启缓存,因此会走if (this.getCachePreparedStatements()) {}的else分支.
+它的特点是同一个sql模板语句两次预编译操作mysql服务端都会执行(其实就是每次都创建了PrepareStatement).
+  连接mysql服务端时设置cachePrepStmts=true开启缓存预编译语句,prepStmtCacheSize设置条数(默认25),prepStmtCacheSqlLimit设置每条语句长度限制(默认256).
+设置后mysql驱动会用serverSideStatementCheckCache、serverSideStatementCache两个LRU缓存队列对预编译SQL语句缓存,前者存放SQL是否可以被缓存,后者存放预编译SQL语句.
+队列大小由prepStmtCacheSize控制. 还有,serverSideStatementCache在进行LRU移除元素时会将其缓存标志记为false并调close().
+注意: cachePrepStmts表示开启缓存预编译语句,没说只是用于mysql服务端的预编译缓存. 它也用于客户端缓存.
+
+  
+缓存实现细节(所有都配置)
+  mysql驱动尝试从LRU缓存中读取预编译SQL,如果命中缓存则会设置Statement对象的close字段为false,并从serverSideStatementCache中剔除. 如果未命中则会创建
+JDBC4ServerPreparedStatement并根据配置参数判断SQL长度决定是否缓存.
+  当然,实现缓存PrepreStatement是将isCached字段设置为true,等到ServerPreparedStatement#close()时会根据isCached标记、是否可池化、是否已经环比等来判断是否复用(放到队列).
+
+另外要说的是mysql驱动获取连接参数工具类: com.mysql.jdbc.ConnectionPropertiesImpl  
+
+疑问: 这么看来只有useServerPrepStmts参数是给mysql服务端用的? 其它是给连接驱动用的?
+

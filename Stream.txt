@@ -1,0 +1,231 @@
+写在前面: 以下都是一些对Stream的一些概念介绍,有很多部分来自文档,并没有对Stream包代码进行解析,只为更好的应用一些接口、方法,并非充分解读整个Stream.
+文档: https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+
+流的几个特点: 不存储数据、一个流上的操作产生一个结果,但它不会修改它的源、延迟执行、大小无限、流的元素只在流的生命周期中访问一次(和迭代器相像)
+
+中间操作被进一步划分为无状态和有状态操作.
+无状态操作: 如filter和map,在处理新元素时不保留以前处理的元素的状态--每个元素都可以独立于其他元素的操作处理.
+有状态的操作: 例如distinct和sorted,则需要考虑从先前看到处理的元素中合并状态
+
+Stream#reduce()方法代替了归约操作的并行化的所有负担,并且库可以提供一个高效的并行实现,不需要额外的同步
+reduce(U identity,BiFunction<U, ? super T, U> accumulator,BinaryOperator<U> combiner): T为输入类型,U为返回结果类型.
+
+可变规约: 一个可变的归约操作在处理流中的元素时,将输入元素积累到一个可变的结果容器中,例如一个Collection或StringBuilder.
+可变归约操作称为collect()当它将期望的结果收集到一个结果容器中,例如一个集合收集操作需要三个功能:
+1. 一个supplier功能来构造结果容器的新实例.
+2. 一个累计运算器函数将一个输入元素合并到一个结果容器中.
+3. 一个组合函数将一个结果容器的内容合并到另一个结果容器中(这个函数是在并行时才会被执行的).
+
+规约的并发与排序:
+例: nodes2.parallelStream().collect(Collectors.groupingBy(Node::getId));
+说明: 上面的并行执行操作可能实际上会产生反效果.这是因为组合步骤(通过键将一个Map合并到另一个Map)对于某些Map实现来说可能代价很大.
+      然而,假设在这个reduce中使用的结果容器是一个可并发修改的集合--例如ConcurrentHashMap.在这种情况下,对迭代累计运算器的并行调用
+      实际上可以将它们的结果并发地放到相同的共享结果容器中,从而将不再需要组合器合并不同的结果容器.这可能会促进并行执行性能的提升.
+      我们称之为并行reduce.
+介绍: 支持并发reduce的收集器以Collector.Characteristics.CONCURRENT characteristic标志为并发特性.然而,并发集合也有缺点.
+	  如果多个线程将结果并发地存入一个共享容器,那么产生结果的顺序是不确定的.因此,只有在排序对正在处理的流不重要的情况下,才可能
+	  执行并发的reduce.下面这些条件下Stream.collect(Collector)的实现会并发reduce(归约):
+	  1. 流是并行的(parallerStream).
+	  2. 收集器有Collector.Characteristics.CONCURRENT特性.
+	  3. 要么是无序的流(可以用BaseStream#unordered()方法来确保流是无序的),要么收集器拥有Collector.Characteristics.UNORDERED特性.
+
+StreamSupport提供了许多用于创建流的低级方法,所有这些方法都使用某种形式的Spliterator(记住这句话,后面介绍Stream相关会提到). 
+一个Spliterator是迭代器的一个并行版本,它描述了一个元素集合(可能是无限的),支持顺序前进、批量遍历,并将一部分输入分割成另一个可并行处理的Spliterator.
+在最低层,所有的流都由一个Spliterator驱动构造. 在实现Spliterator时,有许多实现选择,几乎所有的实现都是在简单的实现和运行时性能之间进行权衡.
+
+一个高质量的spliterator将提供平衡的和已知大小的分割,精确的容量信息,以及一些可用于实现优化执行的spliterator或数据的其他特征(Spliterator#characteristics)
+
+可变数据源的Spliterators有一个额外的挑战: 绑定到数据的时间.因为数据可能在创建Spliterators后和开始执行流管道的期间,发生变化.理想情况下,一个流的spliterator
+将报告一个IMMUTABLE or CONCURRENT;如果不是,应该是后期绑定(late-binding).
+如果一个源不能直接提供一个推荐的spliterator,它可能会通过Supplier间接地提供一个spliterator,并通过接收Supplier作为参数的stream()版本构造一个stream.只有在
+流管道的终端操作之后,才从Supplier处获得spliterator(StreamSupport#stream(java.util.function.Supplier<? extends java.util.Spliterator<T>>, int, boolean)).
+
+
+函数式编程: 函数式编程就是把函数的一些特性应用于编程语言之中
+可以理解为: 通过对应法则f(x)对指定的x进行处理,映射成另外一个值而且不会对x本身产生变动.
+函数式编程最重要的基础是λ演算,而且λ演算的函数可以接受函数当作输入(参数)和输出(返回值). 
+关于函数编程设计方面可以了解下"柯里化"、"λ演算"(这个收藏了几篇翻译).
+
+java.util.function包下的四大基础接口:
+Predicate: 断言,判断型函数.
+Consumer: 消费者,访问型函数.
+Function: 函数,一般函数.
+Supplier: 提供者,创建(生产)型函数
+说明: juf包中还有其它可能会常用的函数接口,包括在参数上扩展的(BiF)、特殊常用的函数变形(BinaryOperator<T>==BiFunction<T,T,T>)以及类型(基本类型)上扩展的(IntF).
+Q: 为什么要有对基本类型的扩展?
+A: 因为只有对象类型才能作为泛型参数,对于基本类型就涉及到装箱拆箱的操作. 虽然是自动的,但是这不可避免给内存带来了额外的开销,装箱和拆箱都会带来开销,so.
+Releated: 对于基本类型特殊处理的函数接口有命名规范--如果参数名是基本类型则为(基本数据类型名 + Function); 如果方法返回类型为基本类型则为(To + 基本数据类型名 + Function).
+
+Lambda:
+Lambda的类型是从使用Lambda的上下文推断出来的,上下文包括接收它传递的方法的形式参数或者是接收它的值的局部变量.
+特殊的void兼容规则: 如果一个Lambda的主体是一个语句表达式,它就和一个返回void的函数描述符兼容(当然需要参数列表也兼容).就是说 如果主体是一个语句,不管做什么或者调用方法返
+				   回其他的类型,他都可以兼容void. 比如Consumer<T> c = intList::add;
+
+在几乎所有情况下,终端操作都很迫切,在返回之前完成了数据源的遍历和管道的处理.只有终端操作iterator()和spliterator()不是.这些都是作为一个"逃生舱口"提供的,以便在现有操作不
+足以完成任务的情况下启用任意客户控制的管道遍历(个人理解就是如果流不足以提供处理可以让你自行遍历处理).
+
+Stream接口相关:
+PipelineHelper: 主要用于定义Stream执行过程中相关结构的构建.
+ReferencePipeline和AbstractPipeline: 完成了Stream的主要实现.
+AbstractPipeline: 实现了所有的 Stream的中间操作和最终操作
+[Int|Long|Double]Pipeline: 类似ReferencePipeline只不过是针对基本类型
+
+
+Stream的操作一般都有三部分构成:
+Ⅰ: 数据源
+Ⅱ: 操作(filter map.....)
+Ⅲ: 回调方法(Lambda匿名函数 方法引用)
+
+AbstractPipeline介绍:
+特点:
+1. 双向链表. sourceStage: 反向链接管道链的head(每个管道节点都有一个头). previousStage: 指向上一个Stage. nextStage: 指向下一个Stage.
+
+
+---这里是分割线---
+提前说明: "行为"指的是当前Stage所需要实现的功能. 例如ReferencePipeline#filter()返回的StatelessOp,它包装的Sink就是过滤与当前的Predicate不匹配(返回false)的流元素.
+
+Head、StatelessOp、StatefulOp三种Stage分别代表初始、无状态操作、含状态操作,除了Head外另外两个Stage都是抽象类并且都是"中间操作",需要子类实现些方法,示例如下(
+	ReferencePipeline#filter()):
+```
+public final Stream<P_OUT> filter(Predicate<? super P_OUT> predicate) {
+    Objects.requireNonNull(predicate);
+    return new StatelessOp<P_OUT, P_OUT>(this, StreamShape.REFERENCE,StreamOpFlag.NOT_SIZED) {
+        @Override
+        Sink<P_OUT> opWrapSink(int flags, Sink<P_OUT> sink) {
+            return new Sink.ChainedReference<P_OUT, P_OUT>(sink) {
+                @Override
+                public void begin(long size) {
+                    downstream.begin(-1);
+                }
+
+                @Override
+                public void accept(P_OUT u) {
+                    if (predicate.test(u))
+                        downstream.accept(u);
+                }
+            };
+        }
+    };
+}
+```
+	 
+filter、map对应的Stage重写的opWrapSink(flags,sink)最终都是调的sink.accept(T).
+
+AbstractPipeline#wrapSink()会根据previousStage遍历所有的Stage(从后往前),并调用相应的opWrapSink()方法将各自的"流程处理"套起来,最终'流水线'将
+StatelessOp、StatefulOp的所有的操作(也可以看作Lambda行为化参数)都按照顺序被包装到了一个Sink里.
+注意: 上面说的流水线上包含的操作不包含Head是因为Head作为初始状态不具备任何"行为". 多说句,能够产生StatefulOp对象的是类似于distinct()、sorted()
+	   等方法,具体的就不多说了,都是按照Stream规范来进行区分的.
+
+Sink用来组装相邻两个操作阶段(Stage)之间的协调执行. 它的模式是begin accept end还有短路标记. 还有,它的accept()方法(Consumer<T>里的那个)里包装了回调方法("行为").
+每个Stage都得提供对应的一个Sink,这个Sink封装了当前Stage的"行为",然后再通过AbstractPipeline#wrapSink()将当前链路的所有Sink串起来并返回,调用这个Sink
+#accept(T)方法就能陆续调用当前链路中所有的Sink#accept(T)(也可以认为是调用了所有Stage对应的"行为").
+注意: 上面说的操作都是中间操作,中间操作才会产生操作阶段,终端操作不会增加Stage的个数了.
+
+
+中间操作: filter()、flatMap()、limit()、map()、concat()、distinct()、peek()、skip()、sorted()、parallel()、sequential()、unordered()  
+		  、flatMapTo[Double|Int|Long]、mapTo[Double|Int|Long]
+结束操作: allMatch()、anyMatch()、collect()、count()、findAny()、findFirst()、forEach()、forEachOrdered()、max()、min()、noneMatch()
+		  、reduce()、toArray()
+
+流到流之间的转换: filter(过滤)、map(映射转换)、mapTo[Int|Long|Double](到基本类型流的转换)、flatMap(流展开合并)、flatMapTo[Int|Long|Double]
+				 、sorted(排序)、distinct(不重复值)、peek(执行某种操作、流不变、可用于调试)、limit(限制到指定元素数量)、 skip(跳过若干元素) 
+流到终值的转换: toArray(转为数组)、reduce(推导结果)、collect(聚合结果)、min(最小值)、 max(最大值)、 count(元素个数)、 anyMatch(任一匹配)
+				、 allMatch(所有都匹配)、 noneMatch(一个都不匹配)、findFirst(选择首元素)、findAny(任选一元素)
+直接遍历: forEach (不保证顺序遍历、比如并行流)、 forEachOrdered(顺序遍历)
+构造流: empty (构造空流)、of (单个元素的流及多元素顺序流)、iterate (无限长度的有序顺序流)、generate(将数据提供器转换成无限非有序的顺序流)
+		、concat (流的连接)、 Builder (用于构造流的Builder对象)
+
+java.util.stream.Stream#reduce(U t, java.util.function.BiFunction<U,? super T,U> accumulator, java.util.function.BinaryOperator<U> combiner)介绍:
+前两个参数分别代表"初始值"(可以这么认为)、累计计算器(对两个流元素的操作、非干扰、无状态函数). 第三个参数用于处理并行流下的合并各个线程的计算结果,
+有特殊要求: combiner.apply(u, accumulator.apply(identity, t)) == accumulator.apply(u, t);
+文档说明: https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html#Reduction
+示例说明(实在不理解可以看看,有图): https://www.cnblogs.com/noteless/p/9511407.html
+所以下面两段代码会有不同的结果:
+```
+Stream.of(1, 2, 3, 4, 5).reduce(5, (a, b) -> a + b, (a, b) -> a + b); // 20
+Stream.of(1, 2, 3, 4, 5).parallel().reduce(5, (a, b) -> a + b, (a, b) -> a + b); // 40
+```
+上面那段代码可以看作(按照上面的特殊要求来理解): (5+1) + (5+2) + (5+3) + (5+4) + (5+5)
+处理过程:
+```
+a:6 b:7
+a:9 b:10
+a:8 b:19
+a:13 b:27
+```
+可以发现,上面并行流代码里的combiner()当有n个分支的情况下就多加n-1个identity,所以如果想要结果为20的话可以这么写:
+```
+System.out.println(Stream.of(1, 2, 3, 4, 5).parallel().reduce(5, (a, b) -> a + b, (a, b) -> a + b - 5)); // 结果20,等于第一个式子
+```
+
+再来一个：
+```
+Stream.of(1, 2, 3, 4, 5).reduce(8,Integer::max,Integer::max); // 8
+Stream.of(1, 2, 3, 4, 5).parallel().reduce(8,Integer::max,Integer::max); // 8
+```
+这个就不影响结果了,只不过具体处理过程不一样.
+
+
+Collectos介绍:
+Collector<T, A, R>: 一种归约运算操作的抽象
+
+将抽象规约运算转换成另一种简单实例的形式(说法):
+* 想要进行归约运算,你先给出一个初始容器,作为中间结果容器
+* 然后再给出迭代运算逻辑,也就是要如何归约. 归约的逻辑就是在这里,并且将结果计算方法到中间结果容器中
+* 针对于并行计算还需要一个合并的方式
+* 中间结果肯定是为了方便计算,如果你最终想要的不是这种类型,我还可以给你转换下
+
+例如:
+```
+public static <T> Collector<T, ?, List<T>> toList() { // 参数顺序和'接口方法顺序'是一样的
+    return new CollectorImpl<>((Supplier<List<T>>) ArrayList::new, List::add,
+                               (left, right) -> { left.addAll(right); return left; },
+                               CH_ID);
+}
+```
+说明: 初始化容器=ArrayList::new. 迭代运算逻辑=List::add. 并行计算的合并方式=(left, right) -> { left.addAll(right); return left; }.  CH_ID=收集器特征,当前是
+	 IDENTITY_FINISH,表示中间结果容器和最终结果容器一致,所以不会用到第四点中的finisher(),具体含义看后面.
+      这样,就可以将Stream中的元素结果收集起来了.
+
+
+收集器构成: 
+supplier():  创建一个新的结果容器
+accumulator(): 将一个新的数据元素合并到一个结果容器中
+combiner(): 将两个结果容器合并成一个(非必然运行  可能在并行流且Collector不具备CONCURRENT时执行的)
+finisher(): 在容器上执行一个可选的最终转换(非必然运行  中间结果与最终结果类型是否一致决定是否运行IDENTITY_FINISH用来标志)  
+
+---这里是分割线---
+
+Set<Characteristics> characteristics(): 当前'结果收集器'的'特点'. 可选如下枚举值:
+CONCURRENT: 标识当前结果收集器是<em>concurrent</em>,意味着结果容器支持在同一结果容器中多个线程同时调用'累加器'(accumulator).  
+			只有在并行流且收集器不具备CONCURRENT特性时,combiner方法返回的lambda表达式才会执行.
+			如果当前为CONCURRENT收集器但没配UNORDERED,那么只有应用于无序数据源时(BaseStream#unordered())才应求值(
+			If a {@code CONCURRENT} collector is not also {@code UNORDERED},then it should only be evaluated concurrently 
+			if applied to an unordered data source). 原因可以看之前的解释,但实际操作上是"求值"=="做非同步运算!做非同步运算!做非同步运算!"(具体可以
+			看ReferencePipeline#collect(java.util.stream.Collector<? super P_OUT,A,R>)第一个分支).
+UNORDERED: 表示收集结果操作未保留输入元素的顺序,结果容器没有内在顺序(比如Set).
+IDENTITY_FINISH: 表示中间结果容器类型与最终结果类型一致,此时finiser方法不会被调用
+说明: 简单解释下为什么Stream可以不用我们显示使用同步框架就能"线程安全"执行,主要还是做"规约"操作的时候判断了CONCURRENT、UNORDERED以及用到了
+	  AbstractPipeline#isParallel()、AbstractPipeline#isOrdered()等条件因素判断当前流是否需要Stream自身提供"线程同步",如果需要的话则会用ReduceOps.ReduceTask(
+	  ForkJoinTask的一个实现)实现同步(我是这么猜它是用ForkJoinPool实现的,找了会没找到,没有继续看下去了. 回头看看找找资料,因为这里设计到JUC的代码,FJ这里的代码是很
+	  复杂的,而且这个ReduceTask是Stream自身实现,不提供用户自定义这里的入口,Stream另有一个入口后面会说),且同步的是Collector#combiner()返回函数BiFunction#apply()
+	  方法(再次声明,这里用FJ框架同步是猜的); 否则表示当前不需要或者不满足Stream执行并行流的处理,忽略combiner()返回函数并直接foreach执行Collector#accumulator()
+	  返回函数方法.此时,如果需要的话你可以用自定义的容器(如JUC框架)来构建一个Collector,前提是它得是"线程安全"的(当然,你还可以让"结果收集器"实现"有序"的功能).
+
+java.util.stream.AbstractPipeline#sourceSpliterator(): 这个方法返回了Spliterator(一个流元素集合),其它操作暂时没看. 主要的是里面用到了大量的'位'、'与'、'异或'等
+													    二进制运算处理各种操作标识(如:ORDERED、SIZED、DISTINCT etc.),而且它这里用的感觉比NIO更复杂、'聪明'.
+
+ParameterizedType#getActualTypeArguments()对应含义:
+T - 输入类型
+A - 在收集过程中用于累积部分结果的对象类型
+R - 返回类型  
+
+Supplier<A> supplier(); 此方法提供了一个保存中间结果的对象,类型是A
+BiConsumer<A, T> accumulator();  不断迭代运算操作结果累计到中间结果上,类型为A,流类型(我喜欢称它为: 流元素类型)为T.
+BinaryOperator<A> combiner(); 用于合并计算
+Function<A, R> finisher();  最终的结果为A,还要根据实际情况是否转换为R
+
+CollectorImpl: Collector预置的收集器都是通过这个实例返回的.
+
+
+
