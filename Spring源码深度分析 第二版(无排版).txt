@@ -1,9 +1,3 @@
-写在前面: 这本书通篇来说能让你明白Spring个大概,但勘误算是比较多的. 例如: 错别字、代码不能跑、部分注释. 总体流程性的分析用了时序图,流程说明没有太大问题,但我认为
-有些地方应该稍微深入提下的它没有提. 最后面几章我认为有划水的嫌疑,原因是如果真的要去啃那些第三方框架整合Spring的代码的话完全可以直接找框架对应的书,它里面基本上
-都会介绍和Spring整合的过程的(比如:mybatis、dubbo、netty),完全没必要花那么多章自己去写. 这本书还有个不满意的地方就是没有传授些自己扩展Spring的经验(可能这种
-比较"值钱"吧,呵呵).  总的来说能看,但有更好的可以做下斟酌(后续我会多看几本介绍Spring的书. 其实有本国外的书我忘了名字).
-		 
-
 bean=object
 context=ioc容器,是bean关系的集合
 core=发现、建立和维护每个Bean之间的关系所需要的一系列的工具,也可以叫util
@@ -12,11 +6,9 @@ org.springframework.beans这个包下的所有类主要解决了三件事：Bean
 
 ListableBeanFactory、HierarchicalBeanFactory、AutowireCapableBeanFactory这三个接口共同定义了Bean的集合、Bean之间的关系以及Bean行为.
 
-
 Expression Language(EL)是JSP2.1规范中定义的unifed expression language扩展
 
 XmlBeanFactory构造初始化时会忽略BeanNameAware、BeanFactoryAware、BeanClassLoaderAware的接口的自动装配.
-
 
 DTD与XSD
   DTD(Document Type Definition)即文档类型定义,是一种XML约束模式语言,是XML文件的验证机制,属于XML文件组成的一部分. 
@@ -43,14 +35,15 @@ BeanDefinitionParserDelegate是解析XML的bean definition的帮助类.
   <my:pro name="" />
 </bean>
 
-org.springframework.beans.factory.support.DefaultListableBeanFactory.registerBeanDefinition(String, BeanDefinition)
-hasBeanCreationStarted()这个分支下的代码和之前版本不一样. 得看看
+org.springframework.beans.factory.support.DefaultListableBeanFactory.registerBeanDefinition(String, BeanDefinition)的
+hasBeanCreationStarted()这个分支下的代码和之前版本不一样. 从代码上来看是处理多线程的情况,但不知道是因为哪个功能还是问题导致在4.2.2版本加进去了.
 
-ReaderContext以及Resource这块得回头盘下关系
-
-为什么很多地方都要调clearMergedBeanDefinition()清理beanDefinition的一些遗留信息?
-
-为什么异常不支持向下类型转换? 参看org.springframework.test.watermelon.bean.cricle.Main示例. main()方法还是要捕获Throable.
+===================================================================================================================================================
+ReaderContext的介绍:"Context that gets passed along a bean definition reading process,  encapsulating all relevant configuration as well as state.";
+它就是一个资源文件的封装,不过它比较"高级". 它里面还包含了对应的"异常报告器"、"组件事件监听器"、"SourceExtractor"(不知道怎么用). 
+spring加载资源的方式有很多种,它通过Resource来进行抽象(这里想表述的是它能够存储任何地方加载的资源,很通用).并且该Context在解析、注册bean definition的过程中来回
+传递,在解析过程中如果出现异常都可以通过这个Context来进行输出信息,所以取名为Context非常准确.
+===================================================================================================================================================
 
 几大特殊的BeanPostProcessor: InstantiationAwareBeanPostProcessor、MergedBeanDefinitionPostProcessor、SmartInstantiationAwareBeanPostProcessor
 							、DestructionAwareBeanPostProcessor、MergedBeanDefinitionPostProcessor、
@@ -60,9 +53,8 @@ ReaderContext以及Resource这块得回头盘下关系
 
 afterPropertiesSet()方法先于init-method配置的方法被执行
 
-DefaultListableBeanFactory这个类的定义? 在整个继承树中属于哪种地位? 书上说它是容器的基础
-
-AbstractRefreshableApplicationContext.createBeanFactory()这里有个保存父beanFactory的入口,瞧瞧哪些情况用到了(我猜是web mvc里)
+AbstractRefreshableApplicationContext.createBeanFactory()这里有个保存父beanFactory的入口,瞧瞧哪些情况用到了(在web mvc里,例如多个servlet用的就是同一个
+beanFactory).
 
 StandardBeanExpressionResolver: Spring3增加的SpEL语言支持
 
@@ -79,7 +71,6 @@ AbstractBeanFactory#getBean(String)
 ==>BeanExpressionResolver#evaluate(String, BeanExpressionContext)
 语言解析器主要用在解析依赖注入bean以及完成bean的初始化和属性获取后进行属性填充的时候(就是上面这个调用链)
 
-
 注意分清楚PropertyEditorRegistrar和PropertyEditorRegistry的区别. 一个是"操作者",另一个是"注册机".
 
 BeanWrapper也是一个PropertyEditorRegistry. BeanWrapper#registerCustomEditor(Class,PropertyEditor)入口
@@ -95,13 +86,16 @@ BeanWrapper也是一个PropertyEditorRegistry. BeanWrapper#registerCustomEditor(
 PropertyEditorRegistrySupport是PropertyEditorRegistry的实现基类,同时也是BeanWrapperImpl的父类. 它的PropertyEditorRegistrySupport.createDefaultEditors()
 方法初始化了常用数据类型的属性编辑器(PropertyEditor),唯独没有时间类型的处理...
 
-BeanFactoryPostProcessor的执行时机?
+============================================================================================================================================
+问: BeanFactoryPostProcessor的执行时机?
+答: 在AbstractApplicationContext#invokeBeanFactoryPostProcessors()中,也就是说BeanFactoryPostProcessor只有在ApplicationContext中才会被启用(想想也是,如果
+在用像DefaultListableBeanFactory这样的类来做spring启动容器的话用post-processor意义不大).
+============================================================================================================================================
 
 PropertyResourceConfigurer#postProcessBeanFactory(ConfigurableListableBeanFactory)解析属性文件可以看看.
 流程: 解析locations中的所有资源属性文件并总和到Properties中(这部分可配置替换系统属性). 利用PlaceholderResolvingStringValueResolver
 	  处理含有'${}'占位符的属性名(实际上是用的PropertyPlaceholderHelper来解析占位符(可以用':'来设置默认值,和mybatis一样的),用PlaceholderResolver
 	  来处理占位符的实际文本取值). 整体上来说和mybatis是差不多的.
-
 这个类已经被弃用了,现在用PropertySourcesPlaceholderConfigurer.
 
 BeanFactory和ApplicationContext(准确的说是absApplicationContext)的最大的区别在于ApplicationContext支持各种XXXPostProcessor的注册.
@@ -109,19 +103,32 @@ BeanFactory和ApplicationContext(准确的说是absApplicationContext)的最大�
 ApplicationContext虽然有继承BeanFactory,但是继承的是HierarchicalBeanFactory(含继承结构的)和ListableBeanFactory(可遍历的),并不支持扩展(自定义
 各种属性、功能),所以ApplicationContext得利用ConfigurableListableBeanFactory(可配置的)来实现自己的扩展功能.
 
-一般是用ResolvableType.isAssignableFrom(ResolvableType, Map<Type, Type>)来匹配ApplicationEvent对应的ApplicationListener.
+============================================================================================================================================
 P.S P169页的说法是"而对于每个监听器来说其实都可以获取到产生的事件,但是是否进行处理则由事件监听器来决定.",这句话有问题把?
+一般是用ResolvableType.isAssignableFrom(ResolvableType, Map<Type, Type>)来匹配ApplicationEvent对应的ApplicationListener.
+在4.1.7版本中这部分的代码整体上都没有什么改动,所以书上这部分是错的.
+============================================================================================================================================
 
 P171测试用例错误. 明显测的不是字符串转日期
 
-为什么scope=prototype情况下不会特殊处理循环引用???
+============================================================================================================================================
+问: 为什么scope=prototype情况下不会特殊处理循环引用???
+答: 因为这样的话每次getBean()都会创建新的实例,所以不能提前"曝光"bean(提前"曝光"在这里也可以认为是一种缓存bean),如果缓存了bean的话就会导致依赖的bean与
+当前实际上提前"曝光"的bean一致.
+============================================================================================================================================
 
 SmartBeanFactory#isEagerInit()文档上写道: 标准的BeanFactory不会急切的初始化,它的{@link #getObject()}只会在被调用时进行实际访问,即使是单例对象也是如此. 
 但是如果isEagerInit()返回true(默认false)的话,并且该factoryBean为单例的话则会立即初始化(在DefaultListableBeanFactory#preInstantiateSingletons()中),
 同时也会立即处理post-processor.
 
-Phased接口是和LifeCycle相关的,具体是干嘛的? 
-Lifecycle的start()具体在什么情况下才会被调用(什么场景下适合被调用)?
+============================================================================================================================================
+问: Phased接口是和LifeCycle相关的,具体是干嘛的? 
+答: 用来在Spring容器本身的生命周期内做些工作的预留接口. 可以看看 SmartLifecycle 以及 DefaultLifecycleProcessor 的处理.
+
+问: Lifecycle的start()具体在什么情况下才会被调用(什么场景下适合被调用)?
+答: 如果用默认的DefaultLifecycleProcessor(可以注册名字为lifecycleProcessor的LifecycleProcessor来自定义)则直接调AbstractApplicationContext#start()
+    就可以了. 一般建议用 SmartLifecycle ,具体示例可以看 org.springframework.test.watermelon.bean.cycle.Main .
+============================================================================================================================================
 
 使用CGLIB得考虑两个问题: 无法通知(advise)final方法以及需要将CGLIB二进制发行包放在classpath下面.
 需要强制使用CGLIB代理(默认优先JDK,JDK代理实现不了(被代理类没有实现任何接口)时用CGLIB)需要配置: <aop:config proxy-target-class="true" />
@@ -131,7 +138,7 @@ Lifecycle的start()具体在什么情况下才会被调用(什么场景下适合
 <aop:config />注册的是AspectJAwareAdvisorAutoProxyCreator. 用于处理手动设置规则的advise,如: 
 ```
 <aop:config>
-        <aop:advisor pointcut="com.xyz.someapp.SystemArchitecture.businessService()" advice-ref="tx-advice"/>
+    <aop:advisor pointcut="com.xyz.someapp.SystemArchitecture.businessService()" advice-ref="tx-advice"/>
 </aop:config>
 ```
 <aop:aspect-autoproxy />注册的是AnnotationAwareAspectJAutoProxyCreator,它继承自AspectJAwareAdvisorAutoProxyCreator,在之前的基础
@@ -139,6 +146,7 @@ Lifecycle的start()具体在什么情况下才会被调用(什么场景下适合
 
 AutowireCapableBeanFactory.ORIGINAL_INSTANCE_SUFFIX干嘛用的??? AutoProxyUtils#isOriginalInstance(String, Class<?>)用到了
 
+=======================================================================================================================================
 P188批注错误,原文如下(在ReflectiveAspectJAdvisorFactory#getPointcut()方法里):
 ```
 // 提取得到的注解中的表达式,如:
@@ -155,14 +163,16 @@ ajexp.setExpression(aspectJAnnotation.getPointcutExpression());
 前会显示过滤掉含有@Pointcut注解的方法.  虽然这个方法声明为private,但目前来看是不会出现原文说的情况.
 
 测试用例: org.springframework.test.watermelon.aop.aspectj.Main
+=======================================================================================================================================
 
 在AOP方面Advisor和Advice的关系是Advisor生产Advice
 
-MethodMatcher和IntroductionAwareMethodMatcher是匹配bean method是否符合advisor expression的接口. 具体还得看
-org.springframework.aop.support.AopUtils.canApply(Pointcut, Class<?>, boolean)方法的实现.... TODO
+MethodMatcher和IntroductionAwareMethodMatcher是匹配bean method是否符合advisor expression的接口. 在AopUtils.canApply(Pointcut, Class<?>, boolean)
+做调用入口,实际上用的是AspectJ框架提供的实现.
 
 ExposeInvocationInterceptor.currentInvocation(); // 获取当前AspectJ正在执行代理方法的相关信息(包括代理链,代理方法等)
 
+=======================================================================================================================================
 P196 批注
 ```
 // 用来控制代理工厂被配置之后,是否还允许修改通知
@@ -171,7 +181,7 @@ proxyFactory.setFrozen(this.freezeProxy);
 ```
 正确: 缺省值为false(即在代理被配置之后,允许修改代理的配置)
 来源依据: AdvisedSupport#removeAdvisor(int)
-
+=======================================================================================================================================
 
 DefaultAopProxyFactory#createAopProxy(AdvisedSupport)是决定用CGLIB还是JDK动态代理的入口
 
@@ -199,7 +209,8 @@ finally {
 其实就是个有"深度"的动态代理链的"流程"(注意: 是调用流程一样,不是源代码一样).
 还有个平常我们用org.aspectj包下的@Around注解比较特殊,因为它需要编码者来手动调用R.proceed()方法来"重回终端"R.
 
-AdvisorChainFactory#getInterceptorsAndDynamicInterceptionAdvice(Advised, Method, Class<?>)这个方法针对方法筛选了"增强" TODO
+AdvisorChainFactory#getInterceptorsAndDynamicInterceptionAdvice(Advised, Method, Class<?>)这个方法针对方法筛选了"增强". 不过默认的实现还是通过AspectJ来
+实现的. 代码很多,没有看.
 
 AspectJExpressionPointcut#buildPointcutExpression(ClassLoader)根据表达式、表达式所在类、参数(其实为空)构建了表达式对象(PointcutExpression),
 对于方法匹配切点很关键.
@@ -210,7 +221,7 @@ ReflectiveAspectJAdvisorFactory.getAdvisor(Method, MetadataAwareAspectInstanceFa
 DefaultAdvisorChainFactory#getInterceptorsAndDynamicInterceptionAdvice(Advised, Method, Class<?>)根据方法返回了对应的AOP拦截器,Advisor会通过
 AdvisorAdapter来与MethodInterceptor适配. 其中就通过ReflectiveAspectJAdvisorFactory.getAdvisor(..)的表达式工具来判断当前方法是否匹配. 
 
-
+================================================================================================================================================
 总结AOP: 
 工具怎么注册的?
 通过 Spring自定义标签功能 注册用于解析AOP相关标签:
@@ -268,19 +279,22 @@ P.S.: 这里只讲JDK. 之前解析的Advisor会被AdvisorAdapter统一转换成
 2. 设置当前线程正在处理的代理类: AopContext.setCurrentProxy(Object)
 3. 获取于当前执行的方法适配的拦截器: AdvisedSupport#getInterceptorsAndDynamicInterceptionAdvice(Method, Class<?>); 它底层用的是AspectJ的工具类.
 4. 包装成ReflectiveMethodInvocation并执行Joinpoint#proceed(). 这个的执行流程可以看之前的"ReflectiveMethodInvocation#proceed()与Advice之间的执行交互"
-
+================================================================================================================================================
 
 事务:
 AnnotationDrivenBeanDefinitionParser#AopAutoProxyConfigurer.configureAutoProxyCreator(Element, ParserContext)是Spring注册事务的入口
 ParserContext.getRegistry().registerBeanDefinition() 这里面的对象结构有点牛逼.
 
-
-AnnotationDrivenBeanDefinitionParser.AopAutoProxyConfigurer#configureAutoProxyCreator(Element, ParserContext)最后一段注册聚合beanDefinition是干嘛
+=======================================================================================================================================
+问: AnnotationDrivenBeanDefinitionParser.AopAutoProxyConfigurer#configureAutoProxyCreator(Element, ParserContext)最后一段注册聚合beanDefinition是干嘛
 的? 
+答: 只是发送个组件注册事件,因为这个是通过读取xml中的"<tx:annotation-driven transaction-manager="transactionManager" />"来注册bean. 最终是通过
+ReaderContext#fireComponentRegistered()来进行发送事件通知的.
+=======================================================================================================================================
 
 ContextLoaderListener是ServletContextListener的实现,必须为web.xml文件中配置,它用来初始化整个appContext
 
-
+=======================================================================================================================================
 P325 举例
 原文举例
 ```
@@ -291,11 +305,15 @@ P325 举例
 3. 都采用默认配置时,返回的逻视图名称应该是product/index.
 ```
 正确: product改为test
-
+=======================================================================================================================================
 
 DispatcherServlet在HttpServletRequest中存放着许多Spring mvc容器内置对象的key
 
-FlashMap是干嘛用的? 在DispatcherServlet#doService()中有处理(书上也有介绍).
+=======================================================================================================================================
+问: FlashMap是干嘛用的? 在DispatcherServlet#doService()中有处理(书上也有介绍).
+答: 用与保存重定向时的参数值. 
+参考 https://www.oschina.net/translate/spring-mvc-flash-attribute-example 
+=======================================================================================================================================
 
 AbstractHandlerMethodMapping#lookupHandlerMethod(String, HttpServletRequest)根据lookupPath找对应HandlerMethod
 
@@ -305,11 +323,9 @@ UrlBasedViewResolver.createView(String, Locale)用来处理结果视图的,其�
 InternalResourceViewResolver: 一般用JSP的视图解析器都是用它,它其实是用来返回JSTL的VIEW. 它提供了缓存、forward:xx和redirect:xx前缀支持
 、配置前缀和后缀. 剩下的处理跳转逻辑、将Model中的数据放入requestAttr中等一系列操作就是通过它返回的InternalResourceView来处理.
 
-
 Spring-boot找启动类的实现方法: SpringApplication#deduceMainApplicationClass()
 spring.boot.enableautoconfiguration属性用来控制Spring boot是否启用自动配置.
 META-INF/spring-autoconfigure-metadata.properties存放自动装配的条件信息,用来过滤不匹配的自动配置.
-
 
 待写到源码上的注释:
 AutoConfigurationImportSelector#selectImports(annotationMetadata)中的参数存放的是解析好的启动类指定加载来源(primarySource)的注解信息以及类信息.
@@ -319,14 +335,13 @@ AutoConfigurationImportSelector#getCandidateConfigurations()是加载自动配�
 
 ImportSelector#selectImports()抽象方法定义为: 返回应该被作为Configuration的类名(重新翻译遍)
 
-
 spring-boot的自动装配整合spring流程: AbstractApplicationContext#refresh()==>AbstractApplicationContext#invokeBeanFactoryPostProcessors()
 ==>ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry()==>ConfigurationClassPostProcessor#processConfigBeanDefinitions()
 ==>ConfigurationClassParser#parse(java.util.Set<org.springframework.beans.factory.config.BeanDefinitionHolder>)
 ==>ConfigurationClassParser#processDeferredImportSelectors()==>ConfigurationClassParser#processImports()
 ==>AutoConfigurationImportSelector#selectImports(): 这个是spring-boot的,它扫描了META-INF/spring-autoconfigure-metadata.properties和
 META-INF/spring.factories文件返回符合条件的Configuration class name.  
-可以去笔记里看时序图.
+可以去笔记文件夹里看时序图.
 
 ConditionEvaluator#shouldSkip(AnnotatedTypeMetadata, ConfigurationPhase)是自动装配时用来根据configuration class上的条件注解判断当前configuration
  class是否应该跳过(通过).
@@ -334,7 +349,7 @@ ConditionEvaluator#shouldSkip(AnnotatedTypeMetadata, ConfigurationPhase)是自�
 ConfigurationClassUtils#isLiteConfigurationCandidate()用来判断configuration class是否存在"典型"注解(Component、ComponentScan、Import、ImportResource
 、Bean).
 
-TODO 看来ConfigurationClassPostProcessor会处理并注册@Controller、@Service这样的bean. 看
+ConfigurationClassPostProcessor会处理并注册@Controller、@Service这样的bean. 看
 ComponentScanAnnotationParser#parse(AnnotationAttributes, String)传的ClassPathBeanDefinitionScanner.useDefaultFilters就知道了(其实是只注册了
 @Component、@ManagedBean、@Named这三个,但是@Service它们都"继承"了@Component).
 
@@ -351,15 +366,22 @@ public class MyConfiguration{
 这里需要关注的是@ConditionalOnProperty(prefix="study",name="enable",havingValue="true"),它解析后的结果就会为AnnotationAttribute,
 每个注解属性、属性值都对应LinkedHashMap.Entry 
 
-TODO @Condition注解对应的解析器应该都是SpringBootCondition的子类吧?
+==============================================================================================================================================
+问: @Condition注解对应的解析器应该都是SpringBootCondition的子类吧?
+答: 平常用的@ConditionalOnBean、@ConditionalOnClass对应的Condition都是SpringBootCondition的子类. 但还有很多其它的扩展,比如ConfigurationCondition,
+它也非常常用,用于限定解析bean的时机. 一个是限定在解析 @Configuration 注解时,一个是在限定在添加"常规bean"(非@Configuration). 具体可以看批注.
+==============================================================================================================================================
 
-TODO condition.OnPropertyCondition#determineOutcome()里的ConditionMessage的设计可以看看
+OnPropertyCondition#determineOutcome()里的ConditionMessage的设计可以看看.
 
 ConditionEvaluator#shouldSkip(AnnotatedTypeMetadata, ConfigurationPhase)是处理@Condition那些条件注解的入口
 
 自定义Conditional注解只需要"继承"个@Conditional注解并指定value为具体实现Contiona接口功能的实现类
 
-TODO ConfigurationPhase两个"场景"的不同处理有什么区别
+==============================================================================================================================================
+问: ConfigurationPhase两个"场景"的不同处理有什么区别
+答: 之前也提到了. 用于限定当前Condition使用场景,分别是解析@Configuration和常规bean(非@Configuration)时. 调用入口在 ConfigurationClassParser#processConfigurationClass(ConfigurationClass)、ConfigurationClassParser#doProcessConfigurationClass()
+==============================================================================================================================================
 
 QualifierAnnotationAutowireCandidateResolver#getSuggestedValue()用来处理@Value注解的. 它的上层是DefaultListableBeanFactory#doResolveDependency()
 ,同样解析@Value注解里的表达式也是在这里面处理的
@@ -369,7 +391,10 @@ AutowireCandidateResolver是个策略接口,用来选举适合依赖项的bean(�
 Environment是Spring属性加载的基础,里面包含了Spring已经加载的各个属性(它继承自PropertyResolver),而之所以使用MutablePropertySources封装,
 是因为MutablePropertySources还能实现单独加载自定义的额外属性的功能.
 
-ConversionService用于类型转换. TODO 看下有哪些地方用到了,还是像mybatis一样所有类型转换都用一个接口.
+==============================================================================================================================================
+问: ConversionService用于类型转换. 看下有哪些地方用到了,还是像mybatis一样所有类型转换都用一个接口.
+答: 调用入口在AbstractPropertyResolver#convertValueIfNecessary(Object, Class<T>). 专门用来获取、设置属性值的,它底层用的是PropertySources.
+==============================================================================================================================================
 
 BeanDefinitionVisitor#visitBeanDefinition(BeanDefinition)用于处理bean definition占位符填充. 上层在
 PlaceholderConfigurerSupport#doProcessProperties(ConfigurableListableBeanFactory, StringValueResolver)中,顶层是
@@ -438,10 +463,12 @@ environment是SpringApplication传过来的,也是它的属性)
 	这里有一段发布事件的流程没列出来,只要知道它在XXX之前发布了ApplicationEnvironmentPreparedEvent事件就行了.
 ==>{@link SpringApplication#run(java.lang.String...)}
 
+======================================================================================================================================= 
 问: ConfigFileApplicationListener.Loader#profiles的加载流程 是什么?
 答: 它的加载流程在ConfigFileApplicationListener.Loader#initializeProfiles()中,那里面有比较详细的批注.
 简单来说就是从environment中找`spring.profiles.active`、`spring.profiles.include`然后合并environment#getActiveProfiles()
 的结果集.
+======================================================================================================================================= 
 
 SimpleCommandLineArgsParser#parse()是解析spring-boot main函数的启动参数的工具类.
 
@@ -453,22 +480,18 @@ spring.profile.active和spring.profile.active的配置方式有很多种,常用�
    或者: 可以将配置放入System#setProperty()中
 
 
-
-
-
-嵌入式Tomcat启动(TODO 暂时不看. 其实挺多的,书上只是提了下,而且还是老版本的代码,类都找不到了)
+嵌入式Tomcat启动(不看了. 其实挺多代码的,书上只是提了下,而且还是老版本的代码,类都找不到了)
 ==>WebServerFactoryCustomizerBeanPostProcessor#postProcessBeforeInitialization(WebServerFactory)
 ==>TomcatServletWebServerFactoryCustomizer#customize()
 有用TomcatServletWebServerFactory的痕迹
 
 ServletWebServerFactoryConfiguration是在TomcatServletWebServerFactory创建的
 
-
 ==========================================================再来一遍=================================================================================
 Core:
-Beans,弄清各个关键字段、属性含义是什么,作用在哪里(哪些功能上)?
+Beans,弄清各个关键字段、属性含义是什么,作用在哪里(哪些功能上).
 Context,留意下几个实用、常用工具类,可以以后少找些别的轮子. 起码AOP、Proxy、Reflection、PropertyResolver、Collection相关是有的.
-SpEL表达式那块,得看看文档,学学怎么用的?
+SpEL表达式那块,得看看文档,学学怎么用的.
 
 Web:
 springmvc: 这个肯定得做好笔记了,之前突然想找下HandlerMethodArgumentResolver的入口在哪里都找了好久,就是因为没做笔记.
@@ -476,7 +499,6 @@ springmvc: 这个肯定得做好笔记了,之前突然想找下HandlerMethodArgu
 其它:
 instrument: 从这个工程的唯一一个类InstrumentationSavingAgent得到它是用来封装(代理、装饰都可以这么认为)java.lang.instrument.Instrumentation并将其扩展.
 JMS、OXM、JDBC、ORM、TRANSACTION: 这些都不打算看,因为等到需要了解具体的第三方框架的时候那里面会说清楚怎么整合的.
-
 
 DefaultListableBeanFactory结构:
 AliasRegistry: 对alias的增删查操作.
@@ -501,9 +523,6 @@ DefaultListableBeanFactory: 继承AbstractAutowireCapableBeanFactory,实现Confi
                             bean definition,可以看出Spring的接口、实现类的职责划分上十分严格(起码spring core这块).
 XmlBeanFactory: 通过XmlBeanDefinitionReader对Resource进行读取并注册bean definition.							
 
-
-TODO parentBeanFactory这块用在哪里?
-
   看XmlBeanDefinitionReader的几个字段比如说SourceExtractor用于将source metadata加载到bean definition metadata,它默认情况下不是为null,而是为
 NullSourceExtractor,这样可以在用的时候省略验证.
 
@@ -522,7 +541,6 @@ BeanDefinitionParserDelegate: 解析BeanDefinition相关的Element
 3. 通过BeanDefinitionDocumentReader对Document进行解析,并使用BeanDefinitionParserDelegae对Element进行解析.
 
 InputStreamSource: Spring用来屏蔽资源加载的接口,用于返回指定URI对应的InputStream对象.
-
 
 AbstractAutowireCapableBeanFactory#AbstractAutowireCapableBeanFactory()构造忽略了BeanNameAware、BeanFactoryAware、BeanClassLoaderAware三个
 依赖接口(存在ignoredDependencyInterfaces中).
@@ -553,21 +571,17 @@ BeanDefinitionParserDelegate#parseCustomElement(Element, BeanDefinition)是解�
 ```
 当然,整个配置、注册、处理的过程并不是这么简单的. 可以去org.springframework.test.watermelon.bean.customizelabel包里看.
 
-TODO SimpleAliasRegistry#checkForAliasCircle(String, String)这个检查alias的循环引用没盘出来...
+=============================================================================================================================================
+问: SimpleAliasRegistry#checkForAliasCircle(String, String)检测循环依赖流程是怎样的?
+答: 它和AbstractAutowireCapableBeanFactory#doCreateBean()的检测方式很像,只是doCreateBean()的前置条件比它复杂. 具体可以看checkForAliasCircle()代码批注.
+=============================================================================================================================================
 
 ReaderEventListener用于监听解析bean definition的注册、销毁等事件.
 TrackingReaderEventListener是自定义ReaderEventListener的demo,它里面包含了如何注册ReaderEventListener.
 
-TODO PropertiesLoaderUtils这个类好像是用来加载属性文件中的所有属性的DefaultNamespaceHandlerResolver#getHandlerMappings()用到
-了
+PropertiesLoaderUtils用来加载属性文件中的所有属性的,DefaultNamespaceHandlerResolver#getHandlerMappings()用到了. 
 
-TODO 为什么spring用了ConcurrentHashMap还要用"管程同步"
-
-TODO 了解下那些常用的BeanPostProcessor、BeanFactoryPostProcessor
-
-TODO AbstractBeanFactory#transformedBeanName(String) 解析时判断FactoryBean的bean name修饰符'&',它的依据哪里来的? 
-介绍下FactoryBean,如果注册的是AFactoryBean,名字为a. 那么想取A 这个bean时用factory.getBean("a")就行了,如果想取AFactoryBean
-这个bean则需要在前面加个'&',也就是'&a'
+了解下那些常用的BeanPostProcessor、BeanFactoryPostProcessor
 
 =============================================================================================================================================
 Spring循环引用(构造依赖):
@@ -595,44 +609,100 @@ l. Spring容器创建单例"testA"bean,首先根据无参构造器创建bean,并
 4. 最后再依赖注入"testB"和"testA",完成setter注入.
 =============================================================================================================================================
 
-P141
+==============================================================================================================================
+问: @Autowire和@Qualifier在哪里处理的,入口? 是QualifierAnnotationAutowireCandidateResolver吗? 好像和AutowiredAnnotationBeanPostProcessor有关.
+答: @Qualifier是在QualifierAnnotationAutowireCandidateResolver中处理的,在AnnotationConfigUtils#registerAnnotationConfigProcessors(
+BeanDefinitionRegistry, Object)注册的,在DefaultListableBeanFactory#findAutowireCandidates(String, Class<?>, DependencyDescriptor)中调用过.
+    @Autowire是在AutowiredAnnotationBeanPostProcessor中处理的,它是个SmartInstantiationAwareBeanPostProcessor,在AbstractAutowireCapableBeanFactory#app
+lyMergedBeanDefinitionPostProcessors(RootBeanDefinition, Class<?>, String)中调用,通过AnnotationConfigUtils#registerAnnotationConfigProcessors(BeanDefinitionRegistry, Object)注册.
+==============================================================================================================================
 
-TODO @Autowire和@Qualifier在哪里处理的,入口?
-
+==============================================================================================================================
 问: 为什么要使用Spring ApplicationContext的parent(层级结构)?
 答: https://stackoverflow.com/questions/5132604/why-use-spring-applicationcontext-hierarchies
+==============================================================================================================================
 
+看看StandardBeanExpressionResolver对SpEL的处理. 从AbstractApplicationContext#prepareBeanFactory()中注册的.
+SpEL默认解析的占位符是"#{}".  
+记: 其实也不用看它的处理,一定是非常复杂的. 学学怎么用就行了.
 
+AbstractApplicationContext#prepareBeanFactory()有一段提到了AspectJ,其实也是通过用AspectJ框架来处理的.
 
+感觉BeanDefinitionVisitor#visitBeanDefinition(BeanDefinition)也并是用的"访问者模式".只不过是将bean definition里需要解析的字符串值归并到一个类里处理了(通
+常都是进行占位符替换).
 
+AbstractApplicationContext#finishBeanFactoryInitialization(ConfigurableListableBeanFactory)实例化并初始化了LoadTimeWeaverAware. 
 
+============================================================================================================================================
+问: AnnotationConfigUtils#registerAnnotationConfigProcessors(BeanDefinitionRegistry, Object)注册了用来处理注解的Bean后置处理器??????????????
+它里面注册了好几个BPP,但自动装配貌似只需要AutowiredAnnotationBeanPostProcessor这一个就行了...
+答: 默认会注册四个BPP(The implicitly registered post-processors include AutowiredAnnotationBeanPostProcessor,CommonAnnotationBeanPostProcessor, 
+PersistenceAnnotationBeanPostProcessor, as well as the aforementioned RequiredAnnotationBeanPostProcessor). 
+    代码入口在AnnotationConfigUtils#registerAnnotationConfigProcessors(BeanDefinitionRegistry, Object); 它们的作用分别是: 
+AutowiredAnnotationBeanPostProcessor: 用于处理 @Autowired、@Value 注解;
+CommonAnnotationBeanPostProcessor: 用于支持JSR-250、JSR 220(EJB 3.0)定义的几个公用注解,例如: @PostConstruct、@PostConstruct、@Resource、@EJB等...    
+PersistenceAnnotationBeanPostProcessor: 用于支持JPA规范定义的注解,例如: @PersistenceUnit、@PersistenceContext、@EntityManagerFactory、@EntityManager(我
+直接拿API文档的批注,没有去具体看).
+RequiredAnnotationBeanPostProcessor(5.1版本已经废弃): 用于处理@Requiured注解
+============================================================================================================================================
 
+@Autowire自动装配
+  AutowiredAnnotationBeanPostProcessor#postProcessMergedBeanDefinition(RootBeanDefinition, Class<?>, String)用来获取bean需要自动装配的字段、方法信息,
+返回对象为InjectionMetadata.
+  AutowiredAnnotationBeanPostProcessor#postProcessProperties(PropertyValues, Object, String)用来获取当前bean依赖的bean实例并自动装配. 它实际上是通过
+DefaultListableBeanFactory#doResolveDependency()来获取自动装配所解析到的依赖的bean实例的. 可以从spring boot、mvc都能看的出来它们的设计没有多余.
 
+org.springframework.web.servlet.FrameworkServlet.initServletBean()
 
+==============================================================================================================================
+RequestMappingInfo里的RequestCondition实现可以看看怎么设计的. 相关方法有RequestMappingHandlerMapping#getMappingForMethod(Method, Class<?>)==>RequestMappingHandlerMapping#createRequestMappingInfo(AnnotatedElement)
 
+RequestMappingInfo这个build也可以学下,都感觉挺好的.
 
+感觉这个RequestCondition(RequestMappingInfo实现了它)的设计应该是被整理过的(学不来).
 
+说说处理@RequestMapping、@Controller这两个注解的HandlerMapping实现--RequestMappingHandlerMapping:
+说明: '==>'表示'继承|实现'. RequestHandler代表处理请求的对象,并不实际存在这个接口. 
+前提概要: 它的主要层级关系RequestMappingHandlerMapping==>RequestMappingInfoHandlerMapping==>AbstractHandlerMethodMapping<T>==>AbstractHandlerMapping
+==>HandlerMapping; 
+HandlerMapping: 定义获取RequestHandler接口. 
+AbstractHandlerMapping: 作为HandlerMapping的基础实现类(且方法为final)在其基础上加了个拦截器的包装. 不过具体获取RequestHandler是由子类来实现的,
+由此会出现几个分支: AbstractHandlerMethodMapping<T>、AbstractUrlHandlerMapping(粗略看了下它是通过bean name来做url匹配的)、RouterFunctionMapping(Spring 
+ WebFlux).  
+AbstractHandlerMethodMapping<T>: 实现了方法级别注册RequestHandler,也称之为HandlerMethod,但它并没有真正实现从方法里解析出HandlerMethod,这个工作是由子类来实
+现的.还有,它的泛型参数标识符含义是这样描述的: "the mapping for a {@link HandlerMethod} containing the conditions needed to match the handler method to an incoming request."; 我认为它就象征着一个URI,如果看过MyHandlerMethodMapping的话能够看的出来它就是通过方法名来解析、获取handlerMethod的,它的另外一个实现
+后面会介绍(RequestMappingInfoHandlerMapping). 
+RequestMappingInfoHandlerMapping: 用RequestMappingInfo来代表这个URI,它是一组"特殊的"RequestCondition,包括ParamsRequestCondition
+、RequestMethodsRequestCondition、HeadersRequestCondition等等... 你可以这么认为,只要满足了这些Condition就说明当前HandlerMethod能处理这个请求(实际上是通过
+每个Condition后不反回null才算是,可以看RequestMappingInfo#getMatchingCondition()).当然,这个类只负责通过RequestMappingInfo的交互(方法调用)从而对
+AbstractHandlerMethodMapping功能的支持. 
+RequestMappingHandlerMapping: 用来专门解析@RequestMapping、@Controller注解并创建、注册对应的RequestMappingInfo.
 
+多说几句:  
+需要扩展自己的实现的话. 一般情况下,如果你有自己的一套路由规则或者不需要那么麻烦的路由规则(像RequestMappingInfo这么复杂)的话直接实现
+AbstractHandlerMethodMapping就好了(像MyHandlerMethodMapping这种就可以做个入门参考). 如果你需要spring mvc提供的这些路由规则但是你有
+自己的一套加载规则的话就可以继承RequestMappingInfoHandlerMapping(像TestRequestMappingInfoHandlerMapping这种可以做个入门参考). 当然,
+你可以自己重新实现一套注册、获取RequestHandler...
+==============================================================================================================================
 
+==============================================================================================================================
+MethodIntrospector工具类可以看看. AbstractHandlerMethodMapping#detectHandlerMethods(Object).#introspector用到了
+这个工具没有和它的ReflectionUtils有功能上的冲突,可以说是互补吧,Introspector是core包里的.
+==============================================================================================================================
 
+AbstractHandlerMethodMapping#detectHandlerMethods(Object)是处理@Controller、@RequestMapping并注册对应handlerMethods的入口(当然,是实现类为
+RequestMappingHandlerMapping的情况下). 调用链的根在RequestMappingHandlerMapping#afterPropertiesSet()
 
+==============================================================================================================================
+问: 用抓包工具看下在handlerMethod中如果直接用response写数据会不会直接完成此次http的响应.
+答: 并不会. 会直接报错"UT010005: Cannot call getOutputStream(), getWriter() already called".
+==============================================================================================================================
 
+RequestMappingInfoHandlerMapping#handleMatch()记录了一些关于当前请求URI相关的信息到request中
 
+AbstractHandlerMapping#getHandler(HttpServletRequest) 配置了跨域拦截器
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+RequestMappingHandlerAdapter#handleInternal(HttpServletRequest, HttpServletResponse, HandlerMethod)是@RequestMapping的处理入口
 
 
 
