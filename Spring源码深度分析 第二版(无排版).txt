@@ -46,8 +46,8 @@ spring加载资源的方式有很多种,它通过Resource来进行抽象(这里�
 ===================================================================================================================================================
 
 几大特殊的BeanPostProcessor: InstantiationAwareBeanPostProcessor、MergedBeanDefinitionPostProcessor、SmartInstantiationAwareBeanPostProcessor
-							、DestructionAwareBeanPostProcessor、MergedBeanDefinitionPostProcessor、
-其它类似的PostProcessor: BeanDefinitionRegistryPostProcessor、BeanFactoryPostProcessor							
+              、DestructionAwareBeanPostProcessor、MergedBeanDefinitionPostProcessor、
+其它类似的PostProcessor: BeanDefinitionRegistryPostProcessor、BeanFactoryPostProcessor              
 
 注意区分实例化(instant)和初始化(init)的区别,这将涉及到InstantiationAwareBeanPostProcessor和BeanPostProcessor的调用时机
 
@@ -94,8 +94,8 @@ PropertyEditorRegistrySupport是PropertyEditorRegistry的实现基类,同时也�
 
 PropertyResourceConfigurer#postProcessBeanFactory(ConfigurableListableBeanFactory)解析属性文件可以看看.
 流程: 解析locations中的所有资源属性文件并总和到Properties中(这部分可配置替换系统属性). 利用PlaceholderResolvingStringValueResolver
-	  处理含有'${}'占位符的属性名(实际上是用的PropertyPlaceholderHelper来解析占位符(可以用':'来设置默认值,和mybatis一样的),用PlaceholderResolver
-	  来处理占位符的实际文本取值). 整体上来说和mybatis是差不多的.
+    处理含有'${}'占位符的属性名(实际上是用的PropertyPlaceholderHelper来解析占位符(可以用':'来设置默认值,和mybatis一样的),用PlaceholderResolver
+    来处理占位符的实际文本取值). 整体上来说和mybatis是差不多的.
 这个类已经被弃用了,现在用PropertySourcesPlaceholderConfigurer.
 
 BeanFactory和ApplicationContext(准确的说是absApplicationContext)的最大的区别在于ApplicationContext支持各种XXXPostProcessor的注册.
@@ -200,10 +200,10 @@ this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size()
 后需要执行"实际方法"并返回,这个时候"后置增强"就会开始进行进一步的处理(如果有的话),如下面代码所示:
 ```
 try {
-	return mi.proceed(); // 调用R#proceed();
+  return mi.proceed(); // 调用R#proceed();
 }
 finally {
-	invokeAdviceMethod(getJoinPointMatch(), null, null); // R#proceed()方法发现已经执行完所有拦截器后执行"实际方法"并返回时就会进入fially块的"增强"处理.
+  invokeAdviceMethod(getJoinPointMatch(), null, null); // R#proceed()方法发现已经执行完所有拦截器后执行"实际方法"并返回时就会进入fially块的"增强"处理.
 }
 ```
 其实就是个有"深度"的动态代理链的"流程"(注意: 是调用流程一样,不是源代码一样).
@@ -238,8 +238,8 @@ AdvisorAdapter来与MethodInterceptor适配. 其中就通过ReflectiveAspectJAdv
 
 一般来说标准配置是<aop:aspectj-autoproxy expose-proxy="true" />注册带注解的. 给个能展示大部分功能的配置(Spring文档里整合过来的):
 <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true">
-	<aop:include name="regexA"/> 
-	<aop:include name="regexB"/>
+  <aop:include name="regexA"/> 
+  <aop:include name="regexB"/>
 </aop:aspectj-autoproxy> 
 expose-proxy: 是否暴露当前代理,默认false.  为true时可以通过AopContext#currentProxy()拿到当前线程执行的代理对象. 它是在
 JdkDynamicAopProxy#invoke(Object, Method, Object[])处理过程中设置进去的(CGLIB也差不多). 吐槽: AopContext#currentProxy()方法没拿到
@@ -262,8 +262,8 @@ postProcessBeforeInstantiation(): 可以在创建bean实例之前提前用自己
 
 postProcessAfterInitialization(): 解析所有适用于当前bean的切面("增强"方法)并创建并塞入代理对象.
 1. 获取适用于当前bean的Advisor.
-	1.1 获取所有Advisor: 拿到所有bean,判断是否存在@Aspect注解(其实还有和根据名字判断的,不过那个没用过). 有就通过
-		AspectJAdvisorFactory#getAdvisors(MetadataAwareAspectInstanceFactory)提取出所有Advisor.
+  1.1 获取所有Advisor: 拿到所有bean,判断是否存在@Aspect注解(其实还有和根据名字判断的,不过那个没用过). 有就通过
+    AspectJAdvisorFactory#getAdvisors(MetadataAwareAspectInstanceFactory)提取出所有Advisor.
     1.2 筛选出适用于当前bean的Advisor: 判断当前类是否存在符合Advisor表达式的方法,有一个就算适用(其实这个我没怎么看). 
     1.3 给子类扩展Advisor: 有个子类就用了. 功能是暴露当前正在被代理执行的方法信息,在集合中的第一个.
 
@@ -358,8 +358,8 @@ AnnotationAttributes是spring用来代表 解析spring框架自身注解对应�
 @Configuration
 @ConditionalOnProperty(prefix="study",name="enable",havingValue="true")
 public class MyConfiguration{
-	
-	// definition some beans.
+  
+  // definition some beans.
 
 }
 ```
@@ -406,20 +406,20 @@ SmartApplicationListener是Spring的ApplicationListener的一个"高级"实现,�
 =======================================================================================================================================
 问: ConfigFileApplicationListener.Loader#load()处理了profile,它的上层是?????? 
 答: 它的最初的入口在SpringApplication#prepareEnvironment()中,它的处理过程中就会发送ApplicationEnvironmentPreparedEvent事件(这个事件的定义
-	就是让监听器们可以检查和修改)通知监听器们可以对Environment进行填充. 而ConfigFileApplicationListener就是其中的一个监听器,它实际上做的工作是
-	解析获取并激活所有EnvironmentPostProcessor(#1). 当然,它自己获取的的时候也将自己加进去了,它的功能是用来根据profile加载不同的application配置.
+  就是让监听器们可以检查和修改)通知监听器们可以对Environment进行填充. 而ConfigFileApplicationListener就是其中的一个监听器,它实际上做的工作是
+  解析获取并激活所有EnvironmentPostProcessor(#1). 当然,它自己获取的的时候也将自己加进去了,它的功能是用来根据profile加载不同的application配置.
 #1: EnvironmentPostProcessor的获取是通过SpringFactoriesLoader来拿的,并不是通过注册的bean definition去拿(因为此时还没到解析并注册bean definition,
-	先初始化"环境"在初始化bean definition,合情合理).   具体代码如下:
-	```
-	// 略
-	// 创建并初始化Environment
-	ConfigurableEnvironment environment = prepareEnvironment(listeners,
-					applicationArguments);
-	// ...
-	// 其实主要就是调AbstractApplicationContext#refresh()
-	refreshContext(context);
-	// 略
-	```
+  先初始化"环境"在初始化bean definition,合情合理).   具体代码如下:
+  ```
+  // 略
+  // 创建并初始化Environment
+  ConfigurableEnvironment environment = prepareEnvironment(listeners,
+          applicationArguments);
+  // ...
+  // 其实主要就是调AbstractApplicationContext#refresh()
+  refreshContext(context);
+  // 略
+  ```
 =======================================================================================================================================
 
 SpringApplication#prepareEnvironment()创建并加载Environment的入口
@@ -442,11 +442,11 @@ ConfigFileApplicationListener.Loader#loadForFileExtension()是上面的那个loa
 ConfigFileApplicationListener.Loader.load(PropertySourceLoader, String, Profile, DocumentFilter, DocumentConsumer):
 ```
 if (!loaded.isEmpty()) {
-	loaded.forEach((document) -> consumer.accept(profile, document));
-	if (this.logger.isDebugEnabled()) {
-		this.logger.debug("Loaded config file "
-				+ getDescription(location, resource, profile));
-	}
+  loaded.forEach((document) -> consumer.accept(profile, document));
+  if (this.logger.isDebugEnabled()) {
+    this.logger.debug("Loaded config file "
+        + getDescription(location, resource, profile));
+  }
 }
 ```
 这段代码如果是从ConfigFileApplicationListener.Loader#load()过来的话那么它的作用就是将解析过的Document.propertySource存放到loaded字段中供
@@ -460,7 +460,7 @@ environment是SpringApplication传过来的,也是它的属性)
 ==>{@link ConfigFileApplicationListener#onApplicationEnvironmentPreparedEvent(ApplicationEnvironmentPreparedEvent)}
 ==>{@link ConfigFileApplicationListener#onApplicationEvent(ApplicationEvent)}
 ==>{@link SpringApplication#prepareEnvironment(SpringApplicationRunListeners, ApplicationArguments)} 
-	这里有一段发布事件的流程没列出来,只要知道它在XXX之前发布了ApplicationEnvironmentPreparedEvent事件就行了.
+  这里有一段发布事件的流程没列出来,只要知道它在XXX之前发布了ApplicationEnvironmentPreparedEvent事件就行了.
 ==>{@link SpringApplication#run(java.lang.String...)}
 
 ======================================================================================================================================= 
@@ -510,18 +510,18 @@ HierarchicalBeanFactory: 继承BeanFactory,增加了对parentFactory的支持.
 BeanDefinitionRegistry: 继承AliasRegistry,增加了对bean definition的增删查的支持.
 FactoryBeanRegistrySupport: 继承DefaultSingletonBeanRegistry,增加了对FactoryBean的特殊处理功能. 
 ConfigurableBeanFactory: 继承HierarchicalBeanFactory、SingletonBeanRegistry. 提供配置Factory的各种方法. 文档上写道尽量使用BeanFactory或者
-					     ListableBeanFactory,它们是"可插拔"的.
+               ListableBeanFactory,它们是"可插拔"的.
 ListableBeanFactory: 根据各种条件获取bean的配置清单
 AbstractBeanFactory: 提供BeanFactory的"基本"(可以认为是"公共"的意思)实现,并提供ConfigurableBeanFactory这个SPI接口.
 AutowireCapableBeanFactory: 提供创建、自动装配、初始化bean已经应用bean的后置处理器. 
 AbstractAutowireCapableBeanFactory: 继承AbstractBeanFactory并实现createBean并且使其具有RootBeanDefinition的功能; 实现AutowireCapableBeanFactory功能. 
 ConfigurableListableBeanFactory: 继承ListableBeanFactory、AutowireCapableBeanFactory、ConfigurableBeanFactory. 这个不太好说明它是什么,不过它可以用来
-								  获取、修改bean definition以及提供singleton bean实例化的前置处理
+                  获取、修改bean definition以及提供singleton bean实例化的前置处理
 DefaultListableBeanFactory: 继承AbstractAutowireCapableBeanFactory,实现ConfigurableListableBeanFactory、BeanDefinitionRegistry(同时也是它们的默认实现);
                             一个完整(成熟)的基于bean definition的bean factory,可以通过post-processor进行扩展. 
                             需要注意的是它其实就只有一个无参构造(排除那个传parentBeanFactory的,那个不知道用来干嘛的)可用,说明它不负责解析、创建
                             bean definition,可以看出Spring的接口、实现类的职责划分上十分严格(起码spring core这块).
-XmlBeanFactory: 通过XmlBeanDefinitionReader对Resource进行读取并注册bean definition.							
+XmlBeanFactory: 通过XmlBeanDefinitionReader对Resource进行读取并注册bean definition.             
 
   看XmlBeanDefinitionReader的几个字段比如说SourceExtractor用于将source metadata加载到bean definition metadata,它默认情况下不是为null,而是为
 NullSourceExtractor,这样可以在用的时候省略验证.
@@ -610,10 +610,10 @@ l. Spring容器创建单例"testA"bean,首先根据无参构造器创建bean,并
 =============================================================================================================================================
 
 ==============================================================================================================================
-问: @Autowire和@Qualifier在哪里处理的,入口? 是QualifierAnnotationAutowireCandidateResolver吗? 好像和AutowiredAnnotationBeanPostProcessor有关.
+问: @Autowired和@Qualifier在哪里处理的,入口? 是QualifierAnnotationAutowireCandidateResolver吗? 好像和AutowiredAnnotationBeanPostProcessor有关.
 答: @Qualifier是在QualifierAnnotationAutowireCandidateResolver中处理的,在AnnotationConfigUtils#registerAnnotationConfigProcessors(
 BeanDefinitionRegistry, Object)注册的,在DefaultListableBeanFactory#findAutowireCandidates(String, Class<?>, DependencyDescriptor)中调用过.
-    @Autowire是在AutowiredAnnotationBeanPostProcessor中处理的,它是个SmartInstantiationAwareBeanPostProcessor,在AbstractAutowireCapableBeanFactory#app
+    @Autowired是在AutowiredAnnotationBeanPostProcessor中处理的,它是个SmartInstantiationAwareBeanPostProcessor,在AbstractAutowireCapableBeanFactory#app
 lyMergedBeanDefinitionPostProcessors(RootBeanDefinition, Class<?>, String)中调用,通过AnnotationConfigUtils#registerAnnotationConfigProcessors(BeanDefinitionRegistry, Object)注册.
 ==============================================================================================================================
 
@@ -646,7 +646,7 @@ PersistenceAnnotationBeanPostProcessor: 用于支持JPA规范定义的注解,例
 RequiredAnnotationBeanPostProcessor(5.1版本已经废弃): 用于处理@Requiured注解
 ============================================================================================================================================
 
-@Autowire自动装配
+@Autowired自动装配
   AutowiredAnnotationBeanPostProcessor#postProcessMergedBeanDefinition(RootBeanDefinition, Class<?>, String)用来获取bean需要自动装配的字段、方法信息,
 返回对象为InjectionMetadata.
   AutowiredAnnotationBeanPostProcessor#postProcessProperties(PropertyValues, Object, String)用来获取当前bean依赖的bean实例并自动装配. 它实际上是通过
@@ -704,12 +704,48 @@ AbstractHandlerMapping#getHandler(HttpServletRequest) 配置了跨域拦截器
 
 RequestMappingHandlerAdapter#handleInternal(HttpServletRequest, HttpServletResponse, HandlerMethod)是@RequestMapping的处理入口
 
+==============================================================================================================================
+问: AbstractBeanFactory#transformedBeanName(String) 解析时判断FactoryBean的bean name修饰符'&',它的依据哪里来的? 介绍下FactoryBean,如果注册的是
+AFactoryBean,名字为a. 那么想取A 这个bean时用factory.getBean("a")就行了,如果想取AFactoryBean这个bean则需要在前面加个'&',也就是'&a'.  
+答: 注册bean definition的时候没有处理FactoryBean: BeanDefinitionReaderUtils.registerBeanDefinition(BeanDefinitionHolder, BeanDefinitionRegistry);
+它是通过AbstractBeanFactory#getObjectForBeanInstance(Object, String, String, RootBeanDefinition)来处理FactoryBean的实例获取的,在 #nameResolver 处判断了
+如果名字以'&'开头的直接返回bean实例本身,否则会去调FactoryBean#getObject();
+==============================================================================================================================
 
+==============================================================================================================================
+问: 为什么很多地方都要调clearMergedBeanDefinition()清理beanDefinition的一些遗留信息?
+TODO 我目前的水平答不了这个问题,这可能设计到它们的许多细节上的设计和规则.
+==============================================================================================================================
 
+==============================================================================================================================
+问: 为什么spring用了ConcurrentHashMap还要用"管程同步"? 
+TODO 暂时打不出. 在DefaultListableBeanFactory#registerBeanDefinition(String, BeanDefinition)的#mutex_bdm中.
+==============================================================================================================================
 
+BridgeMethodResolver用来处理"桥接方法"的.
 
+==============================================================================================================================
+BeanPostProcessor是ConfigurableBeanFactory的一部分,BeanFactoryPostProcessor是ConfigurableApplicationContext的一部分. 
+但是ConfigurableBeanFactory只提供了手动注册BeanPostProcessor的接口,没有自己实现扫描当前所有的注册了的BeanPostProcess类型的bean,
+这个动作是在ConfigurableApplicationContext中处理的. 因为ConfigurableBeanFactory就是bean-factory,只提供可配接口,不提供应该由上层来实
+现的"数据源获取"功能. 还有一点要提的是ConfigurableApplicationContext提供了个Application的Listener,这样能够使ApplicationContext这块的
+扩展变得更加健壮(当然Aware也是个好的设计).
+==============================================================================================================================
 
+DI有助于应用对象之间的解耦,而AOP可以实现横切关注点与它们所影响的对象之间的解耦. 
 
+==============================================================================================================================
+Spring一些需要关注的"新"特性:
+Spring-Boot CLI(Command Line Interface): https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started-installing-the-cli
 
+Spring-Boot Actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready
 
+Spring-MVC支持Servlet3.0的异步分发请求: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async
+文中还提到了他们自己的异步请求框架Spring-WebFlux,它是基于nio的.
 
+Spring-MVC的测试框架: https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#spring-mvc-test-framework
+它的好处是在使用的过程中不需要额外的Servlet容器.
+
+@Autowired、 @Vlue和@Bean注解能够作为元注解,用于创建自定义的注入和bean声明注解: 这个不算是"新"特性,要自定义处理的话起码起码起码得注册个
+BeanPostProcessor,可以仿照AutowiredAnnotationBeanPostProcessor写一个.
+==============================================================================================================================
