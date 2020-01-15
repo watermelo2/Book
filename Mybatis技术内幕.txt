@@ -1,0 +1,363 @@
+  XPath、Reflector、TypeParameterResolver、ObjectFactory、Property工具集、MetaClass、ObjectWrapper、MetaObject
+、TypeHandler、TypeHandlerRegistry、TypeAliasRegistry、、、、、、、、、、、、、、、、、、、、
+
+
+  Executor 主要负责维护一级缓存和二级缓存,并提供事务管理的相关操作,它会将数据库相关操作委托给 
+StatementHandler完成.
+  StatementHandler首先通过ParameterHandler完成SQL语句的实参绑定,然后通过java.sql.Statement对象执行SQL语句
+并得到结果集,最后通过ResultSetHandler完成结果集的映射,得到结果对象并返回.
+  PropertyParser是Mybatis用来解析XML文件中的占位符,占位符号都是可以自定义的(也有默认).比如:${username:root
+}其中':'是默认值的分割符,username会在Properties中找相应的值,如果找不到则使用root作为数据库的默认值.
+  JavaBean规范: 类中定义成员变量没有关系. 例如,存在getA()方法和setA(String a)方法,无论类中是否定义了字段
+String a,我们都认为该类中是否存在属性a.
+
+几大类型:
+1.ParameterizedType参数化类型: List<String>、Service<User>这自种带有泛型的类型.
+		   Type getRawType(): 返回参数化类型中的原始类型,例如List<String>的原始类型为List.
+  Type[] getActualTypeArguments(): 获取参数化类型的类型变量或实际类型列表,如Map<Integer,String>的实际泛型
+  									列表Integer和String. 需要注意的时,该列表的元素类型都是Type,也就是说存
+  									在多层嵌套的情况.
+  	 	 Type getOwnerType(): 返回是类型所属的类型,例如存在A<T>类,其中定义了内部类InnerA<I>,则InnerA<I>所
+  	 	 					  属的类型为A<T>.
+2.TypeVariable类型变量: 反映在JVM编译该泛型前的信息,如List<T>种的T就是类型变量,在编译时需要被转换为一个具体
+						 的类型后才能正常使用.
+		  Type[] getBounds(): 获取类型变量的上边界,如果为声明上边界则默认为Object. 例如class Test<K exten
+		  					  ds Person>中K的上边界就是Person.
+   D getGenericDeclaration(): 获取声明该类型变量的原始类型,例如class Test<K extends Person>中的原始类型
+   							  是Test.
+   			String getName(): 获取在源码中定义时的名字,上例中为K.
+3.GenericArrayType: 数组类型且组成元素时ParameterizedType或TypeVariable. 例如List<String>[]或T[].
+4.WildcardType通配符泛型: ? extends Number和?super Integer.
+	 Type[] getUpperBounds(): 返回泛型变量的上界.
+	 Type[] getLowerBounds(): 返回泛型变量的下界.
+
+org.apache.ibatis.reflection.TypeParameterResolver#resolveParameterizedType()参数含义:
+1.待解析的ParameterizedType类型; Map<K,V>对应的ParameterizedType对象.
+2.解析操作的起始类型; TestType.SubClass<Long>对应的ParameterizedType对象.
+3.定义该字段或方法的类的Class对象; ClassA(声明map字段的类)相应的Class对象.
+
+
+org.apache.ibatis.reflection.property.PropertyTokenizer: 用于解析表达式,
+如: <result property="order[0].item[0].name" column="itemName1" />它可以解析里面的'[]'、'0'、'.'
+	PropertyTokenizer.next()方法会创建新的PropertyTokenizer并继续解析. 像上面的第一次解析后的结构为:
+	indexName=order[0]; name=order; index=0; children=item[0].name;
+
+
+问: VFS主要是用来干嘛的?  
+答: 获取指定资源,对于获取在jar包里的指定目录的文件很有用,mybatis提供DefaultVFS、JBoss6VFS两个实现. 它在ResolveUtil用到了. 
+
+Mapper接口方法参数中有两个特殊的参数: RowBounds、ResultHandler
+
+org.apache.ibatis.binding.MapperMethod#executeForMany里的convertToDeclaredCollection
+方法有点东西,用到了ObjectFactory和ObjectWrapper和MetaObject#addAll().  实际上就是用了反射
+创建了returnType的对象并调用了addAll()方法(是以Collection类型的基础上调的).
+
+MapperMethod的execute()方法针对不用类型的SQL做出了不同处理,并封装处理了返回对应,将SQL返回的数据
+转换成了Mapper接口方法的返回数据类型结构的数据,但最终处理的还是SqlSession,它只是和入口(桥梁).
+
+核心层: Mybatsi初始化、动态SQL语句的解析、结果集的映射、参数解析以及SQL语句的执行.
+初始化: 
+Interceptor的名字可以是typeAlias中的.
+XMLMapperBuilder.parse()方法用于解析Mapper--XML映射节点关系.
+MapperBuilderAssistant#useNewCache将Mapper.xml中的namespace作为Cache实现类的id存到config中.
+高级: resultMap节点继承关系--将父节点的resultMapping以及CONSTRUCTOR中被当前resultMap覆盖的resultMapping去掉
+	 column属性是'{prop1=col1,prop2=col2}'形式时,特殊处理MapperBuilderAssistant#parseCompositeColumnName
+	 匿名嵌套映射通过processNestedResultMappings()方法解析(该方法貌似并没有完成真正的映射,只是在config中加了
+	 个属于自己的位置).
+MappedStatement表示映射配置文件中定义的SQL节点.
+SqlNode: 相当于<SQL>节点里的一个动态标签.
+MixedSqlNode: SqlNode的一个实现类,充当组合模式里的'根节点'.
+XMLMapperBuilder#bindMapperForNamespace: 完成映射配置文件与Mapper接口的绑定
+SqlSource里面有SqlNode(动态标签对应的对象).
+XMLStatementBuilder#processSelectKeyNodes只是解析了selectKey标签.
+构造函数对应的ResultMapping.falgs属性中会有一个CONSTRUCTOR标志,如果是id的话会多个ID标志.
+Mybatis中涉及OGNL表达式的功能主要是: 存取Java对象树中的属性、调用Java对象树中的方法等.
+Pattern: TestSqlNode解析占位符'${}'节点的时候会检查是否匹配表达式(Mybatis没用过).
+<if>标签中test表达式返回true,非0,非空都表示true.
+SqlSourceBuilder#parse: 将经过sqlNode处理后的sql解析占位符参数并返回标准的(传入'?'对应的参数就可以直接执行的)静态SQL源码
+
+问: 这个SqlNode是谁来解析、拼装的...
+答: 真正解析是在XMLScriptBuilder#parseDynamicTags(),但它的上层总入口是在XMLScriptBuilder#parseScriptNode(). 因为调用parseDynamicTags()
+	方法的有很多地方(很多NodeHandler).
+
+============================================================================================================================================
+问: 虽然DynamicSqlSource是在实际执行SQL前,RawSqlSource是在Mybatis初始化时就完成了解析,但为什么说一个防注入一个不防注入呢？
+解释: 他们的区别在于Dynamic(DynamicSqlSource,下文都这么叫)解析的<SQL>是动态的,它里面的SQL不能直接被java.sql.PreparedStatement
+	 执行,需要根据实际参数将动态节点(SqlNode)以及${}占位符参数(这个其实是次要的)解析好后才能执行; 而Raw(RawSqlSource,下文都这么
+	 叫)里的SQL只有含有#{}占位符且只有一个StaticTextSqlNode,只需要将#{}里面的属性名替换成'?'再将属性名处理映射好并封装成对象,当
+	 CRUD的时候给ParameterHandler处理一下然后直接丢给java.sql.PreparedStatement就行了. 所以说Raw在解析MappedStatement的时候
+	 就可以将除ParameterHandler意外的其它所有事都可以处理完. 而Dynamic需要根据实际参数来处理SqlNode(其中包含对${}占位符的处理
+	 ,TextSqlNode),通过SqlSourceBuilder来处理含#{}的SQL. 
+答: 问题本身问的有问题,应该是为什么Dynamic的SqlSource需要在执行MapperMethod时才会创建,而Raw在解析MappedMethod时就创建好了?
+      从上面的解析中可以看出Dynamic需要处理SqlNode、#{}、${},最主要的是需要处理SqlNode. SqlSource是通过SqlSourceBuilder来创建的,
+    而SqlSourceBuilder需要的第一个参数就是需要经过SqlNode处理完后的'原生SQL',而动态SqlNode需要根据实际参数才能处理并返回SQL,这个
+    是最主要的原因. 而Raw不存在这个问题,它的SqlNode只是单纯的StaticTextSqlNode,可以忽视.
+      而后面那句--一个防注入一个不防注入的原因是由#{}占位符解析后的结果在SQL中为'?',它由PreparedStatement特殊处理,而${}占位符是由
+      mybatis通过OGNL表达式来解析的,它是直接设置value.
+题外: mybatis其实提供了'白名单'的功能,在TextSqlNode#injectionFilter,它是专门针对${}表达式的值进行过滤的,但是目前不提供给用户设置.
+
+注意: 235页说道--前面介绍XMLScriptBuilder#parseDynamicTags()方法时提到过,如果节点只包含'#{}'占位符而不包含动态SQL节点或含未解析的
+'${}'占位符的话,则不是动态SQL语句,会创建相应的StaticTextSqlNode对象.在XMLScriptBuilder#parseScriptNode()方法中会判断整个SQL节点
+是否为动态的,如果不是动态的SQL节点,则创建相应的RawSqlSource对象.
+============================================================================================================================================
+
+============================================================================================================================================
+问: mybatis是在哪里处理的嵌套的columnPrefix前缀拼接的问题? 我看DefaultResultSetHandler#createParameterizedResultObject()等地方
+	都是直接拿来拼接,说明在这之前已经解析好了.
+答: createParameterizedResultObject()方法其实也处理了一部分的列名拼接,这个方法有个columnPrefix参数表示前缀,这个前缀是已经拼接好嵌套
+    结果映射的前缀(例子在下面: 当前解析的节点为result1.result2时,它的columnPrefix=result2_.当继续解析result1.result2.result3时,它的columnPrefix=
+    result2_result3). 然后createParameterizedResultObject()会对constructorMappings进行解析,解析到为普通映射时会先调用prependPrefix()方法将
+    columnPrefix和当前column进行拼接. 所以说嵌套查询时主要靠getColumnPrefix()和prependPrefix()组合返回实际列名的.
+
+例子:
+<resultMap id="result1" type="A">
+    <result property="coll" column="coll"/>
+    <association property="result2" columnPrefix="result2_"/>
+</resultMap>
+<resultMap id="result2" type="SubA" extends="resultl">
+    <result property="col2" column=" col2 "/>
+    <association property="result3" columnPrefix="result3_"/>
+</resultMap>
+<resultMap id="result3" type="SubA" extends="resultl">
+    <result property="col2" column=" col2 "/>
+</resultMap>
+============================================================================================================================================
+============================================================================================================================================
+<discriminator>标签可能存在多层,在DefaultResultSetHandler#resolveDiscriminatedResultMap()中会做处理并返回最终的ResultMap.
+例: 
+<resultMap id="result1" type="A">
+    <result property="coll" column="coll"/>
+    <discriminator javaType="int" column="col2">
+        <case value="2" resultMap="result2"></case>
+        <case value="5" resultMap="result3"></ case>
+    </discriminator>
+</resultMap>
+<resultMap id="result2" type="SubA" extends="resultl">
+    <result property="col2" column=" col2 "/>
+</resultMap>
+<resultMap id="result3" type="SubA" extends="resultl">
+    <result property="col2" column=" col2 "/>
+</resultMap>
+说明: 一个ResultMap只能存在discriminator,它里面的case会封装成一个Map(key->value,value->resultMapId),映射的时候会根据当前column(会调
+      DefaultResultSetHandlerNew#prependPrefix()处理前缀的列名拼接)的值取到对应的resultMapId,剩下的就当作正常的ResultMap来处理了.
+============================================================================================================================================
+
+
+注意: <association property="pointRecord" resultSet="cmsArticlePointRecord" columnPrefix="point_record_" autoMapping="true"/>像这样的结果映射mybatis
+     会帮忙创建一个resultMap,入口在MapperBuilderAssistant#setStatementResultMap().
+
+
+
+
+问: 使用Stream将整个流里的数据遍历一遍(并且加上中间操作)然后筛选出指定条件数据并返回.
+答: Stream的map()、filter()等方法都可以在遍历的时候修改元素,但不知道符不符合规范.
+
+select标签的resultOrdered可以优化嵌套映射结果集时的内存使用问题,但随之会产生另外一个问题--引用已清除的主结果对象的情况(如: 结
+果A、B、A,配置为false的时候后面那个A能正确找到前面已经存在的A并合并数据,但如果配置为true的时候后面那个A找不到前面的那个A,因为数据
+已经被清除了,导致返回结果中有A、B、A三条数据). 不过可以通过分组等方式(将想要合并的数据顺序排列即可),这可能会产生其它问题(SQL复杂度、
+数据库压力).    说说对它这个命名的看法: 我光看这个名字+文档想了很久它到底想表达什么,在初次翻源码时也不能体会这个属性有什么用,当了解
+了具体功能后回头看看这个命名发现好像是那么个意思(如果站在'你认为你这条SQL将数据排列好了,配置我为true时,我后台会帮你优化内存'),但我相信
+取这个名字对于不了解的人来说这个功能他是排斥的.
+
+============================================================================================================================================
+问: dangjian模块项目启动时报红--'Has been loaded by XML or SqlProvider, ignoring the injection of the SQL.',这是什么原因?
+答: 这个是mybatis-plus输出的error信息,从AbstractMethod#addMappedStatement()方法抛出的,原因是mybatis-plus需要默认将BaseMapper<T>的一些方法
+    注入到具体的Mapper.class中,如果出现了同名的MappedMethod则会输出这个error并且不会将当前想要注入的方法加到config.mappedStatements中.
+注意: mybatis的Mapper.xml、Mapper.class解析是先于mybatis-plus的,所以手写的MapperMethod一定先于mybatis-plus后自动添加的MappedMethod.
+============================================================================================================================================
+
+mybatis配置文件配置项aggressiveLazyLoading: 当该配置项为true时,表示有延迟加载属性的对象在被调用,将完全加载其属性,否则属性将按需加载.
+										   在3.4.1版本之后,该配置的默认值为false,之前版本默认为true.
+
+看下BoundSql+DefaultParameterHandler这块
+猜测: BoundSql的sql字段存的是能直接给Statement执行的sql,BoundSql里还有和parameterMappings存放之前sql的占位符信息,然后会到additionalParameters
+	  中找占位符参数对应的值,最后调Statement.preparexxx(sql,params);
+
+ErrorContext这块: 一个使用ThreadLocal来维护(保存)mybatis在当前线程发生错误产生对应信息的工具类,提供了一些标准化(格式化)的消息输出. 主要还是省去了
+                  参数之间的传递.
+
+mybatis好像挺喜欢用工厂+Mgr这种组合构建那种多态对象
+
+问: Environment怎样生成的?
+答: org.apache.ibatis.builder.xml.XMLConfigBuilderNew#environmentsElement()
+
+
+访问模式: 
+观点: 我记得我之前总结过(其实是当时的感觉)这个模式就是让java实现动态多分配功能的,它会产生很多'逃逸'对象....
+示例: com.watermelon.mybatis.tool.sqlparser.SelectSqlParser、net.sf.jsqlparser.statement.select包
+好处: 
+1. 针对一个数据结构,如果要增加新的处理算法,则只要增加新的Visitor接口实现即可.无须修改任何其他的代码,这符合"开放--封闭"原则(这个不是这个模式特有的). 
+2. 将整个数据结构中所有元素对象的处理操作集中到一个ConcreteVisitor对象中,这样便于维护(这不就是穷举方法的意思么..这也能叫好处?).
+3. 在处理处理一个复杂数据结构时,并不是每个元素都是ConcreteVisitor对象需要处理的,ConcreteVisitor可以跨越等级结构,处理属于不同层级的元素.
+4. 可以通过访问者来分离无关的行为,把相关的行为封装在一起,构成一个访问者,这样每一个访问者的功能都比较单一(本质是接口带来的好处).
+
+缺点:
+1. 最致命的缺点,每增加一种需要处理的元素则需要到每个Visitor接口里以及所有的实现中修改代码(可能有时候会用absImple减少'开支',但这是'坏味道代码').
+2. 难理解(这大概是那二十几种设计模式中能排上前几名的难理解的模式).
+3. 不利于错误定位(光靠代码来定位很难,因为它实现的是动态多分派).
+
+
+mybatis-spring.jar: 将Mybatis的事务交给Spring来管理,还可以将SqlSession等对象交给Spring管理.
+与Spring集成时,Mybatis中的SqlSessionFactory对象由SqlSessionFactoryBean创建的.
+mybatis-spring导了com.atomikos家的transactions-jdbc,里面有jta...
+
+SpringManagedTransactionFactory是默认的事务工厂
+org.springframework.jdbc.datasource.DataSourceUtils支撑着第三方整合Spring的DataSource.
+SqlSessionTemplate是mybatis-spring的核心,在整合Spring时用来代替DefaultSqlSession的,线程安全.
+
+
+TODO PersistenceExceptionTranslator异常转换器. 看看这框架是怎样处理这么多层级结构的异常(或者说上下文异常?).ErrorContext是Mybatis本身处理异常的类.
+
+SpringManagedTransactionFactory: Spring在没有TransactionFactory时默认的txFactory,它返回的是SpringManagedTransaction
+
+重看: 
+第二章: 解析器模块、反射工具箱(重点)、类型转换、日志模块、资源加载、DataSource、Transaction、binding 模块、缓存模块
+第三章: Mybatis初始化(重点)、SqlNode&SqlSource、ResultSetHandler(重点)、KeyGenerator、StatementHandler、Executor、接口层
+第四章: 插件模块
+
+复习笔记
+四个TokenHandler对应的使用场景:
+VariableTokenHandler: 解析指定属性占位符对应在mybatis-config.xml/<propertiys>中的值,如果没有则还会处理默认值.
+ParameterMappingTokenHandler: 
+BindingTokenParser: 
+DynamicCheckerTokenParser: 
+
+用到TypeParameterResolver的地方
+Reflector#addGetMethod==>TypeParameterResolver#resolveReturnType
+
+java.lang.reflect.Type的几个子类的含义,作用以及如何使用都得结合实际案例才好理解. 如com.watermelon.mybatis.example.reflection.TestType以及
+org.apache.ibatis.reflection.TypeParameterResolver的备注. 
+对于Type这块复习如果不懂可以重新看看P41里面的定义,每个类型描述看第一句足矣.
+
+org.apache.ibatis.reflection.MetaClass#findProperty(java.lang.String)它不处理属性表达式中的集合下标. 比如: a[0].name; 它只处理a.name;
+
+ObjectWrapperFactory默认实现是不支持返回ObjectWrapper的. 可以在mybatis-config.xml中配置自定义的工厂.
+
+MetaObject用于Mybatis的哪一层.
+
+P65图2-17展示图第6步resolveCollection()方法后少了一步getCollectionValue()的调用.
+
+Mybatis的MetaObject构造函数中可以通过自定义ObjectWrapper来自定义ObjectWrapper. 我认为它是为了让一些特殊的JavaBean能够自定义处理策略,比如:
+==================================================================
+@Data
+private static class CCC extends HashMap<String, String> {
+    private List<Integer> b;
+} 
+==================================================================
+1. 像这么一个类创建ObjectWrapper的时候会默认看作MapWrapper(因为它是Map接口的实现),当我们用属性表达式'b[0].value'想要获取属性b,下标为0的Integer
+对应的value属性时就会报错,因为MapWrapper最终还是会调map.get()方法来取值的. 所以这个时候就得自定义处理了.
+2. 还有MapperMethodNew#executeForMany()方法处理多元素返回值时,如果你定义了不是Array也不是Collection,但想让它作为多元素类型的方法返回值你只能自
+定义ObjectFactory#isCollection()识别它是集合,并且自定义ObjectWrapperFactory创建自定义ObjectWrapper让它为你自定义的集合能addAll().
+
+ObjectWrapper.instantiatePropertyValue()会初始化表达式路径上为空的属性,但是不能初始化集合类型字段中的集合元素. 比如'b[1].value',当b为空或者
+b下标为1的值为空时,都会抛异常的.  b为空抛异常是因为走了BeanWrapper.set()方法的第一个分支(属性表达式含有下标元素获取),它resolveCollection()返回
+的数据为空,然后调setCollectionValue()则抛异常. 下标1为空时抛异常是因为调setCollectionValue()本质上是调List.add(index),所以报错.
+
+Type和Class之间的关系
+
+P98 jdk动态代理
+
+BaseJdbcLogger: 将JDBC操作通过指定的日志框架打印出来.
+
+org.apache.ibatis.binding.MapperMethod#execute()这是调用MapperMethod的入口.
+
+org.apache.ibatis.binding.MapperMethod#execute()这里处理ResultHandler时还判断了当前方法返回值是否为VOID
+
+============================================================================================================================================
+问: 看完书处理下CmsArticleMapper#insert()方法不返回主键的问题
+答: CmsArticle自己生成了个@TableId直接type=INPUT,所以不会生成Jdbc3KeyGenerator.
+说明: 这个是mybatis-plus的东西,我粗略的看了看它的代码.都看得懂,但是感觉有点吃力,它是通过AbstractSqlInjector#getMethodList()方法来获取自动注入
+	  MapperMethod的集合,自动注入实际上就是调的MapperBuilderAssistant,注入INSERT方法的时候会判断TableId#idType是否为AUTO是的话就追加Jdbc3的
+	  生成器. ISqlInjector的调用栈: MybatisMapperAnnotationBuilder#parse(继承了MapperAnnotationBuilder)==>ISqlInjector#inspectInject()=
+	  =>methodList.foreach()
+============================================================================================================================================
+
+org.apache.ibatis.session.SqlSessionFactoryBuilder#build(java.io.Reader, java.lang.String, java.util.Properties)是mybatis初始化入口方法
+
+BaseBuilder有如下几个子类:
+XMLMapperBuilder: 父节解析mybatis-config.xml中的mapper映射文件节点并注册到config中.
+MapperBuilderAssistant: 用户构建ResultMap、Discriminator、ParameterMapping、Cache、RefCache等对象的助手类
+org.apache.ibatis.builder.SqlSourceBuilder.ParameterMappingTokenHandler:
+XMLScriptBuilder: 解析<SQL>节点里的SQL脚本语言并将其包装成SqlSource. SQL脚本语言里面有SQL语句、动态参数、动态标签等. SqlSource能够将解析后的结果处理
+				  并返回可以执行的SQL语句.
+XMLConfigBuilder: 用于解析mybatis-config.xml构建config的.
+XMLStatementBuilder: 用于解析整个<SQL>节点(包括<insert>、<update>、<select>、<delete>),调用方是在
+					 XMLMapperBuilder#buildStatementFromContext(List<XNode>, String). 应该是<SQL>节点需要解析的太多了,抽出一个类来.
+SqlSourceBuilder: 主要完成解析#{}占位符,将其解析成ParameterMapping保存到StaticSqlSource中,并将#{}替换成'?'
+
+
+============================================================================================================================================
+问: enableInjectionValidation=true;injectionExpression=expressionStr; 这两个参数在哪里处理的
+TODO 没有找到这个在哪里..............................
+============================================================================================================================================
+
+org.apache.ibatis.builder.MapperBuilderAssistant#unresolvedCacheRef字段对应的issue 676
+mybatis用来保证cacheRef引用Cache对象成功. 不过没找到对应那个issue,实在搞不懂为什么需要用这个字段,是为了记录调用过useCacheRef()方法失败吗?
+
+============================================================================================================================================
+问: org.apache.ibatis.builder.MapperBuilderAssistant#parseCompositeColumnName()方法解析复合列名
+============================================================================================================================================
+
+org.apache.ibatis.builder.xml.XMLMapperBuilder#processNestedResultMappings()处理嵌套映射
+
+============================================================================================================================================
+问: 奇了怪,为什么一个ResultMap只能有一个Discriminator.
+答: 这个解释不了...
+============================================================================================================================================
+
+问: org.apache.ibatis.builder.xml.XMLIncludeTransformerNew#applyIncludes(org.w3c.dom.Node, java.util.Properties, boolean)会不会把所有
+    ${}占位符都解析了??? 那后面动态SQL怎么玩???
+答: 并不会将所有的${}占位符都解析了,只会把当前variablesContext中有的值给填充进去,${}中取方法参数的那些占位符要等到实际调用MappedMethod的时候才
+   能拿到值.
+
+问: #{}占位符的处理在哪里?
+答: 在org.apache.ibatis.builder.SqlSourceBuilder#parse()方法中处理了,它是在mybatis启动的时候调用链中的一员. 它会通过
+	org.apache.ibatis.builder.SqlSourceBuilder.ParameterMappingTokenHandler#buildParameterMapping()方法将#{}占位符中的属性解析成一个个的
+	ParameterMapping对象并保存到parameterMappings. buildParameterMapping()方法还会将SQL中的#{}占位符替换成'?'号,最后封装成
+	org.apache.ibatis.builder.StaticSqlSource并将对应的字段填充. 
+
+
+解析ResultMap、CacheRef、Statement、Methods(注解的)时出现IncompleteElementException错误则不会影响Mybatis的启动.
+
+IncompleteElementException: XMLMapperBuilder#configurationElement()方法解析映射配置文件时,是按照从文件头到文件尾的顺序解析的,但是有
+							时候在解析一个节点时,会引用定义在该节点之后的、还未解析的节点,这就会导致解析失败井抛出IncompleteElementException
+
+============================================================================================================================================
+问: 谈谈这'四大对象'
+答: 
+写在前面: 这个不算是回答这个问题把,只能算把四大对象介绍了一下,实际上对mybatis的设计、接口定义的作用场景和目的有些地方感觉还是不能明白.
+正文: ParameterHandler和ResultSetHandler接口相关动作比较单一.ParameterHandler如批注所说的一样是用来给PreparedStatement设值的,用来整合mybatis之前解析
+    、处理MappedMethod的参数后返回的BoundSql. 而ResultSetHandler就更加'单一'了,它连备注我都没看到,功能是将ResultSet中的数据根据ResultMap转换成MappedMethod
+    返回的指定类型(说白了就是对<resultMap>标签的处理).  Executor的功能实现依托于StatementHandler,mybatis目前自身的实现类主要还是对SQL进行优化以及事务,
+    不过我把它看成是StatementHandler的一个上层,属于StatementHandler的应用层. StatementHandler是最接近SQL执行器的接口,提供基本的CRUD方法,几个实现主要是
+    区分几种不同类型的SQL(指的是存过型、带参型、无参型). '四大对象'感觉很少有需要用户自定义的场景,更多的时候是实现mybatis提供的Interceptor来实现特殊功能.
+    mybati-plus覆写了个ParameterHandler,我没有细看,它主要用它来实现它自己提供的几个主键生成规则. 可以看我之前在KeyGenerator接口里写的批注,感觉这个接口
+    mybatis是不打算给用户自定义使用的,所以mybatis-plus另想办法了.
+============================================================================================================================================
+
+============================================================================================================================================
+问: ResultMap.idResultMappings有什么用?
+答: 它对应<resultMap>标签的子标签<id>标签.DefaultResultSetHandler用来构建CacheKey的其中最主要的一个元素,具体场景是处理嵌套映射的时候确定一条唯一的记录(
+	有个场景是为了准确的'找爸爸'). 最好每个<resultMap>都配个这个,因为如果不配的话就会将已显示配置的<result/>、<association/>等映射标签全部取出来并且获取
+	它们的名称、值用来创建CacheKey,如果一个显示的映射标签都没配的话则会将所有列的值、属性名作为CacheKey. 但是需要注意的是,<id/>标签里的属性名、值是用来确定
+	一条'唯一记录'的,不要乱配.
+提示: 一个<resultMap/>、<constructor/>里可以有多个<id/>标签.具体看mybatis-3-mapper.dtd:
+``````````````````````````````````````````````````````````````````````````````````````````
+<!ELEMENT resultMap (constructor?,id*,result*,association*,collection*, discriminator?)>
+<!ATTLIST resultMap
+id CDATA #REQUIRED
+type CDATA #REQUIRED
+extends CDATA #IMPLIED
+autoMapping (true|false) #IMPLIED
+>
+
+<!ELEMENT constructor (idArg*,arg*)>
+``````````````````````````````````````````````````````````````````````````````````````````
+============================================================================================================================================
+
+  书上在介绍MapperFactoryBean、MapperScannerConfigurer自动装配Mapper.class这块少介绍了FactoryBean这个接口的功能,如果不知道这个接口在Spring中的应用的话
+书上说的自动装配是连不起来的.
+
+mybatis的批注跟mybatis-spring的批注比起来真的是天差地别.
+
+

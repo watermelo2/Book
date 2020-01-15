@@ -1,0 +1,352 @@
+Spring默认事物。
+有一个事物A和B，如果把B放入到A里。
+问：spring开启几个事物？  
+答: 一个事务
+
+追问：如果事物A只读，事物B更新操作，是否能正常运行?
+答: 默认情况下能正常运行,当然也能设置不正常运行.
+
+再问: 嵌套事务和开启新事务有什么区别.
+答: 嵌套事务在一般情况(非JTA事务)时会添加个save_point,其它东西都不会做修改(主要是TransactionSynchronizationManager里的值), 
+    而在JTA事务情况下会新建事务,但不会调用suspend()方法挂起事务,也保存任何挂起事务资源. 
+注意: JPA不支持嵌套事务.
+
+
+@Bean
+public PlatformTransactionManager transactionManager() {
+  JpaTransactionManager transactionManager = new JpaTransactionManager();
+  transactionManager.setValidateExistingTransaction(true);
+  return transactionManager;
+}
+这样设置会导致不能正常运行.具体看AbstractPlatformTransactionManager#handleExistingTransaction()第475行.
+
+
+
+                                  Aware
+         InitializingBean           |
+                 |-----      BeanFactoryAware      Advice
+                      |             |                |
+                   TransactionAspectSupport     Interceptor   
+                             |------------           |
+       SuppressWarnings                  |   MethodInterceptor     Serializable
+             |-------------------------  |     ------|  -----------------|
+                                      |  |     |        |    
+                                    TransactionInterceptor
+
+七种事务传播行为:
+------------------------------------------------------------------------------------------------------------------------
+MANDATORY		  如果当前无事务则抛出异常，否则加入当前事务.
+
+REQUIRED		  如果当前无事务则开启一个事务，否则加入当前事务.
+NESTED			  如果当前无事务则开启一个事务，否则在一个嵌套的事务中执行.
+REQUIRES_NEW	如果当前无事务则开启一个事务，否则挂起当前事务并开启新事务.
+
+NEVER			    如果当前有事务则抛出异常.
+SUPPORTS   		如果当前有事务则加入当前事务.
+NOT_SUPPORTED 如果当前有事务则挂起当前事务以无事务状态执行方法.
+------------------------------------------------------------------------------------------------------------------------
+
+
+事务涉及到的几个主要类:
+------------------------------------------------------------------------------------------------------------------------
+名词										概念
+PlatformTransactionManager				事务管理器，管理事务的各生命周期方法，下文简称TxMgr
+TransactionAttribute					    事务属性, 包含隔离级别，传播行为,是否只读等信息，下文简称TxAttr
+TransactionStatus						      事务状态，下文简称TxStatus
+TransactionInfo							      事务信息，内含TxMgr、TxAttr、TxStatus以及上一个前一次进入事务切面的TransactionInfo(通过bindToThread()方法)等信息,下文简称TxInfo
+TransactionSynchronization				事务同步回调，内含多个钩子方法，下文简称TxSync / transaction synchronization
+TransactionSynchronizationManager	事务同步管理器，维护当前线程事务资源，信息以及TxSync集合
+------------------------------------------------------------------------------------------------------------------------
+
+
+TransactionSynchronizationManager: ThreadLocal使用最多的类:
+  resources: 类型为Map<Object, Object>用于保存事务相关资源，比如我们常用的DataSourceTransactionManager会在开启物理事务的时候把<DataSource, ConnectionHolder>绑
+             定到线程.这样在事务作用的业务代码中可以通过Spring的DataSourceUtils拿到绑定到线程的ConnectionHolder中的Connection.事实上对于MyBatis来说与Spring集成时就是这样拿的. 
+  synchronizations: 类型为Set<TransactionSynchronization>用于保存transaction synchronization，这个可以理解为是回调钩子对象,内部含有beforeCommit, afterCommit
+                    ,beforeCompletion等钩子方法.我们自己如果需要的话也可以在业务方法或者切面中注册一些transaction synchronization对象用于追踪事务生命周期做一些自定义的事情.
+  currentTransactionName: 当前事务名.
+  currentTransactionReadOnly: 当前事务隔离级别.
+  actualTransactionActive： 是否存在物理事务,比如传播行为为NOT_SUPPORTED时就是false.
+
+
+问: TransactionInfo中的oldTransactionInfo是干嘛用的?  
+答: 它是给配合ThreadLocal<TransactionInfo> transactionInfoHolder;用的,目的是为了让我们业务层能够手动设置当前事务rollback等属性.
+
+
+BeanFactoryAware: 实现该接口的人希望拥有BeanFactory.
+TransactionAspectSupport: 封装了一些用于实现事务切面对事务进行管理的基本代码,作为事务切面的基类,例如: TransactionInterceptor或者AspectJ
+AopUtils: AOP相关的代码帮助类,可以获取被代理类的实际类.
+
+问: txAttr为CallbackPreferringPlatformTransactionManager代表什么? txAttr和txStatus有什么关系? txAttr的获取方式是什么? TransactionStatus接口是怎么定义的?
+注: txStatus说的是DefaultTransactionStatus.
+答: 1. 这个接口就我目前来看它是和其它事务抽离开来的,它的事务失败也不会和其它事务进行影响感觉它只是利用Spring-TX的一些方法和属性.
+       org.springframework.transaction.jta.WebSphereUowTransactionManager中用到了.
+    2. txAttr是当前方法所声明的TX属性集,txStatus则代表着当前TX在事务传播时的具体状态以及提供一些对事务状态的操作. Spring-TX会根据当前txAttr中的属性来"传播"、"提交"、"回滚"事务,
+       并将处理后的结果保存到txStatus中.
+    3. org.springframework.transaction.interceptor.AbstractFallbackTransactionAttributeSource存放所有类和方法(不确定是所有还是所有包含注解的).拿txAttr的时候会直接从
+       里面匹配.
+    4. TransactionStatus用于存放一些事务状态相关属性以及定义事务手动提交、回滚相关操作.
+
+
+TransactionAspectSupport#invokeWithinTransaction(method,targetClass,invocation)
+  获取Transactionattribute、PlatformTransactionManager以及连接方法信息.  
+  call: createTransactionIfNecessary(tm,txAttr,jp) // 根据上面抓取来的txAttribute、tm、连接方法等信息判断是否需要开启事务.
+    -- 如果txAttr的name为空,则将其构建为DelegatingTransactionAttribute,名字是方法参数joinpointIdentification.
+       call: tm.getTransaction(txAttr); // 根据事务属性判断是否需要开启事物,并返回状态.
+       return call: prepareTransactionInfo(tm,txAttr,jp); // 准备txInfo;
+               构建txInfo,如果txAttr不为空则会将status放进txInfo. 无论是否新建了事务都会将上一个事务的txInfo绑定到oldTransactionInfo中,将当前txInfo绑定到threadLocal中.
+  #begin_try
+   执行回调,如果没有后续拦截器的话则进入主方法了.
+  #catch_throwable
+   call: completeTransactionAfterThrowing(txInfo,ex);
+   throw ex;
+  #finally
+  call: cleanupTransactionInfo(txInfo); // 把上一层事务的txInfo重新绑定到ThreadLocal中. 
+  commitTransactionAfterReturning(txInfo);
+
+
+问: 
+  1.org.springframework.jdbc.datasource.ConnectionHolder这个类和事务、线程的关系是什么?  
+  2.suspend(tx)是怎样处理当前事务和线程关系的?  
+    
+答:
+  1. ConnectionHolder包含着当前数据库连接(不能确定是不是一个连接代表一个事务)以及与当前连接、事务相关的一些操作.TxMgr将其绑定在TransactionSynchronizationManager(
+     包含当前线程本地变量)中用于连接的"挂起"和"恢复". 顺便多说一句,TxMgr在处理事务时将结果影响到txStatus后最终实现事务的操作都是发生在ConnectionHolder或者Connection
+     中的.
+  2. 所谓挂起事务,就是把目前线程中所有储存的信息都保存起来,返回一个suspendedResources. 并且把当前线程中的事务相关信息清空,方便下一个事务来的时候将自己绑定到线程中.
+     不过在操作它时也与TransactionSynchronizationManager有着一定的交互.
+
+
+AbstractPlatformTransactionManager的三个事务同步方式:
+------------------------------------------------------------------------------------------------------------------------
+名词										概念
+SYNCHRONIZATION_ALWAYS					即使是空的事务结果也使用事务同步.
+SYNCHRONIZATION_ON_ACTUAL_TRANSACTION	不为空的事务结果才同步.
+SYNCHRONIZATION_NEVER					永远不会开启事务.
+------------------------------------------------------------------------------------------------------------------------
+
+AbstractPlatformTransactionManager: 各种事务管理器的抽象基类，也可以说是骨架.它封装了很多事务管理的流程代码，子类需要实现:
+  doGetTransaction
+	用于从TxMgr中拿一个事务对象，事务对象具体什么类型AbstractPlatformTransactionManager并不care.如果当前已经有事务的话，返回的对象应该是要包含当前事务信息的.
+  isExistingTransaction
+	用于判断一个事务对象是否对应于一个已经存在的事务.Spring会根据这个方法的返回值来分类讨论事务该如何传播.
+  doBegin
+	物理开启事务.
+  doSuspend
+	将当前事务资源挂起.对于我们常用的DataSourceTransactionManager，它的资源就是ConnectionHolder.会将ConnectionHolder与当前线程脱钩并取出来. ConnectionHolder是跟着走的.
+  doResume
+	恢复当前事务资源.对于我们常用的DataSourceTransactionManager，它会将ConnectionHolder重新绑定到线程上.
+  doCommit
+ 	物理提交事务.
+  doRollback
+	物理回滚事务.
+  doSetRollbackOnly
+  给事务标记为回滚.对于我们常用的DataSourceTransactionManager，它的实现是拿出事务对象中的ConnectionHolder打上回滚标记.这个标记是一种“全局的标记”，因为隶属于同一个物理事务
+都能读到同一个ConnectionHolder.
+
+AbstractPlatformTransactionManager#newTransactionStatus(definition,transaction,newTransaction,newSynchronization,debug,suspendedResources): 
+  suspendedResources: 保存上一个被暂停的(调用了suspend(tx))资源.
+  newSynchronization: 这个参数不知道是用于哪方面的?
+  答: 在prepareSynchronization中会通过这个字段来决定是否把事务更新到当前线程中. 不过在newTransactionStatus()中还会判断当前线程是否已经绑定了事务.
+
+AbstractPlatformTransactionManager#getTransaction(definition)
+  call: doGetTransaction() // 调用子类重写的方法获取tx,如果为空则创建DefaultTransactionDefinition();
+  call: isExistingTransaction(tx);
+  		 如果存在事务-->call: handlerExistingTransaction(definition,tx,debugEnable);
+  如果事务传播行为是MANDATORY则: 
+  	抛异常. // 特性: 当前没有事务则抛出异常
+  如果事务传播行为是REQUIRED、REQUIRES_NEW、NESTED则: 
+    call: suspend(null);返回SuspendedResourcesHolder suspendedResources;// 文档上说暂时挂起当前事务.
+  	#begin_try
+  	 申明newSynchronization,该字段根据当前同步方式(说明在上面)判断是否能开启新的同步. // 因为此时的传播特性需要创建新的同步
+     call: newTransactionStatus(definition,tx,newTransaction,newSynchronization,debug,suspendedResources)创建新的事务状态. 
+    											// 如果newSynchronization=true并且当前线程没有事务则newSynchronization=true;
+     call: doBegin(tx,definition); // 调用子类重写的方法开启事物.
+     call: prepareSynchronization(status,definition); // 如果当前txStatus为新的事物,则绑定到当前线程中.
+     return txStatus;
+    #catch_RuntimeException_Error
+     call: resume(null,suspendedResources); 
+     throw ex;
+  最后一种情况: // 传播行为是SUPPORTS、NOT_SUPPORTED、NEVER,这几种情况对于当前无事务的逻辑都是直接运行.
+    申明newSynchronization,该字段根据当前同步方式(说明在上面)判断是否为SYNCHRONIZATION_ALWAYS. 
+    										   // 因为当前不需要开启新的同步,所以只有为SYNCHRONIZATION_ALWAYS时才会为true.
+    call: prepareTransactionStatus(definition,null,true,newSynchronization,debugEnabled,null); 
+    										   // 这个方法等于newTransactionStatus() + prepareSynchronization(); 注意: 第二个参数transaction为空.
+
+
+AbstractPlatformTransactionManager#handleExistingTransaction(definition,transaction,debugEnable);
+  当前事务传播为NEVER则抛异常.
+  当前事务传播为NOT_SUPPORTED则将当前事务挂起然后return一个没有事务、不是新事务、需要同步到当前线程、有挂起事务的TransactionStatus.
+  当前事务传播为REQUIRES_NEW则将当前事务挂起
+  	#begin_try
+    然后构造一个有新的事务、是新事务、需要同步到当前线程、有挂起线程的TransactionStatus并
+    call: doBegin(tx,definition); 
+    同步事务属性到当前线程后return;
+    #catch_RuntimeException
+     resumeAfterBeginException(transaction,suspendedResources,beginEx);
+     throw ex;
+    #catch_Error
+     resumeAfterBeginException(transaction,suspendedResources,beginErr);
+     throw er;
+  当前事务传播为NESTED则判断是否需要添加数据库save_point.  // JTA会覆盖该方法走第二个分支.
+    如果需要则构造一个事务不变、有事务、不是新事务、不需要更新线程属性、没有挂起事务的TransactionStatus,然后同步事务属性到当前线程. 
+     call: status#createAndHoldSavepoint(); 然后返回;   
+    否则重新构造一个没有挂起事务的新事务TransactionStatus.
+     call: doBegin(tx,definition);
+     同步事务属性到当前线程. 然后返回;
+  // 到这里还没返回说明当前需要直接加入上一个事务的. 
+  需要验证情况下: 
+   ...
+   如果上一个事务不是只读的而当前事务是只读的,说明不能沿用上一个事务,则抛出异常.
+  return call: prepareTransactionStatus(definition,tx,false,true,debug,null); // 不需要新建事务.
+  
+
+问: 
+  1. TransactionSynchronization是什么?
+  2. doSuppend(tx) 主要是做什么操作?
+答: 
+  1. 它相当于一个事务上下文的监听,里面包含资源挂起、恢复,事务提交前、提交完成、回滚前、回滚完成通知. 
+     多说一句,org.springframework.orm.hibernate5.SpringSessionSynchronization是它的一个实现,它在flush()、beforeCommit()方法时调了Session#flush();
+  2. 将当前事务从当前线程总"挂起"并返回当前事务以及事务资源的相关信息.所谓"挂起"就是把事务资源从当前线程中拿出来存放到对象中并清空当前线程的事物属性.
+
+
+将tx挂起并包装成SuspendResourcesHolder
+AbstractPlatformTransactionManager#suspend(tx):
+  如果当前线程已经激活则将当前线程中的TransactionSynchronization("钩子函数")全部挂起并返回集合.
+  #begin_try
+  如果传入的tx不为空则call: doSuppend(tx); 并返回suspendedResources,将当前线程绑定的事务名、是否只读、隔离级别、是否有实际事务等信息抓取出来并清空
+  然后把所有的数据包装成SuspendedResourcesHolder并return;
+  #catch_RuntimeException
+   call: doResumeSynchronization(susp);
+   throw ex;
+  #catch_Error
+   call: doResumeSynchronization(susp);
+   throw err;
+ 如果tx不为空则call: doSuspend(tx); 然后包装成SuspendedResourcesHolder(susp); return; 
+ 最后一种情况就直接返回.
+
+
+
+AbstractPlatformTransactionManager#resume(tx,resHolder);
+  如果resHolder不为空则取出suspendedResources然后call: doResume(tx,suspendedResources); 取出TransactionSynchronization("钩子函数"),有的话就将之前的信息绑定到当前线程
+  然后call: doResumeSychronization(susp); // 它会调用TransactionSynchronization的resume(), 然后将"钩子"们都加入到当前线程中.
+
+
+AbstractPlatformTransactionManager#commit(txStatus);
+  如果事务已经完成了,则抛出IllegalTransactionStateException异常. 
+  如果当前本地事务状态被标识为rollbackOnly,则call: processRollback(txStatus);  return;
+                          // 无论事务怎么传播,每次进入事务管理器,在进入业务方法之前都会把一个TransactionInfo对象塞到TransactionAspectSupport#transactionInfoHolder中.
+                          // 而TransactionInfo包含了一个TransactionStatus对象.commit方法是在业务方法正常完成后调用的,所谓当前本地事务状态就是读当前TransactionStatus对象
+                          // 中的rollbackOnly标志位.它是一个局部标志位,只有创建该status的那一层在业务方法执行完毕后会读到本层status的这个局部标志位. 我们可以在用户代码中通
+                          // 过TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();来置当前事务层的status对象的rollbackOnly标志位为true手动控制回滚
+  如果发现事务被标记全局回滚并且在全局回滚标记情况下不应该提交事务的话,则call: processRollback(txStatus); return;
+  最后一种情况就call: processCommit(txStatus);
+
+
+AbstractPlatformTransactionManager#processCommit(txStatus);
+  #begin_try
+	  #begin_try
+	  call: prepareForCommit(txStatus); // 模板方法,供子类重写
+	  call: triggerBeforeCommit(txStatus); // 回调transaction synchronization的beforeCommit方法
+	  call: triggerBeforeCompletion(txStatus); // 回调transaction synchronization的beforeCompletion方法
+    如果当前事务存在save_point,则释放.
+	    或者如果当前事务为最外层事务则获取当前事务的globalRollbackOnly状态,赋值为globalRollbackOnly局部变量,然后call: doCommit(txStatus);
+      或者如果call: isFailEarlyOnGlobalRollbackOnly(); 返回true
+                                        // isFailXXX是一个标志位,如果开启了则会尽早抛出异常.默认情况是为false的,这样如果内层事务发生了异常,
+                                        // 退栈到外层事务后则会进这个判断里.
+	  如果globalRollbackOnly为true则抛出UnexpectedRollbackException异常.
+                                        // 一般用DataSourceTransactionManager不会走到这,这里是为了兼容JTA,上面的save_point也是.
+	  #catch_UnexpectedRollbackException
+	  call: triggerAfterCompletion(txStatus,TransactionSynchronization.STATUS_ROLLED_BACK); // 回调transaction synchronization的afterCompletion方法.
+	  throw ex;
+	  #catch_TransactionException // 代表doCommit发生异常.
+	  如果配置了rollbackOnCommitFailure为true(默认为false)则call: doRollbackOnCommitException(txStatus,ex);
+	  否则call: triggerAfterCompletion(txStatus,TransactionSynchronization.STATUS_UNKNOWN); // 回调transaction synchronzaition的afterCompletion方法.
+	  throw ex;
+	  #catch_RuntimeException
+	  如果之前没有通知transaction synchronzaition则通知.call: doRollbackOnCommitException(txStatus,ex);
+	  #catch_Error
+	  如果之前没有通知transaction synchronzaition则通知.call: doRollbackOnCommitException(txStatus,err);
+	  #begin_try
+	  call: triggerAfterCommit(txStatus); // 回调transaction synchronzation的afterCommit方法;
+	  #finally
+	  call: triggerAfterCompletion(txStaus,TransactionSynchronzation.STATUS_COMMITED); // 回调transaction synchronzation的afterCompletion方法;
+  #finally
+  call: cleanupAfterCompletion(txStatus); // 后续工作:status标记completed,在最外层清空transaction synchronization集合，恢复挂起事务资源等等.
+
+
+AbstractPlatformTransactionManager#rollback(txStatus);
+  如果事务已经完成了,则抛出IllegalTransactionStateException异常.
+  call: processRollback(txStatus);
+
+
+AbstractPlatformTransactionManager#processRollback(txStatus);
+  #begin_try
+    #begin_try
+    call: triggerBeforeCompletion(txStatus); // 回调transaction synchronization对象的beforeCompletion方法.
+    如果当前事务存在save_point则rollback_save_point;
+      如果当前事务为外层事务则call: doRollback(txStatus); // 具体由子类实现.
+      如果当前存在事务
+        如果内层事务被标记为rollBackOnly或者globalRollbackOnParticipationFailure开关开启,则call: doSetRollbackOnly(status); // 给当前事务标记需要回滚.
+        										// 当前事务为内层事务,如果内层事务打上了rollBackOnly标记则全事务一定是回滚的,否则globalRollbackOnParticipationFailure就
+        										// 起到作用了.它默认开启,也就是说内层事务挂了,最终的结果只能是全事务回滚. 但如果globalRollbackOnParticipationFailure被关
+        										// 闭了,外层事务的业务方法可以根据情况控制是否回滚.
+    #catch_RuntimeException
+    call: triggerAfterCompletion(txStatus,TransactionSynchronization.STATUS_UNKNOWN); 
+    throw ex;
+    #catch_Error
+    call: triggerAfterCompletion(txStatus,TransactionSynchronization.STATUS_UNKNOWN); 
+    throw err;
+    call: triggerAfterCompletion(txStatus, TransactionSynchronization.STATUS_ROLLED_BACK); // 回调transaction synchronization对象的afterCompletion方法.
+  #finally
+  call: cleanupAfterCompletion(txStatus); // 后续工作:status标记completed,在最外层清空transaction synchronization集合，恢复挂起事务资源等等.
+
+
+问: org.springframework.transaction.support.CallbackPreferringPlatformTransactionManager 这个接口作用是什么? 
+  猜测: TransactionAspectSupport#invokeWithinTransaction(method,targetClass,invocation); 308L的那个分支应该就是处理它的. 
+  答: 上面已经回答了.
+
+问: org.springframework.transaction.TransactionDefinition#getTimeout() 这个是怎么处理的? 
+答: 没看到具体怎么处理的,不过在Hibernate和JPA里都用到了.
+
+org.springframework.transaction.support.AbstractPlatformTransactionManager#doGetTransaction(): 模板方法,用于从TxMgr中拿一个事务对象，事务对象具体什
+                                       么类型AbstractPlatformTransactionManager并不care.如果当前已经有事务的话，返回的对象应该是要包含当前事务信息的.
+
+org.springframework.transaction.support.AbstractPlatformTransactionManager#isExistingTransaction(): 用于判断一个事务对象是否对应于一个已经存在的事务.
+                                       Spring会根据这个方法的返回值来分类讨论事务该如何传播.
+
+org.springframework.transaction.support.AbstractPlatformTransactionManager#doSetRollbackOnly(): 给事务标记为回滚.对于我们常用的DataSourceTransactionManager
+                       ,它的实现是拿出事务对象中的ConnectionHolder打上回滚标记.这个标记是一种"全局的标记"，因为隶属于同一个物理事务都能读到同一个ConnectionHolder.
+
+问: 当前事务是否为只读是在哪里赋值的? 
+答: org.springframework.transaction.support.AbstractPlatformTransactionManager#prepareSynchronization(txStatus,definition); 中如果需要同步到当前线程,则会把
+     definition中的isReadOnly属性同步上去.  // definition在目前来看是org.springframework.transaction.interceptor.TransactionAttribute实现的.
+
+DefaultTransactionStatus#isNewSynchronization()
+
+org.springframework.orm.jpa.EntityManagerHolder: 包装了JPA的EntityManager.
+
+org.springframework.orm.jpa.JpaTransactionManager.JpaTransactionObject: 
+  1. 实现了SmartTransactionObject
+  2. 它的EntityManagerHolder是从TransactionSynchronizationManager#getResource(); 里拿的.
+
+
+NESTED事务与NEW事务的区别(事务实现分其它情况事务和JTA事务):
+一般情况:
+1. NEW事务会将当前线程挂起然后自己开个新事务,默认是把当前事务属性保存到当前线程中. 提交或回滚事务时恢复之前事务属性.
+   NESTED不会干预当前事务的任何属性,只是添加个save_point,当前线程不做任何修改.
+
+2. 提交事务时会首先判断当前事务是否含有save_point,有则做两步操作: 获取当前事务rollback属性值; 释放save_point;
+
+3. 回滚事务时也会首先判断当前事务是否含有save_point,有则call: DefaultTransactionStatus#rollbackToHeldSavepoint(); 
+                                                                    // 它会对save_point进行回滚操作并且释放掉当前线程状态相关的save_point资源.
+                                                                                                              
+另外: JPA不支持嵌套事务(save_point).  https://en.wikibooks.org/wiki/Java_Persistence/Transactions#Nested_Transactions
+
+JTA:
+1. 嵌套事务不会将当前事务挂起,也不会将当前线程readOnly等属性也挂起.
+2. 其它的未确定. 不知道后续会不会恢复.
+
+
+问: 如何配置TxMgr打印日志?
+答: 
