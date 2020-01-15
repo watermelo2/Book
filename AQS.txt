@@ -24,16 +24,18 @@ boolean tryReleaseShared(int arg)	尝试释放共享锁
 boolean isHeldExclusively()			当前线程是否获得了独占锁
 
 AQS中的一些模板方法:
-方法													描述
-void acquire(int arg)								获取独占锁.会调用tryAcquire方法,如果未获取成功,则会进入同步队列等待
-void acquireInterruptibly(int arg)					响应中断版本的acquire
-boolean tryAcquireNanos(int arg,long nanos)			响应中断+带超时版本的acquire
-void acquireShared(int arg)							获取共享锁.会调用tryAcquireShared方法
-void acquireSharedInterruptibly(int arg)			响应中断版本的acquireShared
-boolean tryAcquireSharedNanos(int arg,long nanos)	响应中断+带超时版本的acquireShared
-boolean release(int arg)							释放独占锁
-boolean releaseShared(int arg)						释放共享锁
-Collection getQueuedThreads()						获取同步队列上的线程集合
+========================================================================================================================
+方法													                       描述
+void acquire(int arg)								               获取独占锁.会调用tryAcquire方法,如果未获取成功,则会进入同步队列等待
+void acquireInterruptibly(int arg)					       响应中断版本的acquire
+boolean tryAcquireNanos(int arg,long nanos)		     响应中断+带超时版本的acquire
+void acquireShared(int arg)							           获取共享锁.会调用tryAcquireShared方法
+void acquireSharedInterruptibly(int arg)			     响应中断版本的acquireShared
+boolean tryAcquireSharedNanos(int arg,long nanos)  响应中断+带超时版本的acquireShared
+boolean release(int arg)							             释放独占锁
+boolean releaseShared(int arg)						         释放共享锁
+Collection getQueuedThreads()						           获取同步队列上的线程集合
+========================================================================================================================
 
   共享锁与独占锁的实现不同的关键在于,共享锁允许多个线程持有(只要有一个被唤醒, 后面的也都有可能被唤醒,决定因素在tryAcq返回值).如果需要使用AQS中共享锁
 ,在实现tryAcquireShared方法时需要注意,返回负数表示获取失败;返回0表示成功,但是后继争用线程不会成功;返回正数表示获取成功,并且后继争用线程也可能成功.
