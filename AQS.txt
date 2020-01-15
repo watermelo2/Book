@@ -1,0 +1,252 @@
+文章: https://www.cnblogs.com/micrari/p/6937995.html
+
+声明: JUC框架里的工具类允许序列化,但是它是"无状态"序列化,因为不支持复现线程.
+
+AQS主要做了三件事情: 同步状态的管理、线程的阻塞和唤醒、同步队列的维护
+
+同步状态的管理: getState()、setState()、casState()
+
+各个状态定义:
+====================================================================================================================================
+值				              描述
+CANCELLED (1)	        当前线程因为超时或者中断被取消.这是一个终结态,也就是状态到此为止.
+
+SIGNAL (-1)		        当前线程的后继线程被阻塞或者即将被阻塞,当前线程释放锁或者取消后需要唤醒后继线程.这个状态一般都是后继线程来设置前驱节点的.
+
+CONDITION (-2)	      当前线程在condition队列中.
+
+PROPAGATE (-3)	      用于共享获取、释放锁. 实际上是为了解决之前版本中多线程下acquireShared()、releaseShared()里的代码"交叉执行"导致hang住的问题.
+                      只针对共享锁的,具体可以看下面代码(那个是旧版本的代码,对应新版的可以理解为上面说的这两个)
+
+0				              表示无状态.
+====================================================================================================================================
+
+
+在自定义基于AQS的同步工具时可以选择覆盖实现以下几个方法来实现同步状态的管理:
+====================================================================================================================================
+方法								                	描述
+boolean tryAcquire(int arg)			    尝试获取独占锁
+boolean tryRelease(int arg)		     	尝试释放独占锁
+int tryAcquireShared(int arg)		    尝试获取共享锁
+boolean tryReleaseShared(int arg)	  尝试释放共享锁
+boolean isHeldExclusively()		     	当前线程是否获得了独占锁
+====================================================================================================================================
+
+AQS中的一些模板方法:
+========================================================================================================================
+方法													                       描述
+void acquire(int arg)								               获取独占锁.会调用tryAcquire方法,如果未获取成功,则会进入同步队列等待
+void acquireInterruptibly(int arg)					       响应中断版本的acquire
+boolean tryAcquireNanos(int arg,long nanos)		     响应中断+带超时版本的acquire
+void acquireShared(int arg)							           获取共享锁.会调用tryAcquireShared方法
+void acquireSharedInterruptibly(int arg)			     响应中断版本的acquireShared
+boolean tryAcquireSharedNanos(int arg,long nanos)  响应中断+带超时版本的acquireShared
+boolean release(int arg)							             释放独占锁
+boolean releaseShared(int arg)						         释放共享锁
+Collection getQueuedThreads()						           获取同步队列上的线程集合
+========================================================================================================================
+
+  共享锁与独占锁的实现不同的关键在于,共享锁允许多个线程持有(只要有一个被唤醒, 后面的也都有可能被唤醒,决定因素在tryAcq返回值).如果需要使用AQS中共享锁
+,在实现tryAcquireShared方法时需要注意,返回负数表示获取失败;返回0表示成功,但是后继争用线程不会成功;返回正数表示获取成功,并且后继争用线程也可能成功.
+
+  在AQS的共享锁中,一个被park的线程,不考虑线程中断和前驱节点取消的情况,有两种情况可以被unpark: 一种是其他线程释放信号量,调用unparkSuccessor;
+另一种是其他线程获取共享锁时通过传播机制来唤醒后继节点.
+
+
+Node#PROPAGATE状态存在的意义:
+先看用到这个状态的唯一一段代码
+```
+if (propagate > 0 || h == null || h.waitStatus < 0 ||
+       (h = head) == null || h.waitStatus < 0) { // Node.PROPAGATE状态就是为了此处可以读取到h.waitStatus < 0（PROPAGATE值为-3）
+       Node s = node.next;
+       if (s == null || s.isShared())
+           doReleaseShared();
+}
+```
+这段是#setHeadAndPropagate()方法里的代码,方法作用是设置node为Head并且选择性的唤醒node的后继节点. 
+设想下如果只判断"propagate > 0"来选择是否传播下去. 测试代码(代码来自 http://bugs.java.com/view_bug.do?bug_id=6801020 ):
+```
+private static Semaphore sem = new Semaphore(0);
+
+private static class Thread1 extends Thread {
+   @Override
+   public void run() {
+       sem.acquireUninterruptibly();
+   }
+}
+
+private static class Thread2 extends Thread {
+   @Override
+   public void run() {
+       sem.release();
+   }
+}
+
+public static void main(String[] args) throws InterruptedException {
+   for (int i = 0; i < 10000000; i++) {
+       Thread t1 = new Thread1();
+       Thread t2 = new Thread1();
+       Thread t3 = new Thread2();
+       Thread t4 = new Thread2();
+       t1.start();
+       t2.start();
+       t3.start();
+       t4.start();
+       t1.join();
+       t2.join();
+       t3.join();
+       t4.join();
+       System.out.println(i);
+   }
+}
+```
+上面代码在以前版本执行时线程偶尔会出现hang住的问题.
+解析:
+申明: 一下情况全是假设,并不是每次都会出现这种情况.
+条件: 某次循环中队列里的排队节点为head->t1Node->t2Node(tail)
+时序
+时刻1: t3调用releaseShared,调用了unparkSuccessor(h),head的等待状态从-1变为0
+时刻2: t1由于t3释放了信号量,被t3唤醒,调用Semaphore.NonfairSync的tryAcquireShared(),返回值为0,代表不需要唤醒(传播)后继节点
+时刻3: t4调用releaseShared,读到此时h.waitStatus为0(此时读到的head和时刻1中为同一个head),不满足条件,因此不会调用unparkSuccessor(h)
+时刻4: t1获取信号量成功,调用setHeadAndPropagate时,因为不满足propagate > 0（时刻2的返回值也就是propagate==0）,从而不会唤醒后继节点
+解释: 以上会导致t2没法被唤醒. 原因在于时刻1==>时刻2==>时刻4本该连续操作被时刻3插了一手,导致正常流程 设置当前head.waitStatus=0并
+      unpark后继节点t1==>t1尝试获取执行权并返回状态码==>设置t1为head并且结束当前流程 在t1成功获取执行权后设置t1为head前出现了断层(时刻3).
+      而时刻3本该唤醒t2但由于释放共享锁时head状态为0(因为时刻4还没被执行,没有将t1同步到head上,所以此时的head还是时刻1的head),所以它的后继节点
+      不会被唤醒(也就是调用unparkSuccessor(),因为只有状态为SIGNAL时才表示后继节点被阻塞了,需要被唤醒).
+补救措施我的观点和那篇文章的观点有点不一样,先说说我的:
+m: 时刻3代码这么设计
+   ```
+   for(;;){
+      申明h记录当前head
+      h=SIGNAL则唤醒后继节点
+      h=0代表上面的场景重现,如果h=head则continue.
+      break;
+   }
+   ```
+像我这么写是为了解决问题而解决问题的,这样会导致如果有导致h=0但又不会改动head呢?(我想描述的是有'坏代码'的执行会导致这个'健康代码'一直循环下去,当然这个情况只是猜测).
+t: 时刻3、时刻4代码都做改动,目的是让它们'联动'.
+   ```
+   // 时刻3
+   for(;;){
+	   申明h记录当前head
+	   h=SIGNAL则唤醒后继节点
+	   ++ h=0则等待状态置为PROPAGATE(-3,其实是能和时刻4'沟通'到的状态都可以)
+	   如果h=head则退出
+   }
+
+   // 时刻4
+   if (propagate > 0 || h == null || h.waitStatus < 0 ||
+       (h = head) == null || h.waitStatus < 0) { // 后面四个判断都是新加
+       old code...
+   }
+   ```
+ 时刻3这么写可以在t1设置Head的同时顺便处理t2的唤醒. 其实时刻3在特定情况下也可以自身处理t2的唤醒,当执行完h=PROPAGATE代码后如果刚好时刻4的
+ setHead设置完,那么时刻3的h=head则不成立,下次iter的时候就可以直接unparkSuccessor了. 它这么写不会产生死循环,当然这可能只是最大的好处.
+
+
+Condition
+  与wait/notify/notifyAll操作需要获得对象监视器类似,一个Condition实例与某个互斥锁绑定,在此Condition实例进行等待唤醒操作的调用也需要获得互斥锁
+,线程被唤醒后需要再次获取到锁,否则将继续等待.
+  此外一把互斥锁可以绑定多个Condition(ReentrantReadWriteLock),这意味着在同一把互斥锁上竞争的线程可以在不同的条件下等待,唤醒时可以根据条件来唤醒线程
+,这是Object中的wait/notify/notifyAll不具备的机制.
+
+  AQS的ConditionObject,它内部维护了一个队列,我们可以称之为条件队列,在某个Condition上等待的线程被signal、signalAll后,ConditionObject会将对应的节点
+转移到外部类AQS的等待队列中,线程需要获取到AQS等待队列的锁,才可以继续恢复执行后续的用户代码.
+
+  如果一个节点通过ConditionObject#await等方法调用初始化后,在被唤醒之后,会将状态切换至0,也即无状态,随后进入AQS的同步队列,此后就与一般的争锁无异了
+
+
+await流程:
+1. 创建节点加入到条件队列
+2. 释放await前的互斥锁
+3. 只要没有转移到同步队列就阻塞(退出条件是等待其他线程调用signal/signalAll或是被中断)
+4. 重新获取互斥锁并对阻塞做相应处理
+signal流程:
+1. 将条件队列中第一个节点转移到同步队列
+2. 根据情况决定是否要唤醒对应线程(一般情况是不需要的)
+
+总结下ConditionObject:
+  AQS里的Cond(Condition,后续都这么叫)实现访问标识符是(ACC_PUBLIC),这象征着它能访问到当前AQS的同步队列,这点非常重要.
+其实Cond就是将await()当前线程为节点暂存了一份作为waitLinkList. signal()、signalAll()的时候会将其转换为waitStatus=0的node放入同步队列,然后等到signal()
+、signalAll()方法对应的unlock()时会唤醒后继节点: nextNode(也就是signal()、signalAll()对应的在同步队列的那个node). 等到nextNode对应的代码块执行完后调用
+unlock()时会继续唤醒后继节点(这步是为了处理signalAll()唤醒多个awaitNode的,其实就是放入多个node到同步队列),所以cond的使用者需要在finally块进行unlock()
+保证后继节点被唤醒.
+  ConditionObject还要处理一个问题: await()、signal()、signalAll()都是需要提前获取"执行权",那await后怎样才能让signal获取到执行权? 代码在#fullyRelease()里,
+它会释放await之前的那个lock(其实是acquire),还有可能会直接唤醒后继节点线程.  
+  从上面可以看出ConditionObject其实是AQS的一个应用层的实现类,是围绕着条件队列转的. 来段代码说明下实际方法对应功能:  
+```
+/*
+ * 输出结果: 
+ *  signalAll thread start.
+ *	Thread-0 done...
+ *	Thread-1 done...
+ */
+
+final ReentrantLock lock = new ReentrantLock(true);
+final Condition condition = lock.newCondition(); // cond必须和创建它的lock一起用
+
+java.lang.Thread t1 = new java.lang.Thread(()->{
+    try {
+        lock.lock();
+        condition.await(); // 让t2的lock获取到执行权,然后等待信号.
+        System.out.println(java.lang.Thread.currentThread().getName() + " done...");
+    }catch (Exception e){
+    }finally {
+        lock.unlock(); // 一个是处理AQS里的同步队列数据,二个是唤醒t2(也可以说是通知t2)
+    }
+});
+
+java.lang.Thread t2 = new java.lang.Thread(()->{
+    try {
+        lock.lock();
+        condition.await(); // 让signalAll的lock获取到执行权.
+        System.out.println(java.lang.Thread.currentThread().getName() + " done...");
+    }catch (InterruptedException e){
+    }finally {
+        lock.unlock(); // 处理AQS里的同步队列数据
+    }
+});
+
+t1.start();
+t2.start();
+
+new java.lang.Thread(()->{
+    try {
+        TimeUnit.SECONDS.sleep(1);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    try {
+        lock.lock();
+        System.out.println("signalAll thread start.");
+        condition.signalAll(); // 它会让所有awaitNode.waitStatus=0并且丢到同步队列里. 这个方法还有个'保险'是当awaitNode的前驱节点被取消了或者修改为SIGNAL失败了(	
+        						  因为需要前驱节点处理完后通知这个awaitNode),则直接唤醒当前awaitNode
+    }finally {
+        lock.unlock();
+    }
+}).start();
+```
+说明: AQS这个类本身很好用,但是比较考研用它的人. 比如如上代码稍微加一行:
+```
+t1.start();
+t1.join();  // +
+t2.start();
+```
+上面的代码会导致t1.await()不会放行,导致signalAll线程执行不了. 当然,这只是"最简单"的一个"死锁"方法,把signalAll那段代码放到t2.start()前面就比这个复杂了(这个不想盘).
+还有个bug可能是AQS少处理了同步场景,具体可以看 https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8187408 测试代码在ConditionObjectTest.
+
+
+AQS实现例子:
+ReentrantLock: 重入锁,意思是支持同一个线程同步多次获取同一把锁. 
+注意: 同一线程获取了多少次锁就得释放次多少次锁,不然不会真的释放锁.
+简介: 可重入锁设计上比较简单,分为公平锁和非公平锁,通过构造方法设置(默认非公平锁). 非公平锁特殊在于会让当前线程去"抢"执行权,而非公平则会"礼让".
+可重入的实现用的是"排它锁","重入"是在tryAcquire()方法里通过getExclusiveOwnerThread()==current判断当前同步队列"持有执行权"的线程是否为当前线程
+.如果是则将status+1,status代表当前线程获取锁的次数. 当然,tryRelease()也做了对应的处理,比较简单不做解释. 非公平锁则是在公平上加了个"抢"的意思.在
+lock()、tryAcquire()方法中先通过AQS的casStatus()将当前线程获取锁的状态更新进去企图让当前线程先获取执行权.
+
+CountDownLatch: 计数器,作用是当计数器里的值为0时则唤醒所有在计数器里等待的线程.
+简介: 计数器里有个AQS实现,用的是共享锁,它是计数器的"中枢". 实现比较简单,构造的时候casStatem该值代表计数器的"数",tryReleaseShared()方法每次都会减一
+然后判断status是否为0,为0就开始CAS里的"唤醒"功能了. tryAcquireShared()也一直在判断status==0,也就是代表计数器'用完'了后每次await都和普通CAS共享锁
+没区别了.
+
+
