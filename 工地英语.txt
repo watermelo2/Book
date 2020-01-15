@@ -86,7 +86,7 @@ sidebar: 侧边栏
 summary: 概要、总结
 routing: 路由
 confirm: 确认
-features: 特征
+features: 特征wireless: 无线、无线电
 publish: 宣布
 exchange: 交换
 mandatory: 强制的;受委托的
@@ -125,7 +125,7 @@ lightweight: 轻量化
 precious: 珍贵的、宝贝的
 balance: 平衡
 broker: 中间人
-channel: 通道
+channel: 通道、渠道
 protocol: 协议
 delivery: 传送
 contrast: 对比
@@ -160,7 +160,7 @@ goal: 目标
 profile: 简介
 fail: 失败
 recyle: 回收站
-offShelve: 下架
+off shelves: 下架
 restore: 还原
 bullet: 子弹
 successor: 继承人
@@ -175,7 +175,7 @@ master: 主人
 slave: 奴隶
 policy: 政策
 acknowledge: 承认
-disk: 磁盘
+disk: 磁盘、硬盘
 automatic: 自动的
 manual: 手动的
 coordinator: 协调员
@@ -211,7 +211,6 @@ reduce: 减少
 folder: 目录
 previous: 以前的、在...之前
 rotate: 旋转
-distance: 远处、距离
 threshold: 门槛
 stable: 稳定的
 remaining: 剩下的
@@ -224,7 +223,7 @@ annotate: 注释
 pointcut: 切入点
 specify: 指定
 lifecyle: 生命周期
-notice: 通知
+notice: 通知、注意
 atomic: 原子的
 swap: 交换
 tablet: 药片
@@ -245,8 +244,8 @@ undo: 解开
 redo: 重做
 storage: 仓库、存储
 archives: 档案(存档)
+repeat: 重复
 repeatable: 可重复的
-performance: 性能
 pessimistic: 悲观的
 optimistic: 乐观的
 multiversion: 多版本
@@ -255,7 +254,7 @@ satisfied: 满意的
 roll: 卷
 segment: 环节、段、部分
 fault:  故障、缺点、过错
-intersection: 交叉
+intersect: 交叉、 相交(集合里的)
 spin: 旋转
 spinlock: 自旋锁
 simulation: 模拟
@@ -276,6 +275,7 @@ putty: 油灰
 unsafe: 不安全的
 compressed: 压缩的
 sample: 样品
+sampling: 采样
 upgrade: 升级
 cyclic: 循环的
 signal: 信号
@@ -316,7 +316,7 @@ shared: 共享的
 postscripts: 附言
 overview: 概述
 logical: 符合逻辑的
-established: 已建立的
+established: 已建立的  socket中: 连接建立成功
 pipeline: 管道
 league: 联盟
 legends: 传说
@@ -339,13 +339,13 @@ fork: 叉
 stealing: 偷窃
 work stealing: 工作窃取
 instrument: 工具
-passion: 激情 
+passion: 激情、热情 
 candidate: 候选人
 subject: 主语
 predicate: 谓语
 object: 宾语
 access control: 访问控制
-accessibility[əkˌsesə'bɪlətɪ]: 可访问能力、可访问性
+accessibility: 可访问能力、可访问性
 accessor method: 访问方法
 adapter pattern: 适配器模式
 annotation type: 注解类型
@@ -354,75 +354,75 @@ antipattern: 反模式
 API(Application Programming Interface): 应用编程接口
 array: 数组
 assertion: 断言
-binary compatibility[ˈbaɪnəri kəmˌpætəˈbɪlətɪ]: 二进制兼容性
+binary compatibility: 二进制兼容性
 bit field: 位域
-wildcard ['waɪldkɑ:d]: 通配符
+wildcard: 通配符
 bounded wildcard type: 有限制的通配符类型
 boxed primitive type: 基本包装类型
 callback: 回调
 callback framework: 回调框架
 checked exception: 受检异常
 code inspection: 代码检验
-comparator['kɒmpəˌreɪtə]: 比较器
-composition [ˌkɑ:mpəˈzɪʃn] : 复合
+comparator: 比较器
+composition: 复合
 concrete strategy: 具体策略
 constant-specific class body: 特定于常量的类的主体
-implementation[ˌɪmplɪmənˈteʃən]: 实施、履行
+implementation: 实施、履行
 constant-specific method implementation: 特定于常量的方法实现
 copy constructor: 拷贝构造器
-covariant[koʊˈveriənt]: 协变的
+covariant: 协变的
 convariant return type: 协变返回类型
 custom serialized form: 自定义的序列化形式
-decorator[ˈdɛkəˌretɚ] : 装饰者
+decorator: 装饰者
 decorator pattern: 装饰模式
 default access: 缺省访问
 default constructor: 缺省构造器
-defensive [dɪˈfɛnsɪv] :防守的
+defensive: 防守的
 defensive copy: 保护性拷贝
 delegation: 委托
 deserializing: 反序列化
 design: 设计
 design pattern: 设计模式
 documentation comment: 文档注释
-idiom [ˈɪdiəm]: 习语
+idiom: 习语
 double-check idiom: 双重检查模式、双检查法
 dynamically cast: 动态地转换
 encapsulation: 封装
 enclosing instance: 外围实例
-erasure [ɪˈreʃɚ]: 擦除
-chaining[tʃeɪnɪŋ]: 链锁
+erasure: 擦除
+chaining: 链锁
 exception chaining: 异常链
 exception translation: 异常转换
-explicit[ɪkˈsplɪsɪt] : 明确的
+explicit: 明确的、显式的
 explicit type parameter: 显式的类型参数
 exported API: 导出的API
 extend: 扩展
 failure atomicity: 失败原子性
 field: 域
-guardian[ˈgɑ:rdiən]: 守护者
+guardian: 守护者
 finalizer guardian: 终结方法守卫者
 forwarding method: 转发方法
 fuction object: 函数对象
 function pointer: 函数指针
 general contract: 通用约定
-generic [dʒəˈnɛrɪk]: 泛型、通用
+generic: 泛型、通用
 generic array creation: 泛型数组创建
 generic method: 泛型方法
 generic singleton factory: 泛型单例工厂
 generic static factory method: 泛型静态工厂方法
 generification: 泛型化
 idiom: 习惯用法、模式
-immutable [ɪˈmjutəbəl]: 不可变的
+immutable: 不可变的
 implement: 实现(用作动词)
 implementation: 实现(用作名词)
 implementation inheritance: 实现继承
 information hiding: 信息隐藏
-inheritance [ɪnˈhɛrɪtəns]: 继承
+inheritance: 继承
 inner class: 内部类
 int enum pattern: int枚举模式
 interface: 接口
 interface inheritance: 接口继承
-invariant  [ɪnˈveriənt]: 不可变的   [ɪnˈ veri ənt]
+invariant: 不可变的
 lazy initialization: 延迟初始化
 local class: 局部类
 marker annotation: 标记接口
@@ -435,7 +435,7 @@ memory model: 内存模型
 meta-annotation: 元注解
 mixin: 混合类型
 module: 模块
-mutator ['mju:teɪtə]: 设值方法
+mutator: 设值方法
 naming convention: 命名惯例
 naming pattern: 命名模式
 native method: 本地方法
@@ -446,25 +446,26 @@ nonstatic member class: 非静态的成员类
 object: 对象
 object pool: 对象池
 object serialization: 对象序列化
-obsolete [ˌɑ:bsəˈli:t]: 过时的
+obsolete: 过时的
 obsolete reference: 过期引用
 open call: 开放调用
 operation code: 操作码
 overload: 重载
 override: 覆盖
 package-private: 包级私有
-parameterized [pə'ræmɪtəraɪzd]: 参数化
+parameterized: 参数化
 parameterized type: 参数化的类型
-performance[pərˈfɔ:rməns]: 性能
+performance: 性能
 performance model: 性能模型
 postcondition: 后置条件
 precondition: 前提条件
+violation: 违反
 precondition violation: 前提违例
 primitive: 基本类型
 raw type: 原生态类型
-recursive[rɪˈkɜ:rsɪv]: 递归的
+recursive: 递归的
 recursive type bound: 递归类型限制
-redundant[rɪˈdʌndənt]: 冗余
+redundant: 冗余
 redundant field: 冗余域
 reference type: 引用类型
 reflection: 反射机制
@@ -472,13 +473,14 @@ register: 注册、寄存器
 reifiable: 可具体化的
 reified: 具体化的
 remainder: 求余
-restricted[rɪˈstrɪktɪd]: 受限制的
+strict: 严格
+restricted: 受限制的
 restricted marker interface: 有限制的标记接口
 rounding mode: 舍入模式
 runtime exception: 运行时异常
-safety[ˈsefti]: 安全性
+safety: 安全性
 scalar type: 标量类型
-semantic[sɪˈmæntɪk]: 语义的
+semantic: 语义的
 semantic compatibility: 语义兼容性
 serial version UID: 序列版本UID
 serialization proxy: 序列化代理
@@ -488,7 +490,7 @@ service provider framework: 服务提供者框架
 signature: 签名
 singleton: 独生子、独身
 singleton pattern: 单例模式
-skeletal[ˈskɛlɪtl]: 骨骼的
+skeletal: 骨骼的
 skeletal implementation: 骨架实现
 state transition: 状态转变
 stateless: 无状态的
@@ -502,19 +504,20 @@ strategy pattern: 策略模式
 stream unique identifier: 流的唯一标识符
 subclassing: 子类化
 subtyping: 子类型化
-synthetic[sɪnˈθɛtɪk]: 合成的
+synthetic: 合成的
 synthetic field: 合成域
 thread group: 线程组
 thread safety: 线程安全性
 thread-safe: 线程安全的
 top-level class: 顶级类、顶层类
+infer: 推断、推测
 type inference: 类型推导
 type parameter: 类型参数
 typesafe: 类型安全
 typesafe enum pattern: 类型安全的枚举模式
 unbounded wildcard type: 无限制的通配符类型
 unchecked exception: 未受检查异常
-unintentional[ˌʌnɪnˈtɛnʃənəl]: 无意的
+unintentional: 无意的
 unintentional object retention: 无意识的对象保持
 untility class: 工具类
 value class: 值类
@@ -522,18 +525,18 @@ value type: 值类型
 virgin state: 空白状态
 worker thread: 工作线程
 wrapper class: 包装类
-exponentiation[ˌekspoʊˌnenʃɪ'eɪʃən]: 求幂   ai ke si pou nei ni' xuan
-heterogeneous[ˌhetərəˈdʒi:niəs]: 异构的 [ˌhetərəˈ dʒi:niəs]   ha qiu er _ ju ni a s
-migration[maɪˈɡreʃən]: 迁移
-compatibility[kəmˌpætəˈbɪlətɪ]: 兼容性  [kəmˌ pætəˈ bɪlətɪ]
+exponentiation: 求幂
+heterogeneous: 异构的
+migration: 迁移移民
+compatibility: 兼容性
 migration compatibility: 移植兼容性
 typesafe heterogeneous container: 类型安全的异构容器
-typically[ˈtɪpɪklɪ]: 典型地
-clause[klɔz]: 条款(这个在SQL报错里经常看的到)
-decision[dɪˈsɪʒən]: 决策(源自SpringData TX中一个字段的注释)
+typically: 典型地
+clause: 条款(这个在SQL报错里经常看的到)
+decision: 决策(源自SpringData TX中一个字段的注释)
 propagate: 传播
-propagation [ˌprɑpəˈɡeʃən]: 传播(源自Transaction注解)
-appropriate[əˈproʊpriət]: 适当的(源自SpringData TX中事务管理器的一个方法名)
+propagation: 传播(源自Transaction注解)
+appropriate: 适当的(源自SpringData TX中事务管理器的一个方法名)
 concrete: 混凝土、具体的
 decorator: 装饰者
 compound: 复合
@@ -551,7 +554,7 @@ inner peace: 内心平和
 purpose: 目的
 series: 系列
 shared: 共享的
-independent: 独立的
+independent: 独立
 dependent: 依赖
 consider: 考虑
 indicate: 表明
@@ -575,7 +578,6 @@ compensant: 补偿
 camel: 骆驼
 repository: 仓库
 draft: 草稿、草案
-practice: 实践
 diagram: 图表
 compensation: 补偿
 related: 相关的
@@ -632,9 +634,10 @@ rounding: 舍入
 radix: 基数
 glad: 高兴
 refactor: 重构
-assemble: 聚集、收集 
+assemble: 聚集、收集、组装 
 successor: 接班人
 inbound: 入站
+outbound: 出站
 agent: 代理人
 contribution: 贡献
 side effects: 副作用
@@ -651,7 +654,7 @@ negate: 取反、否定
 verbose: 详细的
 engineer: 工程师
 engineering: 工程学、工程
-engine: 发动机
+engine: 引擎
 hotspot: 热点
 tenured: 终身
 generation: 代
@@ -714,21 +717,21 @@ vendor: 供应商
 enhance: 增强
 deferred: 延迟
 state of the art: 最先进的
-pending: 有待
+pending: 待定
 relation: 关系(和pending组成pending relation就是'待定关系')
 underlying: 底层
 causal relationship: 因果关系  例: the causal relationship between poverty and disease(贫穷与疾病的因果关系)
 recent: 最近 
 affected: 受影响
 immediately: 立即
-seems: 似乎
+seem: 似乎
 soon: 不久、快
 eviction: 赶出
 retrieve: 找回  动词: 回收
 dirty: 脏
 integration: 集成
 solve: 解决
-almost: 几乎
+almost: 几乎、差不多
 AFK(away from keyboard): 远离键盘、把手离开键盘.  代表长期或者永久的不能进行游戏
 plain: 朴素、简朴
 circle: 圈、圈子
@@ -742,11 +745,12 @@ praise: 赞美、表扬
 civilization: 文明
 communication: 通讯、交通、交际
 motivate: 刺激
-basically: 基本上
+basically: 基本地、本质上
 eager: 渴望的
 camel case: 驼峰命名法
 case sensitive: 区分大小写
 sensitive: 敏感
+insensitive: 不敏感
 rt--as the title says: 正如标题所说
 exceeded: 超过、突破
 limit exceeded: 超出限制
@@ -770,7 +774,7 @@ carousel: 旋转木马(谷歌中文翻译: 轮播)
 frequency: 频率
 related: 相关的
 error occurred while {something}: 某件事发生错误
-compressing: 压缩
+compression: 压缩
 understanda: 理解
 confusing: 扑朔迷离、混乱
 cover: 覆盖
@@ -797,8 +801,7 @@ regradless of the fact: 无论事实如何
 reliable: 可靠
 tripped: 跳闸
 viable: 可行
-impact: 碰撞
-impacting: 影响
+impact: 影响
 relative: 相对
 large: 大
 prime: 动:填装 形:最初的
@@ -813,7 +816,6 @@ note: 动:注意 名:笔记
 derive: 派生
 materialized: 物化 动词:赋与实质、物质化
 monster: 怪物
-derive: 派生
 plane: 平面
 protable: 便捷
 wars: 战争
@@ -863,11 +865,12 @@ opportunity: 机会
 smart: 聪明
 never makes sense: 从来没有意义
 embedded: 嵌入式
-canonical: 典范
+canonical: 典范、规范
 externally: 外部
 destruction: 毁坏、拆开
 perform: 履行、执行
 desire: 欲望、愿望、期望
+expectation: 期望
 internationalization: 国际化
 frozen: 冻结的
 introspection: 内省、自我检查
@@ -908,6 +911,7 @@ eligible: 合格
 expose: 暴露
 avaiable: 可得到、可用的
 infrastructure: 基础设施
+stable infra: 稳定的基础设施
 alliance: 联盟、同伙
 season: 季节
 proceed: 继续
@@ -927,8 +931,10 @@ reach: 达到
 shed: 棚子  动词: 洒、散出、掉
 tear: 动词: 撕、扯  名词: 眼泪、窟窿
 shed tears: 声泪俱下
+recognize: 认识、辨认
 recognized: 认可
 render: 给予
+renderer: 渲染器
 BTW(byte the way): 顺便说一句
 convenient: 方便、便于
 basis: 基础
@@ -953,7 +959,6 @@ honor: 荣誉
 fundamental: 基本原理
 privileged: 特权
 respond: 响应
-forum: 论坛
 instrument: 仪器、工具
 shift: 转移
 shot: 射击、开枪、注射
@@ -1019,6 +1024,7 @@ stolen: 偷、窃取
 retain: 保留
 struggle: 斗争、奋斗
 occupy: 占据、占有
+analyze: 分析
 analyzer: 分析仪
 mount: 安装
 ring: 环
@@ -1035,7 +1041,7 @@ curious: 好奇
 shame: 耻辱、羞辱  动词: 抹黑
 collision: 碰撞、冲突
 in favor: 赞成、支持、有利
-whatever: 任何、无论如何
+whatever: 任何、无论如何、随你
 vibes: 气氛
 available: 有空、可用的
 aligned: 对齐的
@@ -1062,38 +1068,289 @@ inconsistency: 不一致、矛盾
 waste: 浪费
 poor: 较差的、贫困
 contributon: 贡献
+adult: 成人
+elderly: 老年  名词: 长者
+postal: 邮政
+outcome: 结果、效果、结局
+fresh: 新鲜的、新的
+license: 许可证、执照、授权
+female: 女的、雌
+male: 男
+spam: 垃圾邮件
+mistake: 垃圾邮件
+arrange: 安排、整理、编排
+misc: 杂项
+advanced: 高级
+flow chart: 流程图
+activation: 激活
+grid: 格子、格网
+flip: 翻转
+scratchpad: 暂存器、便签
+flame: 火焰
+probe: 探测
+salary: 薪水
+portfolio: 作品集
+pepper: 胡椒
+appearance: 外观
+traditional: 传统的
+stand-alone: 独立的、独立式
+negotiate: 交涉、商议
+depth: 深度
+infinity: 无穷
+clash: 冲突
+sponsor: 赞助  名词: 发起人
+indented: 缩进
+insted: 插入
+scared: 害
+upon: 在...之上
+certain: 某些
+popup: 弹出
+permit: 允许
+unless: 除非、除外
+marshal: 封装处理、编排
+stick: 粘贴、插入
+principal: 负责人
+broadcast: 广播
+conclusion: 结论、结束
+malformed: 格式错误
+complaint: 申诉、抱怨
+narrow: 缩小  形容词: 狭窄
+grab: 抓住、夺取
+introduce: 介绍
+emoji: 表情符号
+BenchMark: 基准测试(这个单词必须连着)
+burn: 燃烧
+percent: 百分之...、百分比
+arithmetic: 算术
+interrupt: 打断、插嘴
+prison: 监狱
+government: 政府
+slight: 轻微
+motivate: 激励
+encouraging: 鼓舞人心的
+recently: 最近
+neglect: 忽略、疏忽
+underestimated: 被低估
+naivety: 天真
+reinforce: 加强
+recruit: 招聘
+several: 一些、几个
+inspire: 启发
+observation: 观察
+fancy: 精美的
+ultimately: 最终
+prospective: 预期
+employer: 雇主
+flashy: 浮华
+expensive: 昂贵
+skill: 技能、技巧
+able: 能够
+tinkering: 修补
+regularly: 经常
+consistent: 一致的
+technical: 技术
+afraid: 害怕
+opportunity: 机会
+personality: 个性
+controversial: 有争议的
+guidance: 指导
+doubt: 怀疑
+associate: 关联
+particular: 特定
+in particular: 特别是
+slogan: 口号
+hinder: 阻碍
+social: 社会的
+seriously: 认真的
+perception: 感觉、看法
+recruiter: 招聘者
+emphasize: 注重
+represent: 代表
+attract: 吸引
+tidy: 整洁
+tidy up: 整理
+colleague: 同事
+messy: 凌乱
+impressive: 令人印象深刻的、优秀
+exciting: 激动
+gonna: 将要
+YAGNI(you aren't gonna need it): 你不会需要它
+acceptance: 验收
+bulkhead: 隔板
+insurance: 保险
+average: 平均
+warmup: 暖身、预热
+throughput: 吞吐量
+tear down: 拆除
+complex: 复杂
+measure: 测量
+considerations: 注意事项
+strongly: 强烈地
+archetype: 原型
+drastic: 剧烈的
+brief: 简要
+fluent: 流利
+stink: 发臭  名词: 臭气
+claim: 要求
+discuss: 讨论
+ethical: 道德的
+electronic: 电子
+figure: 数字、人物、图形  
+figure 1: 图1
+histogram: 直方图
+junk: 垃圾、废物
+reserved: 保留的
+ephemeral: 短暂的
+transient: 短暂的、易变的
+disqus: 争议
+deploy: 部署
+deployer: 部署者
+research: 研究、考证
+colver: 三叶草
+heart: 心脏
+flatten: 展平
+maturity: 成熟度
+roundRobin: 轮询
+letter: 信、字母
+distinguish: 区分
+expansion: 扩张、扩充
+insurance: 保险
+organ: 机构、器官、风琴
+demonstrate: 演示、示范
+instruction: 指令
+typo: 错字
+plate: 盘子、牌子、碟
+traffic: 交通、运输、贸易  动词: 贩卖
+neither: 二者都不
+handy: 便利、简便
+legal: 法律、合法 
+commerce: 商业
+sticky: 黏
+treause: 宝藏
+partner: 伙伴、搭档
+midware: 中间件
+clarify: 澄清、阐明
+fuzzy: 模糊
+constraint: 约束
+metrics: 指标、度量
+extra: 额外、外加
+tbremoting: 迁移
+replicate: 复制
+unreachable: 无法到达
+mabifest: 清单
+enthusiast: 爱好者
+hypertext: 超文本
+enterprise: 企业
+idempotency: 幂等
+distributed: 分布式
+cleartext: 明文
+negotiation: 谈判、协商
+stock: 股票、库存 
+quantity: 数量
+sold: 已售出
+minimum: 最低限度、最少
+place order: 下单
+insufficient: 不足、不够
+classify: 分类、归类
+essential: 必要、必不可少
+tulip: 郁金香
+spliterator: 分离器、分流器
+abort: 中断、终止、异常终止
+emotional: 情绪化
+wireless: 无线、无线电
+transmission: 传输
+ethernet: 以太网络
+reassembled: 重新组装
+rather: 宁可、宁愿
+protection: 保护
+revocation: 撤销、废除 
+trust: 信任
+premaster: 大师
+elliptic: 椭圆形
+curve: 曲线 动词: 弯曲
+cryptography: 密码学
+issuer: 发行人
+bachelor: 单身汉
+graduate: 毕业
+bootcamp: 训练营、新兵训练营
+kitchen: 厨房
+apartment: 公寓
+insist: 坚持
+copay: 共付额
+discard: 丢弃
+denoted: 表示
+journal: 日志、刊物
+incubator: 孵化器
+patent: 专利
+literature: 文献
+utility: 实用
+culture: 文化
+canteen: 食堂
+mess hall: 食堂
+separator: 分隔器
+improve: 提高、改善
+periodically: 定期地
+gray: 灰色
+facilitate: 促进、方便、便利
+coordinate: 坐标  动词: 协调、配合
+definitive: 权威的
+compete: 竞争
+either way: 无论哪种方式
+principles: 原则
+diagnostic: 诊断
+rise: 上升
+protest: 抗议
+surrogate: 替代
+compact: 紧凑 动词: 压紧 名词: 合约、合同
+dive: 潜水
+uncomfortable: 不舒服、不自然、别扭
+law: 法、法律
+citizenship: 国籍、公民权、公民身份
+granularity: 粒度
+collation: 校对
+accent: 口音、重音
+abuse: 滥、欺骗
+donation: 捐款 
+glossary: 词汇表
+infimum: 极少
+supermum: 最高
+direction: 方向
+destiny: 命运
+thumbnail: 缩略图
+intersection: 路口、交集
+fanout: 扇出
+heuristic: 启发式 
+device: 设备
+leaf: 叶子
+recalc: 重新计算
+certificate: 证书
+semi: 半
+weedout: 淘汰
+loose: 松散  名词: 放任
+congrats: 恭喜
+make sense: 合理
+tech leader: 技术负责人
+netease: 网易
+expand: 扩大
+bisection: 二等分
+estimation: 估算
+refine: 提炼
+realm: 领域
+recovery: 复原
+slot: 插槽  动词: 跟踪
+intention: 意向
+freelancer: 自由职业者
+credit: 信用、信誉
+earn: 赚、挣
+gain: 获得、赢得
+nevertheless: 但是
+distinct: 不同、明显
+focus: 焦点  动词: 集中
+rest: 休息、其余
+huge: 巨大
+phantom: 幻影、幻象
+so-called: 所谓的
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
