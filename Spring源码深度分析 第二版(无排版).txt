@@ -711,6 +711,46 @@ AFactoryBean,名字为a. 那么想取A 这个bean时用factory.getBean("a")就�
 它是通过AbstractBeanFactory#getObjectForBeanInstance(Object, String, String, RootBeanDefinition)来处理FactoryBean的实例获取的,在 #nameResolver 处判断了
 如果名字以'&'开头的直接返回bean实例本身,否则会去调FactoryBean#getObject();
 ==============================================================================================================================
+<<<<<<< HEAD
+
+==============================================================================================================================
+问: 为什么很多地方都要调clearMergedBeanDefinition()清理beanDefinition的一些遗留信息?
+TODO 我目前的水平答不了这个问题,这可能设计到它们的许多细节上的设计和规则.
+==============================================================================================================================
+
+==============================================================================================================================
+问: 为什么spring用了ConcurrentHashMap还要用"管程同步"? 
+TODO 暂时打不出. 在DefaultListableBeanFactory#registerBeanDefinition(String, BeanDefinition)的#mutex_bdm中.
+==============================================================================================================================
+
+BridgeMethodResolver用来处理"桥接方法"的.
+
+==============================================================================================================================
+BeanPostProcessor是ConfigurableBeanFactory的一部分,BeanFactoryPostProcessor是ConfigurableApplicationContext的一部分. 
+但是ConfigurableBeanFactory只提供了手动注册BeanPostProcessor的接口,没有自己实现扫描当前所有的注册了的BeanPostProcess类型的bean,
+这个动作是在ConfigurableApplicationContext中处理的. 因为ConfigurableBeanFactory就是bean-factory,只提供可配接口,不提供应该由上层来实
+现的"数据源获取"功能. 还有一点要提的是ConfigurableApplicationContext提供了个Application的Listener,这样能够使ApplicationContext这块的
+扩展变得更加健壮(当然Aware也是个好的设计).
+==============================================================================================================================
+
+DI有助于应用对象之间的解耦,而AOP可以实现横切关注点与它们所影响的对象之间的解耦. 
+
+==============================================================================================================================
+Spring一些需要关注的"新"特性:
+Spring-Boot CLI(Command Line Interface): https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started-installing-the-cli
+
+Spring-Boot Actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready
+
+Spring-MVC支持Servlet3.0的异步分发请求: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async
+文中还提到了他们自己的异步请求框架Spring-WebFlux,它是基于nio的.
+
+Spring-MVC的测试框架: https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#spring-mvc-test-framework
+它的好处是在使用的过程中不需要额外的Servlet容器.
+
+@Autowired、 @Vlue和@Bean注解能够作为元注解,用于创建自定义的注入和bean声明注解: 这个不算是"新"特性,要自定义处理的话起码起码起码得注册个
+BeanPostProcessor,可以仿照AutowiredAnnotationBeanPostProcessor写一个.
+==============================================================================================================================
+=======
 
 ==============================================================================================================================
 问: 为什么很多地方都要调clearMergedBeanDefinition()清理beanDefinition的一些遗留信息?
