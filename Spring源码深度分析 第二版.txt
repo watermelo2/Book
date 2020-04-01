@@ -338,7 +338,7 @@ ImportSelector#selectImports()抽象方法定义为: 返回应该被作为Config
 spring-boot的自动装配整合spring流程: AbstractApplicationContext#refresh()==>AbstractApplicationContext#invokeBeanFactoryPostProcessors()
 ==>ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry()==>ConfigurationClassPostProcessor#processConfigBeanDefinitions()
 ==>ConfigurationClassParser#parse(java.util.Set<org.springframework.beans.factory.config.BeanDefinitionHolder>)
-==>ConfigurationClassParser#processDeferredImportSelectors()==>ConfigurationClassParser#processImports()
+==>ConfigurationClassParser.DeferredImportSelectorGroupingHandler#processGroupImports()==>ConfigurationClassParser#processImports()
 ==>AutoConfigurationImportSelector#selectImports(): 这个是spring-boot的,它扫描了META-INF/spring-autoconfigure-metadata.properties和
 META-INF/spring.factories文件返回符合条件的Configuration class name.  
 可以去笔记文件夹里看时序图.
@@ -426,8 +426,8 @@ SpringApplication#prepareEnvironment()创建并加载Environment的入口
 
 =======================================================================================================================================
 问: EnvironmentPostProcessor为什么要配置到spring.factories里????
-答: 上面已经答过了,简单来说EnvironmentPostProcessor属于Environment初始化的"后置增强". Environment初始化的时候还没有load bean definition,
-    不能通过beanFactory去拿,所以spring boot得重新定义一个在load bean definition动作之前的容器并对其进行统一管理.
+答: 上面已经答过了,简单来说EnvironmentPostProcessor属于Environment初始化的"后置增强". Environment初始化的时候还没有load bean definition,不能通过beanFactory去拿,所以spring boot得重新定义一个在load bean definition动作之前的容器并对其进行统一管理. 
+补充: 不能通过beanFactory去拿的原因是它是Spring Boot里的"增强",并不属于spring本身.
 =======================================================================================================================================    
 
 ConfigFileApplicationListener.Loader#load(PropertySourceLoader, String,ConfigFileApplicationListener.Profile,DocumentFilter, DocumentConsumer) 
@@ -435,7 +435,7 @@ ConfigFileApplicationListener.Loader#load(PropertySourceLoader, String,ConfigFil
 
 ConfigFileApplicationListener.Loader#loadForFileExtension()是上面的那个load()调用链的"上级",它负责用有限的"提示"尽可能的加载配置文件. 
 举个例子: 
-  三个参数分别是: prefix="file:./config/bootstrap";fileExtension=".properties";profile="dev". 它会组装两种路径去调三次load()方法,
+  三个参数分别是: prefix="file:./config/bootstrap"; fileExtension=".properties"; profile="dev". 它会组装两种路径去调三次load()方法,
 分别是: "file:./config/bootstrap-dev.properties"、"file:./config/bootstrap.properties". 其中有两次传相同的路径是因为如果配置文件没有指定"环境"时也会
 读取(具体细节就是创建了两个不同规则的DocumentFilter).
 
@@ -515,16 +515,15 @@ ListableBeanFactory: 根据各种条件获取bean的配置清单
 AbstractBeanFactory: 提供BeanFactory的"基本"(可以认为是"公共"的意思)实现,并提供ConfigurableBeanFactory这个SPI接口.
 AutowireCapableBeanFactory: 提供创建、自动装配、初始化bean已经应用bean的后置处理器. 
 AbstractAutowireCapableBeanFactory: 继承AbstractBeanFactory并实现createBean并且使其具有RootBeanDefinition的功能; 实现AutowireCapableBeanFactory功能. 
-ConfigurableListableBeanFactory: 继承ListableBeanFactory、AutowireCapableBeanFactory、ConfigurableBeanFactory. 这个不太好说明它是什么,不过它可以用来
-                  获取、修改bean definition以及提供singleton bean实例化的前置处理
-DefaultListableBeanFactory: 继承AbstractAutowireCapableBeanFactory,实现ConfigurableListableBeanFactory、BeanDefinitionRegistry(同时也是它们的默认实现);
+ConfigurableListableBeanFactory: 继承ListableBeanFactory、AutowireCapableBeanFactory、ConfigurableBeanFactory. 这个不太好说明它是什么,不过它可以用来获取、修改bean definition以及提供singleton bean实例化的前置处理
+DefaultListableBeanFactory: 继承AbstractAutowireCapableBeanFactory,实现ConfigurableListableBeanFactory
+                            、BeanDefinitionRegistry(同时也是它们的默认实现);
                             一个完整(成熟)的基于bean definition的bean factory,可以通过post-processor进行扩展. 
-                            需要注意的是它其实就只有一个无参构造(排除那个传parentBeanFactory的,那个不知道用来干嘛的)可用,说明它不负责解析、创建
-                            bean definition,可以看出Spring的接口、实现类的职责划分上十分严格(起码spring core这块).
+                            需要注意的是它其实就只有一个无参构造(排除那个传parentBeanFactory的,那个不知道用来干嘛的)可用,说明它不负责解析、创建bean definition,可以看出Spring的接口、实现类的职责划分上十分严
+                            格(起码spring core这块).
 XmlBeanFactory: 通过XmlBeanDefinitionReader对Resource进行读取并注册bean definition.             
-
-  看XmlBeanDefinitionReader的几个字段比如说SourceExtractor用于将source metadata加载到bean definition metadata,它默认情况下不是为null,而是为
-NullSourceExtractor,这样可以在用的时候省略验证.
+                看XmlBeanDefinitionReader的几个字段比如说SourceExtractor用于将source metadata加载到bean definition 
+                metadata,它默认情况下不是为null,而是为NullSourceExtractor,这样可以在用的时候省略验证.
 
 XmlBeanDefinitionReader中几个主要的相关类(字段):
 ResourceLoader: 资源加载器,可以根据资源文件地址返回对应的Resource
@@ -611,10 +610,9 @@ l. Spring容器创建单例"testA"bean,首先根据无参构造器创建bean,并
 
 ==============================================================================================================================
 问: @Autowired和@Qualifier在哪里处理的,入口? 是QualifierAnnotationAutowireCandidateResolver吗? 好像和AutowiredAnnotationBeanPostProcessor有关.
-答: @Qualifier是在QualifierAnnotationAutowireCandidateResolver中处理的,在AnnotationConfigUtils#registerAnnotationConfigProcessors(
-BeanDefinitionRegistry, Object)注册的,在DefaultListableBeanFactory#findAutowireCandidates(String, Class<?>, DependencyDescriptor)中调用过.
-    @Autowired是在AutowiredAnnotationBeanPostProcessor中处理的,它是个SmartInstantiationAwareBeanPostProcessor,在AbstractAutowireCapableBeanFactory#app
-lyMergedBeanDefinitionPostProcessors(RootBeanDefinition, Class<?>, String)中调用,通过AnnotationConfigUtils#registerAnnotationConfigProcessors(BeanDefinitionRegistry, Object)注册.
+答: @Qualifier是在QualifierAnnotationAutowireCandidateResolver中处理的,在AnnotationConfigUtils#registerAnnotationConfigProcessors(BeanDefinitionRegistry, Object)注册的,在DefaultListableBeanFactory#findAutowireCandidates(String, Class<?>, DependencyDescriptor)中调用过.@Autowired是在AutowiredAnnotationBeanPostProcessor中处理的,它是个
+SmartInstantiationAwareBeanPostProcessor,在AbstractAutowireCapableBeanFactory#applyMergedBeanDefinitionPostProcessors(RootBeanDefinition, Class<?>, String)中调用,
+通过AnnotationConfigUtils#registerAnnotationConfigProcessorsBeanDefinitionRegistry, Object)注册.
 ==============================================================================================================================
 
 ==============================================================================================================================
@@ -711,7 +709,6 @@ AFactoryBean,名字为a. 那么想取A 这个bean时用factory.getBean("a")就�
 它是通过AbstractBeanFactory#getObjectForBeanInstance(Object, String, String, RootBeanDefinition)来处理FactoryBean的实例获取的,在 #nameResolver 处判断了
 如果名字以'&'开头的直接返回bean实例本身,否则会去调FactoryBean#getObject();
 ==============================================================================================================================
-<<<<<<< HEAD
 
 ==============================================================================================================================
 问: 为什么很多地方都要调clearMergedBeanDefinition()清理beanDefinition的一些遗留信息?
@@ -750,42 +747,4 @@ Spring-MVC的测试框架: https://docs.spring.io/spring-framework/docs/current/
 @Autowired、 @Vlue和@Bean注解能够作为元注解,用于创建自定义的注入和bean声明注解: 这个不算是"新"特性,要自定义处理的话起码起码起码得注册个
 BeanPostProcessor,可以仿照AutowiredAnnotationBeanPostProcessor写一个.
 ==============================================================================================================================
-=======
 
-==============================================================================================================================
-问: 为什么很多地方都要调clearMergedBeanDefinition()清理beanDefinition的一些遗留信息?
-TODO 我目前的水平答不了这个问题,这可能设计到它们的许多细节上的设计和规则.
-==============================================================================================================================
-
-==============================================================================================================================
-问: 为什么spring用了ConcurrentHashMap还要用"管程同步"? 
-TODO 暂时打不出. 在DefaultListableBeanFactory#registerBeanDefinition(String, BeanDefinition)的#mutex_bdm中.
-==============================================================================================================================
-
-BridgeMethodResolver用来处理"桥接方法"的.
-
-==============================================================================================================================
-BeanPostProcessor是ConfigurableBeanFactory的一部分,BeanFactoryPostProcessor是ConfigurableApplicationContext的一部分. 
-但是ConfigurableBeanFactory只提供了手动注册BeanPostProcessor的接口,没有自己实现扫描当前所有的注册了的BeanPostProcess类型的bean,
-这个动作是在ConfigurableApplicationContext中处理的. 因为ConfigurableBeanFactory就是bean-factory,只提供可配接口,不提供应该由上层来实
-现的"数据源获取"功能. 还有一点要提的是ConfigurableApplicationContext提供了个Application的Listener,这样能够使ApplicationContext这块的
-扩展变得更加健壮(当然Aware也是个好的设计).
-==============================================================================================================================
-
-DI有助于应用对象之间的解耦,而AOP可以实现横切关注点与它们所影响的对象之间的解耦. 
-
-==============================================================================================================================
-Spring一些需要关注的"新"特性:
-Spring-Boot CLI(Command Line Interface): https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started-installing-the-cli
-
-Spring-Boot Actuator: https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready
-
-Spring-MVC支持Servlet3.0的异步分发请求: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-async
-文中还提到了他们自己的异步请求框架Spring-WebFlux,它是基于nio的.
-
-Spring-MVC的测试框架: https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/testing.html#spring-mvc-test-framework
-它的好处是在使用的过程中不需要额外的Servlet容器.
-
-@Autowired、 @Vlue和@Bean注解能够作为元注解,用于创建自定义的注入和bean声明注解: 这个不算是"新"特性,要自定义处理的话起码起码起码得注册个
-BeanPostProcessor,可以仿照AutowiredAnnotationBeanPostProcessor写一个.
-==============================================================================================================================
