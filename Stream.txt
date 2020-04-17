@@ -1,5 +1,7 @@
 ﻿写在前面: 以下都是一些对Stream的一些概念介绍,有很多部分来自文档,并没有对Stream包代码进行解析,只为更好的应用一些接口、方法,并非充分解读整个Stream.
-文档: https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+参考文档: [官方文档](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html)
+		 、[Stream之Spliterator](https://elsef.com/2019/09/21/Stream%E4%B9%8BSpliterator/)  TODO 待总结
+		 、[Stream优化的一些注意事项(IBM)](https://www.ibm.com/developerworks/cn/java/j-java-streams-3-brian-goetz/index.html)
 
 流的几个特点: 不存储数据、一个流上的操作产生一个结果,但它不会修改它的源、延迟执行、大小无限、流的元素只在流的生命周期中访问一次(和迭代器相像)
 
@@ -211,6 +213,7 @@ IDENTITY_FINISH: 表示中间结果容器类型与最终结果类型一致,此�
 	  复杂的,而且这个ReduceTask是Stream自身实现,不提供用户自定义这里的入口,Stream另有一个入口后面会说),且同步的是Collector#combiner()返回函数BiFunction#apply()
 	  方法(再次声明,这里用FJ框架同步是猜的); 否则表示当前不需要或者不满足Stream执行并行流的处理,忽略combiner()返回函数并直接foreach执行Collector#accumulator()
 	  返回函数方法.此时,如果需要的话你可以用自定义的容器(如JUC框架)来构建一个Collector,前提是它得是"线程安全"的(当然,你还可以让"结果收集器"实现"有序"的功能).
+(+1)后期补充: Stream并行流是在用ForkJoin框架实现的,官方文档里有说到.
 
 java.util.stream.AbstractPipeline#sourceSpliterator(): 这个方法返回了Spliterator(一个流元素集合),其它操作暂时没看. 主要的是里面用到了大量的'位'、'与'、'异或'等
 													    二进制运算处理各种操作标识(如:ORDERED、SIZED、DISTINCT etc.),而且它这里用的感觉比NIO更复杂、'聪明'.
