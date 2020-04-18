@@ -22,6 +22,7 @@ SHOW ENGINE INNODB STATUS; # 查看关于InnoDB存储引擎运行过程中的一
 %username%.pid: 服务器进程文件.
 ibdata1: 系统表空间.
 ibtmp1: 数据目录中的临时表空间.
+ib_logfile{i}: 存放redo log.
 
 配置:
 ```
@@ -1089,7 +1090,7 @@ Undo Log Header: 一个undo页面链表代表一组(注意是"undo页面链表")
 				  undo log header便是存储这些属性的地方.
 	    结构介绍:
 	           TRX_UNDO_TRX_ID: 生成本组undo日志的事务id.
-	           TRX_UNDO_TRX_NO: 事务提交后生成的一个需要序号,使用此序号来标记事务的提交顺序（先提交的此序号小,后提交的此序号大）.
+	           TRX_UNDO_TRX_NO: 事务提交后生成的一个需要序号,使用此序号来标记事务的提交顺序(先提交的此序号小,后提交的此序号大).
 	        TRX_UNDO_DEL_MARKS: 标记本组undo日志中是否包含由于delete mark操作产生的undo日志.
 	        TRX_UNDO_LOG_START: 表示本组undo日志中第一条undo日志的在页面中的偏移量.
 	       TRX_UNDO_XID_EXISTS: 本组undo日志是否包含XID信息. 
@@ -1113,12 +1114,12 @@ TRX_UNDO_HISTORY_NODE介绍: 如果当前undo log(链表)类型为update并且�
 重用策略: 为了解决undo页面链表存储不饱满问题,决定在事务提交后在某些情况下重用该事务的undo页面链表:
 			      	  该链表中只包含一个undo页面: 多页面的情况下维护、可用方面不可观.
 	该undo页面已经使用的空间小于整个页面空间的3/4: 分insert undo链表和update undo链表两种情况.
-	             		  	   			insert undo链表: 这种类型的undo日志在事务提交之后就没用了，就可以被清除掉。所以在某个事务提交后，
-	             		  	   			           重用这个事务的insert undo链表（这个链表中只有一个页面）时，可以直接把之前事务写入的一组undo日志覆盖掉，
+	             		  	   			insert undo链表: 这种类型的undo日志在事务提交之后就没用了,就可以被清除掉.所以在某个事务提交后,
+	             		  	   			           重用这个事务的insert undo链表(这个链表中只有一个页面)时,可以直接把之前事务写入的一组undo日志覆盖掉,
 	             		  	   		               从头开始写入新事务的一组undo日志(包括维护Undo Page Header、Undo Log Segment Header
 	             		  	   		               、Undo Log Header中的一些属性).
-  									    update undo链表: 在一个事务提交后，它的update undo链表中的undo日志也不能立即删除掉（这些日志用于MVCC）。
-  									    				所以如果之后的事务想重用update undo链表时，就不能覆盖之前事务写入的undo日志。这样就相当于
+  									    update undo链表: 在一个事务提交后,它的update undo链表中的undo日志也不能立即删除掉(这些日志用于MVCC).
+  									    				所以如果之后的事务想重用update undo链表时,就不能覆盖之前事务写入的undo日志.这样就相当于
   									    				在同一个undo页面中写入了多组的undo日志.
 
 Rollback Segment Header: 
@@ -1136,21 +1137,21 @@ Rollback Segment Header:
                        TRX_RSEG_MAX_SIZE: 本Rollback Segment中管理的所有undo页面链表中的undo页面数量之和的最大值.
                    TRX_RSEG_HISTORY_SIZE: History链表占用的页面数量(看Undo Log Header的TRX_UNDO_HISTORY_NODE介绍).
                    	    TRX_RSEG_HISTORY: History链表的基节点(同上).
-                   	TRX_RSEG_FSEG_HEADER: 本Rollback Segment对应的10字节大小的Segment Header结构，通过它可以找到本段对应的INODE Entry.
-                   	 TRX_RSEG_UNDO_SLOTS: 各个undo页面链表的first undo page的页号集合，也就是undo slot集合.
+                   	TRX_RSEG_FSEG_HEADER: 本Rollback Segment对应的10字节大小的Segment Header结构,通过它可以找到本段对应的INODE Entry.
+                   	 TRX_RSEG_UNDO_SLOTS: 各个undo页面链表的first undo page的页号集合,也就是undo slot集合.
 
 当一个事务提交时,它所占用的undo slot有两种命运:
-1. 如果该undo slot指向的undo页面链表符合被重用的条件,那么该undo slot就处于被缓存的状态（该undo页面链表的TRX_UNDO_STATE为TRX_UNDO_CACHED）.
-   被缓存的undo slot都会被加入到某个链表，如果对应的undo页面链表是insert undo链表，则该undo slot会被加入insert undo cached链表,如果对应的
-   undo页面链表是update undo链表，则该undo slot会被加入update undo cached链表.
+1. 如果该undo slot指向的undo页面链表符合被重用的条件,那么该undo slot就处于被缓存的状态(该undo页面链表的TRX_UNDO_STATE为TRX_UNDO_CACHED).
+   被缓存的undo slot都会被加入到某个链表,如果对应的undo页面链表是insert undo链表,则该undo slot会被加入insert undo cached链表,如果对应的
+   undo页面链表是update undo链表,则该undo slot会被加入update undo cached链表.
 
 2. 如果不符合被重用的条件,那么:
-   2.1: 如果对应的undo页面链表是insert undo链表，则该undo页面链表的TRX_UNDO_STATE属性会被设置为TRX_UNDO_TO_FREE，之后该undo页面链表对应的段
-        会被释放掉（复习: 每一个undo页面链表都对应一个段--Undo Log Segment Header），然后把该undo slot的值设置为FIL_NULL.
+   2.1: 如果对应的undo页面链表是insert undo链表,则该undo页面链表的TRX_UNDO_STATE属性会被设置为TRX_UNDO_TO_FREE,之后该undo页面链表对应的段
+        会被释放掉(复习: 每一个undo页面链表都对应一个段--Undo Log Segment Header),然后把该undo slot的值设置为FIL_NULL.
 
-   2.2: 如果对应的Undo页面链表是update undo链表，则该Undo页面链表的TRX_UNDO_STATE属性会被设置为TRX_UNDO_TO_PURGE，则会将该undo slot的值设置
-   		为FIL_NULL，然后将本次事务写入的一组undo日志放到的History链表中（需要注意的是，这里并不会将Undo页面链表对应的段给释放掉，
-   		因为这些undo日志还有用）.
+   2.2: 如果对应的Undo页面链表是update undo链表,则该Undo页面链表的TRX_UNDO_STATE属性会被设置为TRX_UNDO_TO_PURGE,则会将该undo slot的值设置
+   		为FIL_NULL,然后将本次事务写入的一组undo日志放到的History链表中(需要注意的是,这里并不会将Undo页面链表对应的段给释放掉,
+   		因为这些undo日志还有用).
 注意:cached链表是对应Rollback Segment的. 
 
 多个'回滚段':
@@ -1232,4 +1233,67 @@ REPEATABLE READ: 只会在第一次执行查询语句时生成一个ReadView,之
 方案一: 读操作利用多版本并发控制(MVCC),写操作进行加锁.
 方案二: 读、写操作都采用加锁的方式.
 ==========================================================================================
+
+------------------------------------------------------------------------------------------
+general log:
+说明: 开启general log会将所有到达MySQL Server的SQL语句记录下来,一般用于故障排除.
+文档: [query log介绍](https://dev.mysql.com/doc/refman/5.7/en/query-log.html)
+	  、[log_output介绍](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_output)  
+相关参数: general_log、log_output、general_log_file
+     general_log: 用于开关.
+      log_output: 多选,逗号分隔,可取FILE、TABLE、NONE(默认). 
+    			  为NONE则general_log开启了也不会记录log; 	
+    			  TABLE方式默认在存到mysql.general_log表中.方便各种查询.
+general_log_file: 日志文件名,不指定的话默认为${hostname}.log,位于${datadir}数据目录下.
+
+补充: `log_output=table`时创建的表结构:
+```
+CREATE TABLE `general_log` (
+  `event_time` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `user_host` mediumtext NOT NULL,
+  `thread_id` bigint(21) unsigned NOT NULL,
+  `server_id` int(10) unsigned NOT NULL,
+  `command_type` varchar(64) NOT NULL,
+  `argument` mediumblob NOT NULL
+) ENGINE=CSV DEFAULT CHARSET=utf8 COMMENT='General log'
+```
+存储引擎为CSV,它的数据会直接存储到.csv文件中,存储引擎可以按需更改.
+
+---------------------------------------------------------------------------------------
+mysql慢查询日志(slow-query-log):
+说明: 日志由SQL语句组成,可用于分析执行时间较长的查询. TODO 分析工具
+文档: [slow-query-log介绍](https://dev.mysql.com/doc/refman/5.7/en/slow-query-log.html)
+      它里面记录了其它参数具体含义以及用法.
+相关参数: slow_query_log(开关)、long_query_time、slow_query_log_file(记录的文件的绝对路径)
+	long_query_time(单位: 秒): 设置大于long_query_time秒的查询语句会被记录.
+
+补充:
+1. 注意之前介绍`general log`时配置的`log_output`参数不仅仅影响`general log`的存储方式还影响`slow query log`的存储方式.
+
+2. slow-query-log记录的内容:
+	```
+	SET timestamp=1581303604;
+	select * from single_table2 where common_field NOT   like '%1EER%' OR key_part3 LIKE '%Y4483FAY%';
+	# Time: 2020-02-10T03:05:22.213741Z
+	# User@Host: root[root] @ localhost [::1]  Id:    23
+	# Query_time: 0.152589  Lock_time: 0.000998 Rows_sent: 67319  Rows_examined: 99982
+	```
+
+日志分析工具: mysql有个专门分析这个的脚本,在${MYSQL_HOME}\bin\mysqldumpslow.pl中,需要<code>perl</code>环境才能跑.
+          使用命令: `perl mysqldumpslow.pl -s -r -t 20 ${datadir}\mysql-slow.log`
+             提示: 参数含义也可以看`mysqldumpslow.pl`代码批注.
+             介绍: 它主要还是用于过滤、排序日志.
+
+---------------------------------------------------------------------------------------
+问: 同样都是使用B+Tree,InnoDB和MyISAM的实现细节有什么区别？
+答:
+	主键索引：主要区别是聚集索引和非聚集索引上,前者除了保存主键外还有数据,后者除了主索引key外只保存记录的地址address(可以理解为行号).
+	辅助索引：前者叶节点中保存的是辅助索引key和主键索引的值PK,后者保存的是辅助索引key和对应的主键索引的地址address(可以理解为行号). 
+			 所以MyISAM的索引文件和数据文件是彼此独立存在的,并且MyISAM的主键索引和辅助索引在存储结构上是一样的,都是在叶子节点上保存了
+		     数据的地址,唯一不同的是辅助索引的关键字是允许重复的.对于通过辅助索引来检索记录的操作来说,由于InnoDB存储的是主键的值,还需要再次查询主键索引才可以获得记录的内容,而MyISAM存储的也是主键行号,可以直接读取行号对应的记录内容(不需要从B+Tree里查找).
+
+问: InnoDB的辅助索引的叶子节点存储主键的值而不是地址，好处是什么？
+答: 减少了当出现行记录移动或者数据页分裂时辅助索引的维护工作，虽然使用主键值当作指针会让辅助索引占用更多空间，但好处是，Innodb在移动
+	行时无需更新辅助索引中的主键值，而MyISAM 需要调整其辅助索引的叶子节点中保存的主键的地址。
+
 
