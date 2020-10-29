@@ -1,0 +1,305 @@
+--
+ConfigurableApplicationContext#setParent用于干什么的?
+1. 用于配置多个DispatcherServlet,父容器来扫描各种数据源、Service等,子容器(DispatcherServlet)来
+   扫自己的Controller并作权限控制(JSPGOU是这么搞的).
+2. 拿Bean的时候会从parent开始拿. 发事件的时候也会发一份给parent.
+--
+
+--
+AQS: 独占锁和共享锁. 独占锁每次只能唤醒一个后继节点; 共享锁会一直唤醒所有后继节点,但由于独占锁和共享锁
+	 用的是同一个队列,所以唤醒后继节点中如果碰到了独占节点还是会停下来的(JUC里没这么干过).
+ReentrantLock: 公平锁和非公平锁其实差不了多少. 非公平锁只是在`tryAcquire`的时候先CAS,失败再入队列. 
+			   公平锁则是判断队列是否有`Node`.
+ReentrantReadWriteLock: 将锁分为了读写锁两种,读锁为共享模型,写锁为独占模型. 且两个共用一个AQS队列,
+						读锁占`state`的高16位,写锁占`state`的低16位.
+ConcurrentLinkedQueue: 一种高速但非立即可见数据的线程安全链表,非立即可见是因为用的是
+						`UNSAFE.putOrderedObject`而非`UNSAFE.putObjectVolatile`. 
+ConcurrentSkipListMap: 细节真忘了. 通过SkipList来实现的线程安全Map,并非传统的HashMap.
+					   存、取值是通过比较函数来存的.
+SynchronousQueue: 这个全忘了. 无容量的阻塞队列.
+CopyOnWriteArrayList: 加、减节点不会在原来的节点上进行操作,会复制一份出来处理完后再覆盖原先的.
+PriorityBlockingQueue: 基于二叉堆的线程安全队列,用的是可重入锁.
+DelayQueue: 内部队列实际上是一个PriorityQueue<E extends Delayed>(优先级队列).
+ 			节点元素实现按照节点过期时间作比较排序,最先过期的元素在数组最前. 拿的时候做个轮询
+ 			时间的机制. 总的来说这个队列不是很常用.
+LinkedBlockingQueue: 读、写锁分开,写不影响读,但双读还是会阻塞的.
+LinkedBlockingDeque: 链表组成的双向阻塞队列,双向队列意味着可以从对头、对尾两端插入和移除元素.	
+					 读写共用一把锁,读取和存储失败时(空或满)会阻塞(用的两个Condition),
+					 等到链表满足条件会手动唤醒.
+LinkedTransferQueue: 一个非常普通的无界链表.
+ArrayBlockingQueue: 一个非常普通的有界数组集合.
+--
+
+--
+线程池
+
+四种拒绝策略: 直接抛出异常、只用调用者所在线程来运行任务
+			 、丢弃队列里的一个任务(poll),并执行当前任务、不处理,丢弃掉.
+--
+
+--
+volatile:
+参考: https://www.zhihu.com/question/65372648/answer/415311977
+	  、https://zhuanlan.zhihu.com/p/24146167
+对应汇编: `lock addl $0x0, (%rsp)`.	  
+Sync对应汇编: `lock cmpxchg a,b,c`. 
+cmpxchg: 它是一个原子的`load`、'compare'、'save'操作. Intel规定lock只能对单条指令起作用,所以
+		 lock才是保证真正`排他`功能的命令.
+lock: Ring Bug+MESI.	
+--	 
+
+--
+synchronized:
+https://github.com/farmerjohngit/myblog/issues/12
+对象头: 当对象状态为偏向锁(biasable)时,mark word存储的是偏向的线程ID;当状
+        态为轻量级锁(lightweight locked)时,mark word存储的是指向线程栈中Lock Record
+		的指针;当状态为重量级锁(inflated)时,为指向堆中的monitor对象的指针.
+
+monitor对象包含字段: cxq、EntryList、WaitSet、owner 
+cxq、EntryList、WaitSet都是由ObjectWaiter的链表结构,owner指向持有锁的线程.
+
+当一个线程尝试获得锁时,如果该锁已经被占用,则会将该线程封装成一个ObjectWaiter对象插入到cxq
+的队列尾部,然后暂停当前线程.当持有锁的线程释放锁前,会将cxq中的所有元素移动到EntryList中去,
+并唤醒EntryList的队首线程.
+
+如果一个线程在同步块中调用了Object#wait方法,会将该线程对应的ObjectWaiter从EntryList移除并
+加入到WaitSet中,然后释放锁.当wait的线程被notify之后,会将对应的ObjectWaiter从WaitSet移动到
+EntryList中.
+
+轻量锁是为了减少无实际竞争情况下,使用重量级锁产生的性能消耗(不需要像重量锁那样走队列).
+偏向锁提高一个对象在一段很长的时间内都只被一个线程用做锁对象场景下的性能.
+重量锁就是操作系统层面提供的同步机制.
+
+偏向锁>>轻量锁>>重量锁
+--
+
+--
+线程池的线程什么时候被回收
+1. 未调用shutdown(),RUNNING状态下全部任务执行完成的场景.
+   线程数量大于corePoolSize,线程超时阻塞,超时唤醒后CAS减少工作线程数,如果CAS成功,
+   返回null,线程回收.
+2. 调用shutdown(),全部任务执行完成的场景.
+--
+
+--
+MYSQL
+参考: http://mysql.taobao.org/monthly/2016/01/04/
+Mrr,multi range read: 将随机读写改为顺序读写,并会先通过id排序(在我固态硬盘下走主键索引返回3w数据没效果).
+--
+
+--
+eureka和nacos区别
+参考: https://blog.csdn.net/fly910905/article/details/100023415
+eureka: AP;只有注册中心
+nacos: CP、AP都支持,默认AP;有注册中心和胚子和中心;支持集成Dubbo;
+--
+
+--
+Mongo和Redis的区别、优缺点:
+1. Redis全部存在内存,定期写入磁盘,当内存不够时用LRU删除数据.
+   Mongo优先存在内存,不够时只将热点数据放入内存,其他数据存在磁盘.
+2. Redis支持的数据结构丰富,包括hash、set、list等.
+   MongoDB 数据结构比较单一,但是支持丰富的数据表达,索引,最类似关系型数据库,
+   支持的查询语言非常丰富. 不支持事务.
+
+mongodb设计中最主要的是解决无结构数据的存储.
+--
+
+--
+分布式ID
+
+雪花算法数据构成(64字节):
+1bit: 因为二进制中最高位是符号位,1表示负数,0表示正数.生成的ID都是正整数,所以最高位固定为0.
+
+41bit-时间戳: 精确到毫秒级,41位的长度可以使用69年.时间位还有一个很重要的
+	 		 作用是可以根据时间进行排序.
+
+10bit-工作机器id: 10位的机器标识,10位的长度最多支持部署1024个节点.
+
+12bit-序列号: 序列号即一系列的自增id,可以支持同一节点同一毫秒生成4095个id序号.
+
+Leaf(美团)
+https://tech.meituan.com/2017/04/21/mt-leaf.html
+--
+
+--
+
+Redis:
+--
+7种淘汰算法: 
+volatile-lru: 从已设置过期时间的数据集中挑选最近最少使用的数据淘汰.
+volatile-ttl: 从已设置过期时间的数据集中挑选将要过期的数据淘汰.
+volatile-random: 从已设置过期时间的数据集中任意选择数据淘汰.
+volatile-lfu: 从已设置过期时间的数据集挑选使用频率最低的数据淘汰.
+allkeys-lru: 从数据集中挑选最近最少使用的数据淘汰.
+allkeys-lfu: 从数据集中挑选使用频率最低的数据淘汰.
+allkeys-random: 从数据集(server.db[i].dict)中任意选择数据淘汰
+no-enviction(驱逐): 禁止驱逐数据,这也是默认策略.意思是当内存不足以容纳新入数据时,
+					 新写入操作就会报错,请求可以继续进行,线上任务也不能持续进行,
+					 采用no-enviction策略可以保证数据不被丢失.
+相关配置: maxmemory(内存阈值)、maxmemory_policy(淘汰策略)、maxmemory_samples(采样数据量)
+--
+
+--
+单线程的redis如何利用多核cpu机器: 多开几个Redis服务,然后集群....
+6.0版本改成了多线程接收网络I/O,执行命令还是多线程.
+--
+
+--
+启动数据初始化是怎么做的
+启动加载流程:
+1. 初始化全局服务器配置
+2. 加载配置文件(如果指定了配置文件,否则使用默认配置)
+3. 初始化服务器
+4. 加载数据库
+5. 网络监听
+
+加载数据: 如果启用了appendonly了,则Redis从appendfile加载数据,否则就从dbfile加载数据.
+	      如果运行了一段时间后才配置aof的话则会先`bgrewriteaof`再恢复.
+--
+
+--
+Redssion. 
+https://github.com/redisson/redisson/wiki/%E7%9B%AE%E5%BD%95
+--
+
+--
+rewrite处理:
+`bgrewriteaof`用于压缩aof文件. 先fork子进程用来重新生成aof文件,为了处理父进程的增量数据问题加了个`aof_buf`,
+当子进程完成AOF重写工作之后,它会向父进程发送一个信号,父进程接到信号后会调用一个信号处理函数,它会:
+1) 将AOF重写缓冲区中的所有内容写入到新的AOF文件中,这时新AOF文件所保存的数据库状态将和服务器当前的数据库状态一致.
+2) 将新的AOF文件进行改名,原子地(atomic)覆盖现有的AOF文件,完成新旧两个AOF文件的替换.
+在调用信号处理函数时会对服务器进程(父进程)造成阻塞,保证了数据一致性.
+--
+
+业务集成Redis缓存数据库数据的正确写法:
+第一种:
+1. 读未命中时直接读数据库,然后把数据缓存.
+2. 更新操作先更数据库,再删缓存.
+这样产生错误的概率会非常小,只有在`2`更新数据库和删缓存中间这段时间发生`1`才会出错
+(一般情况下`2`非常的顺时).
+
+第二种:
+乐观锁
+--
+
+集群:
+一致性哈希: 迁移成本大了些.
+Redis Cluster: 可用.
+Proxy: codis,有一定的性能损失(主要是tcp).
+主从: 不能横向扩展.
+哨兵: 解决主从的高可用切换,不能横向扩展. 
+	  https://github.com/farmerjohngit/myblog/issues/2
+
+哨兵: http://redis.cn/topics/
+主观下线: 单个Sentinel实例对服务器做出的下线判断.
+   具体: 一个服务器没有在`master-down-after-milliseconds`选项所指定的时间内, 
+        对向它发送PING命令的Sentinel返回一个有效回复(valid reply), 那么 
+        Sentinel就会将这个服务器标记为主观下线.	
+
+客观下线: 多个Sentinel实例在对同一个服务器做出SDOWN判断,并且通过 
+	     SENTINEL`is-master-down-by-addr`命令互相交流之后,得出的服务器下线判断.
+   具体: 一个主服务器被标记为主观下线,并且有足够数量的Sentinel(至少要达到配置文件指定的数量)
+   	     在指定的时间范围内同意这一判断,那么这个主服务器被标记为客观下线.
+当没有足够数量的Sentinel同意主服务器已经下线,主服务器的客观下线状态就会被移除. 
+当主服务器重新向Sentinel的PING命令返回有效回复时,主服务器的主观下线状态就会被移除.
+
+Sentinel集群: Raft算法保证集群高可用.
+
+--
+JUC:
+HashMap: 
+1.8的红黑树是当链表长度大于等于8时转的(put时). 并且在resize时小于等于6时转为链表.
+1.7扩容时会导致环形链.  1.8改成了hash碰撞时直接插入元素,但还是会导致数据丢失.
+
+ConcurrentHashMap: 
+1.7是用Segment来将数据进行分段,当一个线程占用锁访问其中一个段数据的时候,其他段的数
+据也能被其他线程访问.
+1.8读数据的时候无锁(但有Unsafe+Node的Volatile),写的时候有key冲突则是Entry锁,没有则是
+CAS. 扩容时不影响读取,采用Forward思路将迭代器对应数据进行转发,属于弱一致性的迭代. 
+并且扩容机制是通过多线程将扩容任务进行分段. 
+
+--
+
+--
+JVM:
+Java虚拟机的内存布局
+
+
+GC算法及几种垃圾收集器
+引用计数: 实时性高. 无法解决循环依赖问题.
+标记清除: 从`GC Root`开始标记,然后判断对象可达,非可达的直接回收. 效率低(STW多),内存碎片多.
+标记压缩: 跟`标记清除`差不多,清理的时候将存活对象压缩到内存的一端,解决内存碎片问题. 比`标记清除`
+		 效率都低,因为还加了个移动内存操作
+复制: 将原有内存一分为二,每次只用其中的一块,垃圾回收时将正在使用的内存GC后放入另一个空间中.		 
+	  浪费一半的内存空间,在存活对象较多的情况下(老年代)效率差.
+分代: 年轻代用复制算法,老年代用标记清除或标记压缩.
+
+CMS算法: 并发收集、低停顿.  会占用一部分线程,基于`标记清除`算法,会有内存碎片.
+Parallel Old: `标记复制`算法的老年代版本.
+
+分代垃圾回收器工作: 
+新生代和老年代占比是1:2; 新生代3个分区: Eden、To Survivor、From Survivor,默认8:1:1. 
+垃圾收集流程: 把Eden + From Survivor存活的对象放入To Survivor区.....
+会进老年代的条件: 年龄到配置了(默认15)、大对象.
+
+类装载执行过程:
+加载: 根据查找路径找到相应的Class文件然后导入.
+验证: 检查加载的class文件的正确性.
+准备: 给类中的静态变量分配内存空间.
+解析: 虚拟机将常量池中的符号引用替换成直接引用的过程.符号引用就理解为一个标示,而在直接引用
+	  直接指向内存中的地址.
+初始化: 对静态变量和静态代码块执行初始化工作. 
+--
+
+--
+Java内存模型: 定义JVM与RAM的交互方式,采用的是共享内存模型. 
+			 它决定一个线程对共享变量的写入何时对另一个线程可见.
+内存屏障: 禁止特定类型处理器的重排序.
+--
+
+--
+happens-before规则
+参考: https://www.cnblogs.com/yanlong300/p/9009687.html
+  它就是规定java各种线程共享变量的访问规则,以及在JVM中将变量存储到内存和从内存
+中读取变量这样的底层细节.
+  规定了不同线程如何以及何时可以看到其他线程写入共享变量的值以及如何在必要时同步对共享变量的访问.
+
+  JMM-JSR133规范为共享内存指定了一致性模型,目标是确保线程通过内存交互语义的精确定义,以便允许优化并提供清晰的编程模型.
+旨在提供定义和语义,使多线程程序不仅是正确的,而且是高性能的.
+
+  当一个操作发生在另一个操作之前;第一个操作不仅对第二个操作是可见的,而且其顺序在第二个操作之前.这两个操作之间的关系被称为是
+happens-before关系.  
+--
+
+--
+ES:
+优点:
+复杂查询条件时速度也是非常快的、HA、支持全文索引(这个在自定义字段搜索时非常香)、关键词(分词)功能、比Mongo便宜
+
+缺点:
+ES不支持事务. 复杂关系的支持不是特别完美.
+--
+
+RocketMQ:
+延迟消息实现原理: 延迟参数大于0则将消息以`PROPERTY_REAL_TOPIC`为Topic,延迟等级为queueId持久化
+				 到commitlog中,并通过`ScheduleMessageService`定时任务轮询,然后还原消息
+				 到commitlog中供真正的消费者消费.
+
+事务消息实现原理: https://github.com/apache/rocketmq/blob/master/docs/cn/design.md
+  如果消息是half消息,将备份原消息的主题与消息消费队列,然后改变主题为`RMQ_SYS_TRANS_HALF_TOPIC`. 
+然后RocketMQ会开启一个定时任务,从Topic为RMQ_SYS_TRANS_HALF_TOPIC中拉取消息进行消费,根据生产
+者组获取一个服务提供者发送回查事务状态请求,根据事务状态来决定是提交或回滚消息. 
+  具体消费步骤: 写入的如果事务消息,对消息的Topic和Queue等属性进行替换,同时将原来的Topic
+和Queue信息存储到消息的属性中,正因为消息主题被替换,故消息并不会转发到该原主题的消息消费队列,
+消费者无法感知消息的存在,不会消费.
+
+LSM介绍: https://blog.csdn.net/Double2hao/article/details/90107904
+
+
+
+
+
+
+
+

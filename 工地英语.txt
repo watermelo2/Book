@@ -1707,7 +1707,7 @@ gist: 要点、主旨、大意
 catcher: 捕获器、收集器、捕捉者
 incorrectly: 不正确的、错误地
 idle: 空闲、闲置的、懒惰的
-gracefully: 优雅的
+graceful: 优雅的
 hand shake: 握手
 enclosing: 把...围起来、围绕、装入
 fully: 充分地、彻底的、完全的
@@ -1796,5 +1796,29 @@ prohibited: 禁止的
 caveat: 警告
 caveats: 注意事项
 alert: 警报
+recoverable: 可恢复的
+migrate: 迁移、转移
+hit: 命中、击中
+occupy: 占有、占据
+daily: 日常
+preferentially: 优先地
+reactivity: 反应性
+relevance: 关联
+teaser: 预告片
+quarter: (有'一刻钟'的意思)
+correction: 更正、纠正
+miserably: 悲惨的
+synonym: 同义字
+ingest: 摄取、摄入
+drone: 无人机
+flexible: 灵活
+crumble: 崩溃
+phonetic: 语音的
+revenue: 收入
+beneath: 下面
+costars: 配角、合演者
+humongou: 巨大的
+
+
 
 

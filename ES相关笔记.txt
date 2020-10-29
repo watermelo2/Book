@@ -1,0 +1,170 @@
+ES相关笔记
+
+参考:
+https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html
+、https://elastic-search-in-action.medcl.com/
+
+分词器: https://blog.csdn.net/ZYC88888/article/details/83620572
+       、https://www.jianshu.com/p/005b78521bbb
+
+DSL: https://paste.ubuntu.com/p/T4wFvvGxgj/ 
+	 、https://paste.ubuntu.com/p/4rxq8RPy9T/
+	 、https://paste.ubuntu.com/p/pQQJfTBz46/
+
+logstash同步数据: 可行,并且它有非常多的插件可以用,但对于平常的增量数据(非log场景的)还是直接用es的bulk就好了.
+
+es性能测试工具: https://blog.csdn.net/laoyangz360/article/details/52155481
+               、https://esrally.readthedocs.io/en/latest/quickstart.html
+es优势: https://blog.csdn.net/laoyang360/article/details/52227541
+match和term和match_phrase区别: https://www.jianshu.com/p/d5583dff4157
+			备注: 还有一种解决办法是在搜索后面加'.keyword'(前提是mapping配了).
+				  keyword用于精确搜索、aggregation、sorting
+避免不必要的脚本: https://elasticstack.blog.csdn.net/article/details/108061204
+多字段的关键词搜索(感觉挺常用的): https://www.elastic.co/guide/en/elasticsearch/reference/7.8/query-dsl-multi-match-query.html
+查询类型对hits及_score的影响: https://i.loli.net/2020/10/12/v7q9Deo6EITZSYJ.png
+es中的filter也是条件,但不影响打分...
+es sql转换: https://elasticstack.blog.csdn.net/article/details/105658911
+
+聚合语法
+```json
+"aggs" : {
+    "<aggregation_name>" : {
+        "<aggregation_type>" : {
+            <aggregation_body>
+        }
+        [,"meta" : {  [<meta_data_body>] } ]?
+        [,"aggregations" : { [<sub_aggregation>]+ } ]?
+    }
+    [,"<aggregation_name_2>" : { ... } ]*
+}
+```
+Beats: Beats是轻量级(资源高效,无依赖性,小型)和开放源代码日志发送程序的集合. 
+	   https://blog.csdn.net/UbuntuTouch/article/details/102728604
+Match query才能选分词,term没有
+  条件搜索时可以用field+analyzer...比如'content.english'表示'content'字段加
+'english'分词器.
+
+ES-Stu DSL备份: https://paste.ubuntu.com/p/4rxq8RPy9T/
+ES本地安装分词器: ` ./bin/elasticsearch-plugin install file:///root/elasticsearch-analysis-hanlp-7.3.0.zip`
+retry_on_conflict: `POST /website/_update/1?retry_on_conflict=5`. 它可以在更新冲突的时候设置重试次数,用于不在乎
+				   先后顺序的场景(比如累加某个字段值)
+ES将时间域视为时间,数字域视为数字,字符串域视为全文或精确字符串. 并且只会对全文域进行分词.
+
+ES会认为这三种域都是为空的,它们不会被索引. 所以not exist的时候都是会被纳入结果集.
+```
+"null_value":               null,
+"empty_array":              [],
+"array_with_null_value":    [ null ]
+```
+
+如果只是简单的检查包含或者排除,用过滤查询(Filtering queries)会非常快. es会尝试对这种查询缓存结果.
+filter的目标是减少那些需要通过评分查询进行检查的文档.
+es多分片下的分页会不会导致非常非常慢??? 会会会,你看客户那几千万条数据从400w开始分页,查10条,20s.
+es mapping的动态映射: https://www.elastic.co/guide/en/elasticsearch/reference/7.3/dynamic-templates.html
+doc_values: https://www.elastic.co/guide/en/elasticsearch/reference/7.3/doc-values.html
+		    白话来说字段可以通过配置它来使其编入索引,默认每个字段支持doc_value,不要可以禁用(纯数据的字段可以禁用).
+
+在生产环境中,当你正在建立一个大的新索引时,可以先关闭自动刷新,待开始使用该索引时,再把它们调回来.
+```
+PUT /{index}/_settings
+{ "refresh_interval": -1 } 
+
+PUT /{index}/_settings
+{ "refresh_interval": "1s" }
+```
+
+结构化文档只有'等'、'不等',没有'更似'这种概念.
+
+-------------------------
+一个搜索时的完整顺序会是下面这样:
+
+查询自己定义的analyzer,否则
+字段映射里定义的search_analyzer,否则
+字段映射里定义的analyzer,否则
+索引设置中名为default_search的分析器,默认为
+索引设置中名为default的分析器,默认为
+standard标准分析器
+-------------------------
+
+由于性能原因,Elasticsearch不会计算索引内所有文档的IDF.相反,每个分片会根据该分片内的所有文档计算一个本地IDF. 
+所以可以加条件search_type=dfs_query_then_fetch来解决这个问题. 它会获得每个分片本地的IDF,然后根据结果再计算整
+个索引的全局IDF.
+但如果因为某几个分片在同一条件下计算分值差异过大的话其实归根结底还是因为数据太少. 不建议加search_type.
+
+match_phrase查询时建议slop可以设大点(比如50),这样既可以查出匹配包含匹配的单词又可以给更加临近的文档更高的分数.
+感觉这像废话....
+
+针对match_phrase严格匹配导致有时候7个词条匹配6个但也不算命中的场景(站在用户的角度来看已经足够了),
+可以用must+should来配合查询.
+```
+GET /my_index/_search?pretty
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "title": {
+            "query": "quick brown fox",
+            "minimum_should_match": "30%"
+          }
+        }
+      },
+      "should": {
+        "match_phrase": {
+          "title": {
+            "query": "quick brown fox",
+            "slop": 50
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+rescore支持给你筛选出来的文档进行重新评分. 
+https://www.elastic.co/guide/cn/elasticsearch/guide/current/_Improving_Performance.html
+```
+GET /my_index/_search?pretty
+{
+  "query": {
+    "match": {
+      "title": {
+        "query": "quick brown fox",
+        "minimum_should_match": "30%"
+      }
+    }
+  },
+  "rescore": {
+    "window_size": 50,
+    "query": {
+      "rescore_query": {
+        "match_phrase": {
+          "title": {
+            "query": "quick brown fox",
+            "slop": 50
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+打分优化相关: https://www.elastic.co/guide/cn/elasticsearch/guide/current/boosting-by-popularity.html
+类似住房相关的搜索: https://www.elastic.co/guide/cn/elasticsearch/guide/current/decay-functions.html
+几个函数的平滑打分计算: https://www.elastic.co/guide/cn/elasticsearch/guide/current/decay-functions.html
+停用词也是优化的一部分,它主要可以优化搜索.
+自动优化停用词: https://www.elastic.co/guide/cn/elasticsearch/guide/current/stopwords-performance.html
+手动优化停用词(cutoff_frequency): https://www.elastic.co/guide/cn/elasticsearch/guide/current/common-terms.html
+模糊查询以及优化(并不只是like): https://www.elastic.co/guide/cn/elasticsearch/guide/current/fuzzy-query.html
+全局桶: https://www.elastic.co/guide/cn/elasticsearch/guide/current/_scoping_aggregations.html
+post_filter可以实现过滤条件的同时不影响聚合: https://www.elastic.co/guide/cn/elasticsearch/guide/current/_post_filter.html
+significant_terms可以用来做推荐功能: https://www.elastic.co/guide/cn/elasticsearch/guide/current/_significant_terms_demo.html
+广度优先遍历来实现聚合(算是种优化): https://www.elastic.co/guide/cn/elasticsearch/guide/current/_preventing_combinatorial_explosions.html
+
+GEO注意!!!!  地理坐标点用字符串形式表示时是纬度在前,经度在后("latitude,longitude" ). 而数组形式表示时
+是经度在前,纬度在后([longitude,latitude])—顺序刚好相反.
+
+父子查询新建文档时的dsl必须加个参数routing={parent_id}
+
