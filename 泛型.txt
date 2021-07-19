@@ -101,4 +101,18 @@ Number rs = (Number) unifiedFunction.apply(new Double(1.1));
 
 ======================================================================================================================================
 
+```java
+// https://stackoverflow.com/questions/2745265/is-listdog-a-subclass-of-listanimal-why-are-java-generics-not-implicitly-po
+List<? extends ApplicationContext> ctx = new ArrayList<>();
 
+List<XmlWebApplicationContext> wbCtx =
+    new ArrayList<XmlWebApplicationContext>() {
+      {
+        add(new XmlWebApplicationContext());
+      }
+    };
+
+ctx = wbCtx;
+
+ctx.add(new ClassPathXmlApplicationContext()); // 如果这能加进去,会破坏原有的`wbCtx`
+```

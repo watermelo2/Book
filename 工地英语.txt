@@ -132,7 +132,7 @@ balance: 平衡
 broker: 中间人、经纪人  动词: 协商
 channel: 通道、渠道
 protocol: 协议
-delivery: 传送
+delivery: 交货、传送
 contrast: 对比
 N/A(not applicable): 不适用的
 complement: 补充
@@ -146,7 +146,6 @@ conversion: 转换
 no matching editors or conversion strategy found: 没有找到匹配的编辑器或转换策略
 pull: 拉
 push: 推
-drawbacks: 弊端
 correlation: 相关性
 level: 水平
 triggered: 触发
@@ -169,6 +168,10 @@ off shelves: 下架
 restore: 还原
 bullet: 子弹
 successor: 继承人
+opposite: 对立面、反面
+sensor: 感应器
+nomenclature: 命名法
+postpone: 延迟
 statement: 陈述
 crash: 崩溃
 mirrored: 镜像
@@ -216,7 +219,7 @@ random access: 随机存取
 reduce: 减少
 folder: 目录
 previous: 以前的、在...之前
-rotate: 旋转
+rotate: 旋转、轮换
 threshold: 门槛
 stable: 稳定的
 remaining: 剩下的
@@ -333,7 +336,7 @@ temporary: 暂时的
 temporary table: 临时表
 effect: 影响、作用、效果  动词: 使...发生、实现  网络: 结果
 effective: 有效的
-confusing: 混淆
+confusion: 混淆、困惑
 descendant: 后裔、后代
 ancestor: 祖先
 distance: 距离
@@ -345,7 +348,6 @@ staturate: 渗透
 fork: 叉
 steal: 偷窃
 work stealing: 工作窃取
-instrument: 工具
 passion: 激情、热情 
 candidate: 候选人  网络: 求职者、候补者
 subject: 主语
@@ -355,6 +357,7 @@ access control: 访问控制
 accessibility: 可访问能力、可访问性
 accessor method: 访问方法
 adapter pattern: 适配器模式
+notation: 符号
 annotation type: 注解类型
 anonymous class: 匿名类
 antipattern: 反模式
@@ -368,6 +371,7 @@ bounded wildcard type: 有限制的通配符类型
 boxed primitive type: 基本包装类型
 callback: 回调
 callback framework: 回调框架
+exception: 异常、例外
 checked exception: 受检异常
 inspection: 检查、查看  网络: 检验、审查
 code inspection: 代码检验
@@ -407,6 +411,7 @@ exported API: 导出的API
 extend: 扩展
 failure atomicity: 失败原子性
 field: 域
+guard: 守卫
 guardian: 守护者
 finalizer guardian: 终结方法守卫者
 forwarding method: 转发方法
@@ -530,6 +535,7 @@ typesafe enum pattern: 类型安全的枚举模式
 unbounded wildcard type: 无限制的通配符类型
 unchecked exception: 未受检查异常
 retention: 保留、保持
+motivation: 动机
 intention: 意向、目的  网络: 动机
 unintentional: 无意的
 unintentional object retention: 无意识的对象保持
@@ -539,6 +545,7 @@ value type: 值类型
 virgin state: 空白状态
 worker thread: 工作线程
 wrapper class: 包装类
+exponential: 指数
 exponentiation: 求幂
 heterogeneous: 异构的
 migration: 迁移移民
@@ -550,7 +557,7 @@ clause: 条款(这个在SQL报错里经常看的到)
 decision(源自SpringData TX中一个字段的注释): 决策、决定、果断、决心
 propagate: 传播
 propagation(源自Transaction注解): 传播
-appropriate: 适当的(源自SpringData TX中事务管理器的一个方法名)
+appropriate: 合适的、适当的(源自SpringData TX中事务管理器的一个方法名)
 concrete: 混凝土、具体的
 decorator: 装饰者
 compound: 复合
@@ -574,7 +581,7 @@ consider: 考虑
 indicate: 表明
 cursor: 光标
 trace: 痕迹
-detach: 派遣;分离
+detach: 派遣、分离、脱离
 subscribe: 订阅
 screen: 屏幕
 evaluating: 评估
@@ -588,7 +595,7 @@ comma separated: 逗号分隔
 cardinality: 基数
 manual: 手动
 intermediate: 中间的
-compensant: 补偿
+compensate: 补偿
 camel: 骆驼
 repository: 仓库
 draft: 草稿、草案
@@ -597,7 +604,7 @@ compensation: 补偿
 related: 相关的
 normal: 正常的、标准的、一般
 expect: 期待
-presentation: 报告
+presentation: 报告、介绍
 textual: 文本
 finite: 有限的
 reactive: 反应性、有反应的
@@ -608,7 +615,7 @@ applicable
 applicable: 可应用的、适用
 least: 最小的、最少的
 at least: 至少
-pressure: 压力
+pressure: 压力、压强
 echo: 回声
 weekly: 每周的
 feedback: 反馈
@@ -725,6 +732,7 @@ registry: 注册处
 registrar: 注册员
 perpetual: 永久、永动的
 additional: 额外
+fragment: 碎片
 fragments: 片段
 moderator: 主席
 roaming: 漫游
@@ -756,7 +764,7 @@ comrade: 同志
 introspect: 反思
 introspector: 内部检查、内省
 inversion: 反转
-proper: 正确
+proper: 正确、合适、适当
 dummy: 假
 praise: 赞美、表扬
 civilization: 文明
@@ -835,9 +843,10 @@ plane: 平面
 protable: 便捷
 wars: 战争
 those than can、do. those that can't、complain: 会做的人、做; 不会做的人、叫(抱怨)
-oriented: 面向
+oriented: 面向、以...为方向
 capable: 能、能干、有资格
 internal: 内部
+correspond: 对应
 corresponding: 相应
 dangling resource: 悬空资源
 scratch: 刮、划伤
@@ -876,7 +885,6 @@ preferred: 首选
 whether: 是否
 shortcut: 捷径 
 adaptive: 自适应
-opportunity: 机会
 smart: 聪明
 never makes sense: 从来没有意义
 embedded: 嵌入式
@@ -884,7 +892,7 @@ canonical: 典范、规范
 externally: 外部
 destruction: 毁坏、拆开
 perform: 履行、执行
-desire: 欲望、愿望、期望
+desire: 想要、欲望、愿望、期望
 expectation: 期望
 internationalization: 国际化
 frozen: 冻结的
@@ -896,7 +904,7 @@ following: 形容词:以下、之后  名词:跟随
 fledged: 成熟
 given: 特定
 mainly: 主要
-against: 介词: 反对、针对
+against: 介词: 反对、针对  动词: 与...对抗
 bollocks: 胡说
 obscenties: 猥亵
 obscenity: 意淫
@@ -971,9 +979,9 @@ direct: 直接
 thought: 思想、心思、意念
 honor: 荣誉、荣幸、尊敬
 fundamental: 基本原理
-privileged: 特权
+privilege: 特权
 respond: 响应
-instrument: 仪器、工具
+instrument: 检测、仪器、工具
 shift: 转移
 shot: 射击、开枪、注射
 screen shot: 屏幕截图
@@ -1001,7 +1009,6 @@ tax: 税收  动词: 罚款、捐
 damage: 损坏、破坏、伤害
 extensive: 广泛的、广阔的、大量的  网络: 宽广
 inventor: 发明家
-desired: 想要的  动词: 欲望、愿望
 conversation: 会话、议论
 operator: 操作员、运算符 
 ternary operator: 三元运算符
@@ -1101,13 +1108,13 @@ grid: 格子、格网
 flip: 翻转
 scratchpad: 暂存器、便签
 flame: 火焰
-probe: 探测
 salary: 薪水
 portfolio: 作品集
 pepper: 胡椒
 appear: 出现  网络: 看起来、露面
+disappear:消失
 appearance: 外观
-traditional: 传统的
+tradition: 传统
 stand-alone: 独立的、独立式
 negotiate: 交涉、商议
 depth: 深度
@@ -1118,7 +1125,7 @@ indented: 缩进
 insted: 插入
 scared: 害
 upon: 在...之上
-certain: 某些
+certain: 某些、肯定
 popup: 弹出
 permit: 允许  名词: 许可证  网络: 执照、通行证
 permission: 许可、批准、许可证  网络: 允许、权限、同一
@@ -1172,7 +1179,7 @@ controversial: 有争议的
 guidance: 指导
 doubt: 怀疑
 associate: 关联
-particular: 特定
+particular: 特定的
 in particular: 特别是
 slogan: 口号
 hinder: 阻碍
@@ -1213,6 +1220,7 @@ ethical: 道德的
 electronic: 电子
 figure: 数字、人物、图形  
 figure 1: 图1
+figure out: 确定、了解
 histogram: 直方图
 junk: 垃圾、废物
 reserved: 保留的
@@ -1241,7 +1249,7 @@ traffic: 交通、运输、贸易  动词: 贩卖
 either: 要么   形容词: 二者之一
 neither: 二者都不
 handy: 便利、简便
-legal: 合法的、法定的 
+legal: 合法的、法定的、法律
 commerce: 商业
 sticky: 黏
 treause: 宝藏
@@ -1271,7 +1279,8 @@ minimum: 最低限度、最少
 place order: 下单
 insufficient: 不足、不够
 classify: 分类、归类
-essential: 必要、必不可少
+essential: 必要、必不可少、要领、基本的
+essentially: 本质上
 tulip: 郁金香
 spliterator: 分离器、分流器
 abort: 中断、终止、异常终止
@@ -1299,7 +1308,7 @@ apartment: 公寓
 insist: 坚持
 copay: 共付额
 discard: 丢弃
-denoted: 表示
+denote: 表示
 journal: 日志、刊物
 incubator: 孵化器
 patent: 专利
@@ -1324,6 +1333,7 @@ protest: 抗议
 surrogate: 替代
 compact: 紧凑 动词: 压紧 名词: 合约、合同
 dive: 潜水
+comfortable: 自在、安逸
 uncomfortable: 不舒服、不自然、别扭
 law: 法、法律
 citizenship: 国籍、公民权、公民身份
@@ -1367,9 +1377,8 @@ nevertheless: 但是
 distinct: 不同、明显
 focus: 焦点、专注  动词: 集中
 rest: 休息、其余
-huge: 巨大
+huge: 巨大的、无限的
 phantom: 幻影、幻象
-so-called: 所谓的
 wide: 宽	
 directly: 直截了当
 satirize: 讽刺、嘲笑
@@ -1394,7 +1403,7 @@ credential: 凭据
 strace: 痕迹
 repair: 修理、纠正、恢复、弥补
 stale: 陈旧、过时
-promotion: 晋升
+promotion: 晋升、推广
 elapsed: 过去
 gotta: 必须去  相当于'have got to'
 strength: 力量、实力、强度
@@ -1411,7 +1420,7 @@ palace: 宫殿
 honest(adj): 诚实的、正直的、努力(工作)的
 to be honest: 老实说
 automation: 自动化
-warehousing: 
+warehousing: 仓库 
 profit: 利润、盈利  动词: 赢利
 chip: 芯片
 trick: 特技、手法
@@ -1431,7 +1440,7 @@ pause: 暂停、停顿
 percentage: 百分比、百分率
 bursty: 突发的、突发性
 smooth: 平整的、平滑的
-ownership: 所有权1
+ownership: 所有权
 eventual: 最终的
 retina: 视网膜   网络: 视网膜屏 
 spare: 备用品  形容词: 不用的、闲置的、备用的   网络: 多余的、空闲的、节约
@@ -1487,7 +1496,7 @@ turnaround: 简要的  网络: 简洁的、简短的
 press: 按、出版社、新闻界  动词: 榨取、坚持、推进、按下
 nature: 自然、本质、本性  网络: 性质、自然界、天性
 renewal: 更新、恢复、续订、复兴  网络: 续约
-annually: 每年、每年一次  
+annual: 每年、每年一次  
 contract: 合同、协议、感染  
 formal: 正式的、正规的   网络: 形式的、形式化
 facade: 正面、外表
@@ -1533,7 +1542,7 @@ commission: 委员会、佣金  动词: 委任  网络: 手续费
 medium: 媒介、手段、工具  adj: 中等的  网络: 媒体、介质
 beacon: 灯塔、灯标、警示灯
 cable: 电缆
-passive: 消极的、被动的、冷漠的
+passive: 被动的、消极的、冷漠的
 active: 积极的、活跃的、有效的、敏捷的
 ocean: 海洋 
 transparent: 透明的、易识破的、透明模式 
@@ -1547,6 +1556,7 @@ kind: 种类、方式、天性  形容词: 仁慈的、体贴的、善良的
 applicant: 申请人、求职者
 inception: 起始、开端、初期
 termination: 终止、结束、末端   网络: 终端、协议的终止
+couple: 几个、一对
 coupler: 耦合器、联结器
 pick: 选择  网络: 采摘、拾取
 shovel: 铲子  动词: 铲出
@@ -1668,7 +1678,7 @@ passenger: 旅客、乘客、碍手碍脚的人   网络: 过路人
 glass: 玻璃、玻璃杯、镜子  网络: 眼睛
 facturer: 制造商
 accommodation: 住宿、住处、和解  网络: 适应、调节、顺应
-engage: 雇佣、聘用、吸引住(注意力、兴趣)
+engage: 雇佣、保证、约定
 selective: 选择性的、有选择的、严格筛选的  网络: 有选择性的、挑剔的
 ignite: 点燃、(使)燃烧  网络: 点火、引燃、燃点
 theft: 偷窃  网络: 失窃
@@ -1723,7 +1733,7 @@ value with time: 时间价值
 amend: 修正、修改、改正、修订、改良
 compute: 计算、估算、求出、推断e
 dispute: 纠纷、争端
-experimental: 实验的、试验性的	
+experiment: 实验、试验	
 traverse: 遍历、穿过
 tweak: 调整
 effort: 努力、尽力、尝试
@@ -1769,7 +1779,7 @@ workload: 工作量
 participant: 参与者
 majority: 多数
 sophisticate(d): 复杂的、先进的
-proof: 证明
+proof: 证明、验证
 replication: 复制
 relay: 传达、转发、中继
 hybird: 混合的
@@ -1786,7 +1796,7 @@ fluentd: 流利的
 reliably: 可靠地
 journald: 日记
 explore: 探索
-eliminate: 消除
+eliminate: 消除、排除
 reverse: 逆转
 manipulate: 操纵
 alarm: 报警、警告
@@ -1805,7 +1815,7 @@ preferentially: 优先地
 reactivity: 反应性
 relevance: 关联
 teaser: 预告片
-quarter: (有'一刻钟'的意思)
+quarter: 季度、一刻钟("四分之一"的意思)
 correction: 更正、纠正
 miserably: 悲惨的
 synonym: 同义字
@@ -1818,7 +1828,401 @@ revenue: 收入
 beneath: 下面
 costars: 配角、合演者
 humongou: 巨大的
-
-
-
-
+malware: 恶意软件
+desirable characteristics: 
+resilience: 弹性、弹力
+govern: 控制
+governance: 治理
+evictor: 驱逐者
+slogan: 口号、标语、广告语
+adopted: 被采纳 
+integrity: 完整性
+fine granularity: 细粒度
+partial: 部分的
+consensus: 共识
+hence: 因此、从此 
+skew: 扭曲、倾斜、偏移
+peer: 同辈、同行人、凝视、对等
+swarm: 一大群
+avalanche: 雪崩
+refined: 精炼的、优雅的
+spawn: 引发、导致
+justification: 
+intelligent: 智能
+bonus: 奖金
+sensible: 明智的、合理的
+sight: 看见、视觉、眼界 
+snippet: 片段 
+tolerance: 容差
+fault tolerance: 容错
+quorum: 法定人数
+election: 选举
+synod: 宗教会议
+central: 中央
+inhuman: 不人道
+enterprise: 
+accomplish: 达到、完成
+invent: 发明
+scalability: 可扩展性
+columnar: 柱状、纵列
+statable: 可控的
+tedious: 乏味
+inspired: 启发
+deliver: 交付、传递
+deliverable: 可交付的
+portable: 便携的
+diseased: 患病的
+dying: 垂死
+breed: 品种
+simplified: 简化的
+culture: 文化
+rare: 罕见
+indefinitely: 无限的
+probe: 探测
+vectorized: 向量化
+commercial: 商业的
+mention: 提到
+roughly: 大概
+vertical: 垂直
+solicite: 请求、恳求、要求
+advert: 广告
+promotional: 促销 
+shocking: 令人震惊的、骇人听闻的
+accident: 意外、意外事故
+downside: 缺点
+repeater: 中继器
+raspberry pi: 树莓派
+slack: 松弛的  懈怠、偷懒
+whisk: 搅拌
+fusion: 融合
+foundation: 基础
+incubation: 孵化 
+pseudo: 伪的、冒充的
+dispose: 处理、部署
+discord: 不和谐、不和、异议
+brute: 蛮力、牲畜
+resilient: 弹性的
+manifesto: 宣言
+mediation: 调停、中介、仲裁 
+exercises: 练习题、演习
+valuable: 有价值的
+sadly: 可悲地、不幸
+potentiall: 可能地、大概地、潜在的
+regrets: 遗憾
+wallpaper: 墙纸、壁纸
+compliant: 符合的、兼容 
+lenient: 宽容
+emulate: 模拟
+scrape: 刮、擦痕
+side-effect: 副作用
+concern: 关心、关注
+stitch: 缝
+incident: 事件
+junior: 初级
+drag: 拖动
+encounters: 遇到
+spamming: 垃圾邮件
+robust: 强大的
+robustness: 健壮性
+essential: 要点
+wiretap: 窃听
+approach: 方法
+clinic: 诊所
+emulator: 仿真器
+instructor: 讲师
+conquer: 征服
+appreciate: 欣赏
+furthermore: 此外
+fundamentally: 从根本上
+the rest of: 其余的
+incubate: 孵化
+honestly: 老实说
+retuning: 调整
+applet: 小程序
+inventory: 库存 
+circuit: 电路
+symmetric: 对称
+ecosystem: 生态系统
+benefits: 好处
+drawbacks: 弊端
+treat: 对待
+dealt: 处理
+virtually: 几乎
+subtle: 微妙的
+obvious: 明显的
+even: 甚至、即使、其实、平滑的、使平均
+wayback: 回溯
+ample: 丰富、大量
+radius: 半径
+monotonically: 单调、单调地
+infeasible: 不可行的
+endeavor: 努力
+academic: 学术
+heavily: 大量
+parcel: 包裹
+tolerant: 宽容
+fault-tolerant: 容错
+arrive: 到达
+mutate: 变异、转变
+adhere: 坚持
+horizontal: 水平的
+constantly: 不断地、时常
+worst: 最坏的
+fulfilled: 完成、满意的
+occasional: 偶尔
+imagine: 想像
+inspiration: 灵感、启发
+wipe: 擦拭
+excellent: 出色的
+straightforward: 直截了当
+arguably: 可以说
+tend: 趋向
+portability: 可移植性
+productivity: 生产力
+terminology: 术语、词汇
+prohibition: 禁令、禁止
+silently: 默默地
+polymorphism: 多态性
+responsibility: 责任
+segregation: 隔离、分离
+mental: 心理
+cautious: 谨慎
+idempotent: 幂等
+directive: 指令
+turn: 转向、转变
+turn out: 事实证明
+obviously: 明显地
+meaningful: 有意义的
+monolith: 单体
+monolithic: 整体的
+enrolled: 已学习
+perprtual: 永久
+fundamental: 基础、基本原理
+demystify: 弄清楚
+recap: 回顾
+agnostic: 不可知的、无关的
+sole: 唯一
+ideal: 理想的
+climb: 爬、攀登
+throttle: 节流阀
+tight: 紧密
+seize: 抓住、捉住
+remedy: 补救、弥补
+formerly: 以前、原来
+aftermath: 后果
+opaque: 不透明
+brightness: 亮度
+rough: 粗糙、粗略
+mindset: 心态
+cooperation: 合作
+disclaimer: 免责声明
+derivative: 衍生物
+actor: 演员、参与者、行动者
+viral: 病毒式
+collaborators: 合作者、协作者
+choreography: 协同式
+newsletter: 通讯
+unfettered: 无限制的、不受约束的
+fringe: 边缘
+perspective: 看法
+inferior: 较差的、劣等的
+coalesce: 合并、结合、联合
+misunderstood: 遭误解的、被误解的
+emphasis: 重点、强调
+heal: 恢复
+properly: 正常地
+pirate: 盗版、海盗
+hybrid: 混合式、杂种
+zombie: 僵尸
+adjustment: 调整
+therefore: 因此
+hiring: 招聘
+analogous: 类似的
+preemptive: 抢占式
+fallible: 易变的
+interoperability: 互通性
+brain: 脑、头脑
+trial: 试验、试用
+mature: 成熟、成年
+premature: 过早
+jitter: 抖动
+identical: 一摸一样
+overlap: 重叠、叠加
+compliance: 合规、履约、遵守
+obviate: 避免、预防、消除
+seamlessly: 无缝地
+tolerate: 容忍、宽容
+afford: 负担得起、提供、给予
+milestone: 里程碑
+endanger: 危害
+more prone: 更容易
+clutter: 杂乱
+accelerate: 加速、促进
+inform: 通知、告知
+dedicated: 专用的
+reside: 属于、驻留
+deactivate: 解散、停用
+suitable: 合适的
+rudimentary: 基础的、初步的
+enlist: 征召、报名
+summit: 峰会
+disruptive: 干扰、破坏性
+corruption: 腐败、堕落
+data corruption: 数据损坏
+escape: 逃脱、逃逸、逃离
+emergency: 紧急情况
+gauge: 仪表、标准、厚度
+backport: 向后移植
+underpinning: 支撑、基础
+detachable: 可拆卸
+decouple: 解耦
+confer: 赋予
+liberate: 解放、释放
+assumption: 假设
+maintenance: 维护
+deposit: 存储
+timekeeping: 计时
+defect: 缺陷
+forest: 森林
+bypass: 绕过、避开
+absorb: 吸收
+bulletin: 报告
+continuation: 持续、连续性
+squash: 塞入
+narrative: 叙述
+wrote: 写作
+catalog: 目录
+together: 一起
+intensive: 密集的、加强的
+repetitive: 反复的
+snappy: 精炼的
+massively: 大量地
+confidence: 信心、信任
+transitivity: 转义
+rage: 狂暴
+utilize: 利用
+pivotal: 关键的、核心的
+spatial: 空间的
+citation: 引用文献
+tune: 调节
+tier: 层、行、级、阶
+occupation: 职业
+disclosure: 公开
+vulnerability: 漏洞、缺陷
+tricky: 棘手的、复杂的
+restaurant: 饭店
+ecology: 生态
+percolator: 过滤器
+commutative: 可交换的
+annoying: 恼人的、讨厌的
+unfortunately: 可惜、很遗憾
+fortunately: 幸好
+lack: 缺少
+anomaly: 异常
+countermeasures: 对策、对抗措施、应对措施
+accountability: 问责、责任制
+intrinsic: 内在的
+numerous: 很多的、众多
+regardless: 不管、不顾
+humble: 卑微、谦逊
+opinion: 意见、观点
+eventually: 最终
+comprehensive: 综合的、全面的、广泛的
+simulator: 模拟
+intuitive: 直觉的、直观的
+collaboration: 合作
+playback: 回放
+prematurely: 过早的(地)
+landing: 着陆、登陆
+landing page: 首页
+brace: 大括号
+alphanumeric: 字母数字
+experience: 体验、经历
+notion: 概念
+extremely: 非常、极其
+invite: 请求、邀请
+congestion: 阻塞、充血
+dialyzer: 透析器
+excuse: 原谅
+telemetry: 遥测
+mentione: 提及、说起
+broadly: 广泛、广义
+intended: 预期、打算
+polyglot: 多种语言
+resemble: 类似
+gather: 聚集、采集、收集
+treatment: 治疗、处理
+lifespan: 寿命、生命周期
+responsible: 负责、有责任
+severity: 严重、苛刻
+drastically: 彻底地、大幅度地
+caution: 谨慎、警告
+uncertainty: 不确定性、犹豫、迟疑
+saturation: 饱和度
+silence: 沉默
+budget: 预算
+forecast: 预测
+evolutionary: 演变的
+accuracy: 精确、准确
+diversity: 多元化
+eventuate: 导致、结果为
+economy: 经济
+departure: 出发、启程
+aircraft: 飞机、飞行器
+cohesion: 内聚
+advisory: 警告
+pyramid: 金字塔
+industrial: 工业的
+scientific: 科学的
+medical: 医学的
+angle: 角度
+ingress: 入口
+defense: 防御
+malicious: 恶意的
+alarm: 警报、闹钟
+Fine-grained: 细粒度
+builtin: 内置
+incredible: 不可思议
+unprecedented: 史无前例的
+stunning: 极好的
+extraordinary: 特别的、意想不到的
+satisfaction: 满意度、满意
+synopsis: 总览、概要
+prove: 证明
+closure: 闭包
+lexical: 词汇、语法
+positive: 正的、肯定、确信、积极的
+perusal: 熟读、阅览
+breadcrumb: 面包屑
+forcible: 强行的
+evidence: 证据
+pile: 堆积
+retro: 复古、怀旧
+earnings: 收入、工资
+tactical: 战术、策略性
+workbench: 工作台
+caption: 标题、说明文字
+funding: 资金、经费、基金、资助
+acoustic: 原声的
+puzzle: 难题、疑问
+extravagant: 奢侈
+frankly: 
+widget: 小工具
+teammate: 队友
+indentation: 缩进
+asterisk: 星号
+excellence: 卓越、精益求精
+compromise: 妥协、折衷
+equilibrium: 平衡、均衡
+bottleneck: 瓶颈
+vintage: 复古
+opposite: 对立面、反面
+sensor: 感应器
+nomenclature: 命名法
+analogue: 类似物 
+will power: 意志力
+elegant: 
+callout: 标注
+gallery: 画廊、图册
+accidental: 
+resupply: 补给
