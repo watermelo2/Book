@@ -1,8 +1,13 @@
 GFS、MapReduce、BigTable
 
+Chubby    ==> ZooKeeper
+GFS 	  ==> HDFS
+BigTable  ==> HBase
+MapReduce ==> Hadoop
+
 ## GFS 
 
-https://kb.cnblogs.com/page/174130/
+https://kb.cnblogs.com/page/174130/、https://mr-dai.github.io/gfs/
 
 客户端不缓存文件数据,但会缓存"元数据",直到客户端缓存信息过期或者文件被重新打开时才会重新从master那询问
 
@@ -64,6 +69,13 @@ GFS的愿景是给用户提供一个无限容量、放心使用的硬盘,快速�
 GFS为什么会有租赁机制而Haystack和TFS没有: 编程界面的问题. Haystack和TFS的客户端中面对的是一个图片,只需要将图片存到服务端然后返回
 图片UUID就行了,其它副本存储成ABC、BAC、CBA、BCA都没有问题. 而GFS是按照文件系统来设计的,这种情况也就是之前所说的undefined问题
 
+GFS的实现HDFS中的HA部分是基于Zookeeper实现的,一个Active节点,多个Standby节点,Active节点失败后所有Standby节点会竞争. 为了防止
+"脑裂"问题,FailoverController会通知Standby节点强制下线之前断连的Active节点(可以配置脚本)
+
+Q: GFS 是怎么确定最近的 Replica 的位置的？
+A: 论文中有提到是基于备选服务器的IP来判断距离的,我判断是人为控制相近的IP(网段作为一个单位,IP作为一个单位,或者更新)实际位置相近.
+   当然,"wifi探针"能实现更实际的"测距"功能,"AP工作模式"更是能返回连接者的MAC地址
+
 ## Face Book Haystack
 
 http://web.archive.org/web/20190603070105/http://www.importnew.com/3292.html
@@ -102,11 +114,13 @@ http://<CDN>/<Cache>/<Machine id>/<Logical volume, Photo>
 
 ## BigTable
 
+https://dblab.xmu.edu.cn/post/google-bigtable/、https://niceaz.com/2019/03/24/bigtable/
+
 最初是为了用于Google Analytics
 
 用来管理结构化数据的分布式存储系统
 
-Bigtable将数据视为普通字符串且不关注其内容
+Bigtable将数据视为普通字符串(简单数据模型)且不关注其内容
 
 Bigtable是一个稀疏的、分布式的、持久化的多维排序字典(map).该字典通过行键(row key)、列键(column)和时间戳(timestamp)索引,字典中的每个值都是字节数组`(row:string, column:string, time:int64) -> string`.  这是在调研了类BigTable系统的各种
 潜在用途后决定采用的数据模型. 驱动做出部分设计决策的案例是: 假设我们想要持有一份可在很多项目中使用的大量web页面和相关信息的
@@ -120,13 +134,15 @@ Bigtable是一个稀疏的、分布式的、持久化的多维排序字典(map).
 
 上面的`contents`和`anchor`都是列族,并且`contents`列族中的数据都是经过反转的,这样可以使得"域名相同的网页被分组到连续的行中"从而被分配到临近的Tablet(针对表分区后的基本单位)中.
 
-
 列族是访问控制（access control）的基本单位. 使用格式命名：列族名:限定符. 访问控制以及磁盘和内存统计都在列族级别执行
 
 Bigtable中的单元格可以包含相同数据的不同版本，这些版本使用时间戳(64位)索引. 
 在上面的例子中为“content：”列中存储的爬取到的页面设置的时间戳为：该版本的页面被爬取到的实际时间。垃圾回收机制允许我们仅保留每个页面的最近3个版本(可配)
 
 Bigtable支持单行事务; 可以作为MapReduce的IO;
+
+为了减少memtable的读写冲突(主要是读取memtable的冲突),采用了'copy-on-write'来允许读操作和写操作同时进行
+
 
 
 
