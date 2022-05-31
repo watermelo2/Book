@@ -10,2219 +10,2319 @@
        以下成分可以充当宾补：名词，代词，形容词，副词，ing形式，ed分词，不定式，介词短语，名词性从句。  
 表语：（只存在"主系表"结构中）表述主语的状态属性.
 
-adjective: 形容词
-adverb: 副词
-verb: 动词
-noun: 名词
-intransitive verb(vi): 不及物动词
-transitive verb(vt): 及物动词 
-preposition: 介词
-
-以下单词如果带'*'号表示要求会读
-
-argument: 论据
-expression: 表示、表现、表达
-operation: 操作、运营
-disable: 禁用、使残废
-important: 重要的
-various: 各种各样的
-specified: 指定
-influence: 对..有影响、影响力
-behavior: 行为
-through: 通过
-similar: 相似
-resolver: 媒介、旋转变压器
-retrieval: 恢复
-strategy: 策略
-declared: 宣布、断言
-calcuator: 计算器
-region: 区域、行政区
-inherited: 继承
-declare: 声明
-argument: 论据.  一般在编程中称为"参数"
-delegate: 代表
-assignable: 可归属的、可分配的
-assign: 赋值
-concrete: 具体的
-lead: 领导、引导
-imporssible: 不可能、做不到
-provider: 提供者(商)
-inject: 注入
-under: 根据、不足、小于、在...下面  adj: 较低的、下面的
-support: 支持
-condition: 条件
-batch: 批量
-dynamic: 动态
-disallowed: 不允许的
-platform: 平台
-explain: 解释
-persent: 目前
-present: 目前的
-producer: 生产者
-fix: 修理、固定
-remark: 备注
-compatible: 兼容
-optional: 可选择的
-aspect: 方面、侧面、详情
-original: 原始的
-cascade: 级联
-revert: 恢复、回归
-grow:  增长、发展
-growth: 成长值
-charge: 收费、控诉、充电  名词: 费用、指示、控告
-recharge: 补给、充值
-member: 成员、会员
-third: 第三
-grade: 等级
-company: 公司
-transaction: 交易
-digest: 消化、吸收  名词: 文摘
-native: 本地的
-summary: 总结、摘要、概要
-since: 自从、以后
-feature: 特征 
-assist: 帮助
-unified: 统一的
-outside: 在外面
-inside: 在里面
-sidebar: 侧边栏
-summary: 概要、总结
-routing: 路由
-confirm: 确认
-features: 特征wireless: 无线、无线电
-publish: 宣布
-exchange: 交换
-mandatory: 强制的;受委托的   备注: 一般理解为必填
-reward: 奖励
-trigger: 触发
-invoice: 发票
-qualified: 有资格的
-browser: 浏览器
-past: 过去的
-predicate: 谓语、(dsl中表示断言)
-balance: 平衡、余额
-aware: 意识到、觉察
-which: 哪一个
-receive: 收到
-typically: 典型的、通常
-contain: 包含
-compare: 比较
-durable: 持久的、耐用的
-iterable: 可迭代的
-iteration: 迭代
-recover: 恢复
-reject: 拒绝
-completed: 完整的
-incompleted: 不完整的
-remote: 远程的
-remoting: 远程处理
-procedure: 程序
-reply: 回复
-deprecated: 不赞成、反对(在Java中该注解表示'即将废弃'的意思)
-brand: 品牌
-due: 由于、适当的  网络: 到期的、预期的、应付的 
-detect: 检测
-verification: 验证、检验、证明、确认
-during: 在..期间   
-during  the verification:在检查期间
-weight: 重量、重任、体重  动词: 加重于、使负重
-lightweight: 轻量化
-precious: 珍贵的、宝贝的
-balance: 平衡
-broker: 中间人、经纪人  动词: 协商
-channel: 通道、渠道
-protocol: 协议
-delivery: 交货、传送
-contrast: 对比
-N/A(not applicable): 不适用的
-complement: 补充
-navigation: 导航
-deep: 深的
-holiday: 假期
-destination: 目标、目的
-matching: 匹配
-editors: 编辑
-conversion: 转换
-no matching editors or conversion strategy found: 没有找到匹配的编辑器或转换策略
-pull: 拉
-push: 推
-correlation: 相关性
-level: 水平
-triggered: 触发
-edge: 边缘、优势
-sale: 卖
-gift: 礼物、赠品
-fraction: 分数
-the annotated element must be a number with in accepted range: 注释的元素必须是一个可接受范围内的数字
-maximum number of integeral digits accepted for this number: 此数字所接受的整数位数的最大数目
-maxumum number of fractional digits accepted for this number: 这个数字接受的最大位数
-their respective wrapper types: 他们各自的包装类型
-extract: 提取、获得
-combine: 结合
-combination: 组合、结合
-goal: 目标
-profile: 简介
-fail: 失败
-recycle: 回收
-off shelves: 下架
-restore: 还原
-bullet: 子弹
-successor: 继承人
-opposite: 对立面、反面
-sensor: 感应器
-nomenclature: 命名法
-postpone: 延迟
-statement: 陈述
-crash: 崩溃
-mirrored: 镜像
-load balance: 负载均衡
-delay: 延迟、推迟  动词: 延期  网络: 耽误
-envelope: 信封
-cluster: 群
-master: 主人
-slave: 奴隶
-policy: 政策、策略、保险单
-policy number: 保单号
-acknowledge: 承认
-disk: 磁盘、硬盘
-automatic: 自动的
-manual: 手动的
-coordinator: 协调员
-Guarenteed Multicast: 安全组播
-Guarenteed: 守卫
-Multicast: 组播
-mnesia: 记忆缺失
-promote: 促进
-failover: 故障转移
-cancel: 取消
-notification: 通知
-poison: 毒药
-mock: 嘲弄、愚弄(在开发中通常为"模拟")
-offline: 离线
-online: 在线
-define: 定义
-simultaneously: 同时
-fetch: 取出
-bags: 袋子
-alternate: 交替的
-phase: 阶段
-introduction: 介绍
-bottom: 底部
-divide: 分(除)
-subtract: 减去
-multiply: 乘
-banner: 标语
-increment: 增长
-capacity: 容量
-access: 入口、接近
-random access: 随机存取  
-reduce: 减少
-folder: 目录
-previous: 以前的、在...之前
-rotate: 旋转、轮换
-threshold: 门槛
-stable: 稳定的
-remaining: 剩下的
-runs to complete sort: 运行到完成排序
-fancy: 设想
-stuff: 东西、材料  动词: 填满
-fancy stuff: 花哨的东西
-natural: 自然的
-annotate: 注释
-pointcut: 切入点
-specify: 指定
-lifecyle: 生命周期
-notice: 通知、注意
-atomic: 原子的
-swap: 交换
-tablet: 药片
-tablet computer: 平板电脑
-technology: 技术
-is covered: 被覆盖
-provided: 假如
-wanner: 想要
-audit: 审计
-purge: 净化、清除
-extractor: 萃取器、抽油烟机、提取器
-logistics: 物流
-freight: 运费
-emit: 发出、发射、发行
-gap: 缺口
-snapshot: 快照  动词: 乱射
-undo: 解开
-redo: 重做
-storage: 仓库、存储
-archives: 档案(存档)
-repeat: 重复
-repeatable: 可重复的
-pessimistic: 悲观的
-optimistic: 乐观的
-multiversion: 多版本
-race condition: 竞争条件
-satisfied: 满意的
-roll: 卷、名单  动词: 滚动、转动  
-segment: 环节、段、部分
-fault:  故障、缺点、过错
-intersect: 交叉、 相交(集合里的)
-spin: 旋转
-spinlock: 自旋锁
-simulate: 模拟
-acquire: 获得、学到
-release: 释放
-race: 比赛
-free: 自由的
-Data-Race-Free: 无数据竞争
-scan: 扫描
-range: 范围
-optimize: 优化
-optimizer: 优化器
-statistics: 统计学
-cost: 成本
-increase: 增加
-putty: 油灰
-蔚然可观: 形容文采达到较高水平、草木茂盛很好看
-unsafe: 不安全的
-compressed: 压缩的
-sample: 样品
-sampling: 采样
-upgrade: 升级
-cyclic: 循环的
-signal: 信号
-ensure: 确保
-ensureSegment: 紧接着
-bucket: 水桶
-report: 报告
-usage: 使用
-stride: 步幅、进展
-transfer: 转移
-advance: 提前、预先、推进、前进
-absent: 缺席的、缺少
-bound: 跳跃
-reservation: 预定、保留
-ReservationNode: 保留节点
-reentrant: 可重入的、再进去
-full: 满的
-fair: 公平的
-nanoseconds: 纳秒
-half: 一半
-efficient: 有效率的
-bulk: 大量的
-efficient bulk operation: 高效批量操作
-chance: 机会
-interactive: 交互、互动
-chance: 机会
-chance to interact: 互动机会
-especially when: 尤其是
-secrecy: 保密
-lagging: 滞后
-accommodate: 适应、迁就
-terminates: 终止
-dummyNode: 哑节点
-garbage: 垃圾
-marker: 标记
-skill: 技能
-shared: 共享的
-postscripts: 附言
-overview: 概述
-logical: 符合逻辑的
-established: 已建立的  socket中: 连接建立成功
-pipeline: 管道
-league: 联盟
-legends: 传说
-league of legends: 英雄联盟
-consultation: 咨询
-symbol: 符号
-temporary: 暂时的
-temporary table: 临时表
-effect: 影响、作用、效果  动词: 使...发生、实现  网络: 结果
-effective: 有效的
-confusion: 混淆、困惑
-descendant: 后裔、后代
-ancestor: 祖先
-distance: 距离
-enhancement: 偏移量、增强
-proposal: 提议、建议  网络: 方案、提案、投标
-JDK Enhancement Proposal: JDK增强方案
-Walkthrough: 演练(预排).在JAVA注释中能碰到、表示的意思是阐述代码执行结果对应的含义.
-staturate: 渗透
-fork: 叉
-steal: 偷窃
-work stealing: 工作窃取
-passion: 激情、热情 
-candidate: 候选人  网络: 求职者、候补者
-subject: 主语
-predicate: 谓语
-object: 宾语
-access control: 访问控制
-accessibility: 可访问能力、可访问性
-accessor method: 访问方法
-adapter pattern: 适配器模式
-notation: 符号
-annotation type: 注解类型
-anonymous class: 匿名类
-antipattern: 反模式
-API(Application Programming Interface): 应用编程接口
-array: 数组
-assertion: 断言
-binary compatibility: 二进制兼容性
-bit field: 位域
-wildcard: 通配符
-bounded wildcard type: 有限制的通配符类型
-boxed primitive type: 基本包装类型
-callback: 回调
-callback framework: 回调框架
-exception: 异常、例外
-checked exception: 受检异常
-inspection: 检查、查看  网络: 检验、审查
-code inspection: 代码检验
-comparator: 比较器
-composition: 复合
-concrete strategy: 具体策略
-constant-specific class body: 特定于常量的类的主体
-implementation: 实施、履行
-constant-specific method implementation: 特定于常量的方法实现
-copy constructor: 拷贝构造器
-covariant: 协变的
-convariant return type: 协变返回类型
-custom serialized form: 自定义的序列化形式
-decorator: 装饰者
-decorator pattern: 装饰模式
-default access: 缺省访问
-default constructor: 缺省构造器
-defensive: 防守的
-defensive copy: 保护性拷贝
-delegation: 委托
-deserializing: 反序列化
-design: 设计
-design pattern: 设计模式
-documentation comment: 文档注释
-idiom: 习语
-double-check idiom: 双重检查模式、双检查法
-dynamically cast: 动态地转换
-encapsulation: 封装
-enclosing instance: 外围实例
-erasure: 擦除
-chaining: 链锁
-exception chaining: 异常链
-exception translation: 异常转换
-explicit: 明确的、显式的
-explicit type parameter: 显式的类型参数
-exported API: 导出的API
-extend: 扩展
-failure atomicity: 失败原子性
-field: 域
-guard: 守卫
-guardian: 守护者
-finalizer guardian: 终结方法守卫者
-forwarding method: 转发方法
-fuction object: 函数对象
-function pointer: 函数指针
-general contract: 通用约定
-generic: 泛型、通用
-generic array creation: 泛型数组创建
-generic method: 泛型方法
-generic singleton factory: 泛型单例工厂
-generic static factory method: 泛型静态工厂方法
-generification: 泛型化
-idiom: 习惯用法、模式
-immutable: 不可变的
-implement: 实现(用作动词)
-implementation: 实现(用作名词)
-implementation inheritance: 实现继承
-information hiding: 信息隐藏
-inheritance: 继承
-inner class: 内部类
-int enum pattern: int枚举模式
-interface: 接口
-interface inheritance: 接口继承
-variant: 变体、变种  adj: 不一致的、易变的  网络： 变量、不同
-invariant: 不可变的
-lazy initialization: 延迟初始化
-local class: 局部类
-marker annotation: 标记接口
-marker interface: 标记接口
-member: 成员
-member class:成员类
-member interface: 成员接口
-memory footprint: 内存占用
-memory model: 内存模型
-meta-annotation: 元注解
-mixin: 混合类型
-module: 模块
-mutator: 设值方法
-naming convention: 命名惯例
-naming pattern: 命名模式
-native method: 本地方法
-native object: 本地对象
-nested class: 嵌套类
-non-reifiable: 不可具体化的
-nonstatic member class: 非静态的成员类
-object: 对象
-object pool: 对象池
-object serialization: 对象序列化
-obsolete: 过时的
-obsolete reference: 过期引用
-open call: 开放调用
-operation code: 操作码
-overload: 重载
-override: 覆盖
-package-private: 包级私有
-parameterized: 参数化
-parameterized type: 参数化的类型
-performance: 性能
-performance model: 性能模型
-postcondition: 后置条件
-precondition: 前提条件
-violation: 违反
-precondition violation: 前提违例
-primitive: 基本类型
-raw type: 原生态类型
-recur: 重现
-recursive: 递归的
-recursive type bound: 递归类型限制
-redundant: 冗余
-redundant field: 冗余域
-reference type: 引用类型
-reflection: 反射机制
-register: 注册、寄存器
-reifiable: 可具体化的
-reified: 具体化的
-remainder: 求余
-strict: 严格
-restricted: 受限制的
-restricted marker interface: 有限制的标记接口
-rounding mode: 舍入模式
-runtime exception: 运行时异常
-safety: 安全性
-scalar type: 标量类型
-semantic: 语义的
-semantic compatibility: 语义兼容性
-serial version UID: 序列版本UID
-serialization proxy: 序列化代理
-serialized form: 序列化形式
-serializing: 序列化
-service provider framework: 服务提供者框架
-signature: 签名
-singleton: 独生子、独身
-singleton pattern: 单例模式
-skeletal: 骨骼的
-skeletal implementation: 骨架实现
-transition: 过渡
-state: 状态  动词: 说明、规定
-state transition: 状态转变
-stateless: 无状态的
-stateful: 有状态的
-static factory method: 静态工厂方法
-static member class: 静态成员类
-storage pool: 存储池
-strategy enum: 策略枚举
-strategy interface: 策略接口
-strategy pattern: 策略模式
-stream unique identifier: 流的唯一标识符
-subclassing: 子类化
-subtyping: 子类型化
-synthetic: 合成的
-synthetic field: 合成域
-thread group: 线程组
-thread safety: 线程安全性
-thread-safe: 线程安全的
-top-level class: 顶级类、顶层类
-infer: 推断、推测
-type inference: 类型推导
-type parameter: 类型参数
-typesafe: 类型安全
-typesafe enum pattern: 类型安全的枚举模式
-unbounded wildcard type: 无限制的通配符类型
-unchecked exception: 未受检查异常
-retention: 保留、保持
-motivation: 动机
-intention: 意向、目的  网络: 动机
-unintentional: 无意的
-unintentional object retention: 无意识的对象保持
-untility class: 工具类
-value class: 值类
-value type: 值类型
-virgin state: 空白状态
-worker thread: 工作线程
-wrapper class: 包装类
-exponential: 指数
-exponentiation: 求幂
-heterogeneous: 异构的
-migration: 迁移移民
-compatibility: 兼容性
-migration compatibility: 移植兼容性
-typesafe heterogeneous container: 类型安全的异构容器
-typically: 典型地
-clause: 条款(这个在SQL报错里经常看的到)
-decision(源自SpringData TX中一个字段的注释): 决策、决定、果断、决心
-propagate: 传播
-propagation(源自Transaction注解): 传播
-appropriate: 合适的、适当的(源自SpringData TX中事务管理器的一个方法名)
-concrete: 混凝土、具体的
-decorator: 装饰者
-compound: 复合
-duplicate: 复制品、重复的意思
-agile: 敏捷的
-duration: 持续时间
-legacy: 遗产
-hystrix: 豪猪. 豪猪周身长满了刺、能保护自己不受天敌的伤害、代表了一种防御机制.Netflix团队取这个名字正是这个意思.
-standard: 标准
-criteria: 标准
-conversion: 转换
-bad smell: 坏味道  可以用来形容代码的.
-aggressive: 有侵略性的
-inner peace: 内心平和
-purpose: 目的
-series: 系列
-shared: 共享的
-independent: 独立
-dependent: 依赖
-consider: 考虑
-indicate: 表明
-cursor: 光标
-trace: 痕迹
-detach: 派遣、分离、脱离
-subscribe: 订阅
-screen: 屏幕
-evaluating: 评估
-sharding: 分片、碎片
-logic: 逻辑
-determine: 决定、确定
-cause: 原因
-done: 完成
-comma: 逗号
-comma separated: 逗号分隔
-cardinality: 基数
-manual: 手动
-intermediate: 中间的
-compensate: 补偿
-camel: 骆驼
-repository: 仓库
-draft: 草稿、草案
-diagram: 图表
-compensation: 补偿
-related: 相关的
-normal: 正常的、标准的、一般
-expect: 期待
-presentation: 报告、介绍
-textual: 文本
-finite: 有限的
-reactive: 反应性、有反应的
-guide: 指导、指南
-always: 总是
-setup: 设置
-applicable
-applicable: 可应用的、适用
-least: 最小的、最少的
-at least: 至少
-pressure: 压力、压强
-echo: 回声
-weekly: 每周的
-feedback: 反馈
-tiny: 小 
-jammer: 干扰器
-carry: 携带
-fleet: 舰队、车队  adj: 快速的 
-terminal: 终端
-conflict: 冲突
-contact: 联系
-fake: 伪造的
-compiler: 编译程序、编著者
-skipped: 跳过
-hire: 雇佣
-coroutine: 携程
-correct: 校正
-ambiguous: 摸棱两可的
-precision: 精确、细致  网络: 精确度、精密度
-patch: 补丁
-boards: 主板
-mutex: 互斥
-overlooked: 忽略
-necessary: 必要
-guess: 猜测
-below: 下面、以下、在...下面
-supplied: 提供
-assists: 帮助
-navigate: 导航
-occur: 发生
-occurred: 发生了
-broken: 破碎的
-feature: 特征
-unsigned: 未签名的、无符号的
-machine: 原始的
-still: 仍然
-scenario: 脚本
-rounding: 舍入
-radix: 基数
-glad: 高兴
-refactor: 重构
-assemble: 聚集、收集、组装 
-successor: 接班人
-inbound: 入站
-outbound: 出站
-agent: 代理人
-contribution: 贡献
-side effects: 副作用
-collect: 收集
-characteristics: 特点
-supplier: 提供
-accumulator: 累加器
-combiner: 结合
-finisher: 整理
-cost: 常数
-division: 除法
-remainder: 取余、剩余
-negate: 取反、否定
-verbose: 详细的
-engineer: 工程师
-engineering: 工程学、工程
-engine: 引擎
-hotspot: 热点
-tenured: 终身
-generation: 代
-parallel: 平行
-sweep: 扫描
-tracing: 查找、跟踪器
-verbose: 啰嗦的、详细
-minor: 较小的、次要
-major: 重大的、主要  动词: 主修(major in)  名词: 成年人 
-troubleshooting: 故障排除
-all in one: 一体式
-leak: 泄露
-permanent: 永久的
-edian: 字节序
-descriptor: 描述符
-our: 我们的
-preference: 偏爱
-cap: 帽子
-initialCaps: 首字母大写
-just in time: 及时
-on stack replacement: 栈上替换
-high-level intermediate representaion: 高级中间代码
-hierarchy: 阶层  
-method hierarchy: 方法层次结构
-call hierarchy: 调用层级结构
-type hierarchy: 类型层级结构
-analysis: 分析
-analytical: 分析型 
-aggregate: 总数、总计. JVM中称为'聚合量'  动词: 聚集
-scalar: 标量
-assign: 分配
-precursor: 先导、前身
-captain: 队长
-kernel: 内核
-heavyweight: 重量级
-champions: 冠军 
-make no sense: 毫无意义
-hardcode: 硬编码
-allocation: 分配
-caught: 抓住、捕获
-conference: 会议
-remind: 提醒
-suspect: 嫌疑人
-physical disgram: 物理图
-is not practical: 不切实际的
-in sum: 综上所诉
-instead: 相反、代替
-accumulate: 积累、堆积
-validate: 验证
-invalidate: 废止
-isolation: 隔离
-registry: 注册处
-registrar: 注册员
-perpetual: 永久、永动的
-additional: 额外
-fragment: 碎片
-fragments: 片段
-moderator: 主席
-roaming: 漫游
-absoulte: 绝对
-discriminator: 鉴别
-vendor: 供应商、小贩  网络: 卖主、厂商
-enhance: 增强
-deferred: 延迟
-state of the art: 最先进的
-pending: 待定
-relation: 关系(和pending组成pending relation就是'待定关系')
-underlying: 底层
-causal relationship: 因果关系  例: the causal relationship between poverty and disease(贫穷与疾病的因果关系)
-recent: 最近 
-affected: 受影响
-immediately: 立即
-seem: 似乎
-soon: 不久、快
-eviction: 赶出
-retrieve: 找回  动词: 回收
-dirty: 脏
-integrate: 集成、整合
-solve: 解决
-almost: 几乎、差不多
-AFK(away from keyboard): 远离键盘、把手离开键盘.  代表长期或者永久的不能进行游戏
-plain: 朴素、简朴
-circle: 圈、圈子
-comrade: 同志
-introspect: 反思
-introspector: 内部检查、内省
-inversion: 反转
-proper: 正确、合适、适当
-dummy: 假
-praise: 赞美、表扬
-civilization: 文明
-communication: 通讯、交通、交际
-motivate: 刺激
-basically: 基本地、本质上
-eager: 渴望的
-camel case: 驼峰命名法
-case sensitive: 区分大小写
-sensitive: 敏感
-insensitive: 不敏感
-rt--as the title says: 正如标题所说
-exceed: 超过、突破
-limit exceeded: 超出限制
-via: 通过
-the most frequent: 最常见的
-external: 外部
-actual: 实际
-government: 政府
-prevent: 防止、阻止
-thankless: 费力不讨好
-instantiate: 实例
-instant: 瞬间
-pioneer: 先锋
-meant: 意味者
-left: 剩下
-intentionally: 故意地	
-tokenize: 令牌化
-place: 地点、地方
-carousel: 旋转木马(谷歌中文翻译: 轮播)
-frequency: 频率
-related: 相关的
-error occurred while {something}: 某件事发生错误
-compression: 压缩
-understanda: 理解
-confusing: 扑朔迷离、混乱
-cover: 覆盖
-coverage: 覆盖率
-cover pic: 封面图片
-sequential: 顺序
-bias: 偏差、偏见、偏心
-associativity: 关联性
-theory: 理论
-seed: 种子
-familiar: 亲切、熟
-sink: 下沉(动词)、水槽(名词)
-cancellation: 消除
-technique: 技术、技巧、手法
-preserve: 保留
-athlete: 运动员
-athletic: 竞技
-tutorial: 教程
-alley: 胡同、巷
-come up: 上来、赶上、及
-come up to you: 来找你
-ourselves: 我们自己
-regradless of the fact: 无论事实如何
-reliable: 可靠
-tripped: 跳闸
-viable: 可行
-impact: 影响
-relative: 相对
-large: 大
-prime: 动:填装 形:最初的
-prime number: 素数 
-quality: 质量
-assurance: 保险
-avoid: 避免
-partition: 划分、分割   网络: 分区
-estimate: 估计
-note: 动:注意 名:笔记 
-derive: 派生
-materialized: 物化 动词:赋与实质、物质化
-monster: 怪物
-plane: 平面
-protable: 便捷
-wars: 战争
-those than can、do. those that can't、complain: 会做的人、做; 不会做的人、叫(抱怨)
-oriented: 面向、以...为方向
-capable: 能、能干、有资格
-internal: 内部
-correspond: 对应
-corresponding: 相应
-dangling resource: 悬空资源
-scratch: 刮、划伤
-from scratch: 从头开始
-mentor: 导师
-few: 少数
-expert: 专家
-inversion of controller: 控制反转
-dependency injection: 依赖注入
-realize: 实现、明白、意识
-detector: 探测器
-underneath: 在...下面
-underneath the given element: 在给定元素下面
-if any: 如果有的话
-equivalent: 相等
-enforce: 执行
-synthetic: 合成的
-locate: 定位
-component: 零件
-reporter: 记者
-absolute: 绝对
-recurse: 递归
-fundamental: 致命
-transformed: 改造
-early: 早
-guarantee: 保证
-suppress: 压制
-contrary: 相反
-initialization: 初始化
-instantiation: 实例化
-typically: 一般
-populate: 填充
-despite: 尽管
-disposable: 一次性
-preferred: 首选
-whether: 是否
-shortcut: 捷径 
-adaptive: 自适应
-smart: 聪明
-never makes sense: 从来没有意义
-embedded: 嵌入式
-canonical: 典范、规范
-externally: 外部
-destruction: 毁坏、拆开
-perform: 履行、执行
-desire: 想要、欲望、愿望、期望
-expectation: 期望
-internationalization: 国际化
-frozen: 冻结的
-introspection: 内省、自我检查
-might: 威力  助动词: 或、可能  网络: 能力、势力
-theme: 主题、话题
-capability: 能力、性能
-following: 形容词:以下、之后  名词:跟随
-fledged: 成熟
-given: 特定
-mainly: 主要
-against: 介词: 反对、针对  动词: 与...对抗
-bollocks: 胡说
-obscenties: 猥亵
-obscenity: 意淫
-upfront: 前期
-afterward: 之后、然后
-thus: 从而、因此、所以
-thus far: 迄今
-internationalization: 国际化  俗称:i18n i和n是首尾字母、18是中间的字母数
-zh_CN: 中文_中国  "本地化信息"一般需要两个条件才可以确定一个特定类型的本地化信息、分别是"语言类型"和"国家/地区的类型".
-zh_TW: 中文_台湾
-currency: 货币
-hierarchical: 分层的、阶级式
-bundle: 束、包、包裹
-resource bundle: 资源包
-desktop: 桌面
-publisher: 出版者
-multicaster: 多路广播
-retriever: 猎犬
-alternative: 其他的、两者挑一的
-participate: 参加、加入、插足
-e.g.: 例如
-i.e.: 那就是说、换句话说
-escalate: 升级
-devil: 魔鬼
-the devil is in the details: 细节决定成败
-eligible: 合格
-expose: 暴露
-avaiable: 可得到、可用的
-infrastructure: 基础设施
-stable infra: 稳定的基础设施
-alliance: 联盟、同伙
-season: 季节
-proceed: 继续
-obtain: 获得   Spring喜欢给一些字段多加个这个方法用来处理一些getter之外的操作、比如obtainDataSource()方法做了非空处理
-shadow: 阴影、暗影
-footer: 页脚
-mass: 块、堆、大多数  形容词: 群众的
-kit: 套件
-material: 材料、素材、物品
-voice: 语音、发言权
-facilities: 设备
-conformant: 符合性
-translator: 解释、转化、翻译者
-truncation: 截断
-composite: 综合、合成
-reach: 达到、到达、收到  名词: 范围、区域  网络: 抵达  
-shed: 棚子  动词: 洒、散出、掉
-tear: 动词: 撕、扯  名词: 眼泪、窟窿
-shed tears: 声泪俱下
-recognize: 认识、辨认
-recognized: 认可
-render: 给予
-renderer: 渲染器
-BTW(byte the way): 顺便说一句
-convenient: 方便、便于
-basis: 基础
-rapid: 快速、急促  名词: 激流
-primary: 主要、初级、第一
-further: 进一步
-regular: 定期、规则
-kick: 踢
-kick in: 起作用
-implicitly: 隐式
-precedence: 优先权
-official: 官方
-demand: 需求
-autowire: 自动装配
-suggest: 建议、暗示、提议
-pinned: 置顶
-sibling: 兄弟、姐妹
-direct: 直接
-thought: 思想、心思、意念
-honor: 荣誉、荣幸、尊敬
-fundamental: 基本原理
-privilege: 特权
-respond: 响应
-instrument: 检测、仪器、工具
-shift: 转移
-shot: 射击、开枪、注射
-screen shot: 屏幕截图
-practice: 实践
-fade: 褪色
-away: 远离
-fade away: 消失
-recursion: 递归
-properyly: 正确、合适
-training: 训练
-institution: 机构、制度
-training institution: 培训机构
-outsourcing: 外包
-CV: 简历
-curriculum vitae: 个人简历
-distribution: 分配
-purchasing: 购买
-assistance: 帮助
-aim: 目标、目的、宗旨
-relational: 相关的
-qualifier: 预选赛
-progress: 进展
-shape: 形状  动词: 塑造
-tax: 税收  动词: 罚款、捐
-damage: 损坏、破坏、伤害
-extensive: 广泛的、广阔的、大量的  网络: 宽广
-inventor: 发明家
-conversation: 会话、议论
-operator: 操作员、运算符 
-ternary operator: 三元运算符
-society: 社会、协会
-advantage: 优点、好处
-take advantage of: 利用
-mechanism: 机制
-survey: 调查
-weaver: 编织者、纺织者
-potential: 潜在   名词: 潜力
-order to: 为了
-pretty: 漂亮
-forum: 论坛
-activates: 使...活动(活跃)、激活
-individual: 个人、个别、单个
-relevant: 相关的
-arbitrary: 任意的、随意、肆意
-transport: 运输、传输
-stage: 阶段、舞台、期
-community: 社区
-obfuscator: 混淆器
-ultimate: 最终、终极  名词: 最好的事务
-powerful: 强大
-transport layer security(TLS): 传输层安全性协议
-secure sockets layer(SSL): 安全套接层协议 
-cipher: 密码、暗号
-suite: 套房、套
-period: 时期、周期
-spent: 花费
-stolen: 偷、窃取
-retain: 保留
-struggle: 斗争、奋斗
-occupy: 占据、占有
-analyze: 分析
-analyzer: 分析仪
-mount: 安装
-ring: 环
-chat: 聊天室、交谈
-latency: 潜伏、延迟
-classifier: 分类器
-snack: 小吃
-apparent: 明显的
-objective: 目的
-concept: 概念
-therefore: 因此、所以
-persistent: 持久的、简直的
-persistence: 坚持不懈
-curious: 好奇
-shame: 耻辱、羞辱  动词: 抹黑
-collision: 碰撞、冲突
-in favor: 赞成、支持、有利
-whatever: 任何、无论如何、随你
-vibes: 气氛
-available: 有空、可用的
-aligned: 对齐的
-trail: 落后
-slash: 消减、砍
-trail slash: 斜线
-backslash: 反斜杠
-inspect: 检查
-whether or not: 是不是、无论是否
-trend: 趋势、潮流
-prepare: 准备
-consume: 消费、耗尽
-prupose: 目的 
-assume: 假设
-insight: 洞察力、眼光
-adopt: 采用
-problematic: 有问题的
-histo: 历史
-yearn: 向往、渴望
-equality: 平等
-exact: 精确
-incoming: 传入
-accurate: 准确
-consistency: 一致性
-inconsistency: 不一致、矛盾
-waste: 浪费
-poor: 较差的、贫困
-contributon: 贡献
-adult: 成人
-elderly: 老年  名词: 长者
-postal: 邮政
-outcome: 结果、效果、结局
-fresh: 新鲜的、新的
-license: 许可证、执照、授权
-female: 女的、雌
-male: 男
-spam: 垃圾邮件
-mistake: 垃圾邮件
-arrange: 安排、整理、编排
-misc: 杂项
-advanced: 高级的、先进的
-flow chart: 流程图
-activation: 激活
-grid: 格子、格网
-flip: 翻转
-scratchpad: 暂存器、便签
-flame: 火焰
-salary: 薪水
-portfolio: 作品集
-pepper: 胡椒
-appear: 出现  网络: 看起来、露面
-disappear:消失
-appearance: 外观
-tradition: 传统
-stand-alone: 独立的、独立式
-negotiate: 交涉、商议
-depth: 深度
-infinity: 无穷
-clash: 冲突
-sponsor: 赞助  名词: 发起人
-indented: 缩进
-insted: 插入
-scared: 害
-upon: 在...之上
-certain: 某些、肯定
-popup: 弹出
-permit: 允许  名词: 许可证  网络: 执照、通行证
-permission: 许可、批准、许可证  网络: 允许、权限、同一
-unless: 除非、除外
-marshal: 编排
-stick: 粘贴、插入
-principal: 负责人
-broadcast: 广播
-conclusion: 结论、结束
-malformed: 格式错误
-complaint: 申诉、抱怨
-narrow: 狭窄的、勉强的、精确的、有限的、仔细的  动词: 限制、缩小
-narrow down: 缩小范围
-grab: 抓住、夺取
-introduce: 介绍
-emoji: 表情符号
-BenchMark: 基准测试(这个单词必须连着)
-burn: 燃烧
-percent: 百分之...、百分比
-arithmetic: 算术
-interrupt: 打断、插嘴
-prison: 监狱
-government: 政府
-slight: 轻微
-motivate: 激励
-encouraging: 鼓舞人心的
-neglect: 忽略、疏忽
-underestimated: 被低估
-naivety: 天真
-reinforce: 加强
-recruit: 招聘
-several: 一些、几个
-inspire: 启发
-observation: 观察
-fancy: 精美的
-ultimately: 最终
-prospective: 预期
-employer: 雇主
-flashy: 浮华
-expensive: 昂贵
-skill: 技能、技巧
-able: 能够
-tinkering: 修补
-regularly: 经常
-consistent: 一致的
-technical: 技术
-afraid: 害怕
-opportunity: 机会
-personality: 个性
-controversial: 有争议的
-guidance: 指导
-doubt: 怀疑
-associate: 关联
-particular: 特定的
-in particular: 特别是
-slogan: 口号
-hinder: 阻碍
-social: 社会的
-seriously: 认真的
-perception: 感觉、看法
-recruiter: 招聘者
-emphasize: 注重
-represent: 代表
-attract: 吸引
-tidy: 整洁
-tidy up: 整理
-colleague: 同事
-messy: 凌乱
-impressive: 令人印象深刻的、优秀
-exciting: 激动
-gonna: 将要
-YAGNI(you aren't gonna need it): 你不会需要它
-acceptance: 验收
-bulkhead: 隔板
-insurance: 保险、保险业、保险费  网络: 保险单
-average: 平均
-warmup: 暖身、预热
-throughput: 吞吐量
-tear down: 拆除
-complex: 复杂
-measure: 测量、程度、尺寸  动词: 测量、估量
-considerations: 注意事项
-strongly: 强烈地
-archetype: 原型
-drastic: 剧烈的
-brief: 简要
-fluent: 流利、流畅
-stink: 发臭  名词: 臭气
-claim: 要求
-discuss: 讨论
-ethical: 道德的
-electronic: 电子
-figure: 数字、人物、图形  
-figure 1: 图1
-figure out: 确定、了解
-histogram: 直方图
-junk: 垃圾、废物
-reserved: 保留的
-ephemeral: 短暂的
-transient: 短暂的、易变的
-disqus: 争议
-deploy: 部署
-deployer: 部署者
-research: 研究、考证
-colver: 三叶草
-heart: 心脏
-flatten: 展平
-maturity: 成熟度
-roundRobin: 轮询
-letter: 信、字母
-distinguish: 区分
-expansion: 扩张、扩充
-insurance: 保险
-organ: 机构、器官、风琴
-demonstrate: 演示、示范
-instruction: 指令
-typo: 错字
-plate: 盘子、牌子、碟
-plate number: 车牌号
-traffic: 交通、运输、贸易  动词: 贩卖
-either: 要么   形容词: 二者之一
-neither: 二者都不
-handy: 便利、简便
-legal: 合法的、法定的、法律
-commerce: 商业
-sticky: 黏
-treause: 宝藏
-partner: 伙伴、搭档
-midware: 中间件
-clarify: 澄清、阐明
-fuzzy: 模糊的、失真的
-constraint: 约束
-metrics: 指标、度量
-extra: 额外、外加
-tbremoting: 迁移
-replica: 复制品、仿制品
-replicate: 复制
-unreachable: 无法到达
-mabifest: 清单
-enthusiast: 爱好者
-hypertext: 超文本
-enterprise: 企业
-idempotency: 幂等
-distributed: 分布式
-cleartext: 明文
-negotiation: 谈判、协商
-stock: 股票、库存 
-quantity: 数量
-sold: 已售出
-minimum: 最低限度、最少
-place order: 下单
-insufficient: 不足、不够
-classify: 分类、归类
-essential: 必要、必不可少、要领、基本的
-essentially: 本质上
-tulip: 郁金香
-spliterator: 分离器、分流器
-abort: 中断、终止、异常终止
-emotional: 情绪化
-wireless: 无线、无线电
-transmission: 传输
-ethernet: 以太网络
-reassembled: 重新组装
-rather: 宁可、宁愿
-protection: 保护
-revocation: 撤销、废除 
-trust: 信任
-premaster: 大师
-elliptic: 椭圆形
-curve: 曲线 动词: 弯曲
-cryptography: 密码学
-issue: 问题、发出、发行、发布  动词: 发出、发布
-issuer: 发行人
-issuance: 发行、颁布、发布、签发
-bachelor: 单身汉
-graduate: 毕业
-bootcamp: 训练营、新兵训练营
-kitchen: 厨房
-apartment: 公寓
-insist: 坚持
-copay: 共付额
-discard: 丢弃
-denote: 表示
-journal: 日志、刊物
-incubator: 孵化器
-patent: 专利
-literature: 文献
-utility: 实用
-culture: 文化
-canteen: 食堂
-mess hall: 食堂
-separator: 分隔器
-improve: 提高、改善
-periodically: 定期地
-gray: 灰色
-facilitate: 促进、方便、便利
-coordinate: 坐标  动词: 协调、配合
-definitive: 权威的
-compete: 竞争
-either way: 无论哪种方式
-principle: 原理、原则
-diagnostic: 诊断
-rise: 上升
-protest: 抗议
-surrogate: 替代
-compact: 紧凑 动词: 压紧 名词: 合约、合同
-dive: 潜水
-comfortable: 自在、安逸
-uncomfortable: 不舒服、不自然、别扭
-law: 法、法律
-citizenship: 国籍、公民权、公民身份
-granularity: 粒度
-collation: 校对   网络: 排序规则、排序方式
-accent: 口音、重音
-abuse: 滥、欺骗
-donation: 捐款 
-glossary: 词汇表
-infimum: 极少
-supermum: 最高
-direction: 方向
-destiny: 命运
-thumbnail: 缩略图
-intersection: 路口、交集
-fanout: 扇出
-heuristic: 启发式 
-device: 设备
-leaf: 叶子
-recalc: 重新计算
-certificate: 证书
-semi: 半
-weedout: 淘汰
-loose: 松散  名词: 放任
-congrats: 恭喜
-make sense: 合理
-tech leader: 技术负责人
-netease: 网易
-expand: 扩大
-bisection: 二等分
-estimation: 估算
-refine: 提炼
-realm: 领域
-recovery: 复原
-slot: 插槽  动词: 跟踪
-freelancer: 自由职业者
-credit: 信用、信誉、学分  动词: 相信、信任
-earn: 赚、挣
-gain: 获得、赢得
-nevertheless: 但是
-distinct: 不同、明显
-focus: 焦点、专注  动词: 集中
-rest: 休息、其余
-huge: 巨大的、无限的
-phantom: 幻影、幻象
-wide: 宽	
-directly: 直截了当
-satirize: 讽刺、嘲笑
-forbidden: 禁止的、被禁止
-despise: 讨厌、鄙视、瞧不起
-quote: 报价、引述  名词: 引号
-quotes: 引号
-cumber: 阻碍、累赘
-siege: 围城
-deity: 神
-will: 将、将要、将会  名词: 意志、遗嘱
-dare: 敢、用于   
-stair: 楼梯、阶梯
-commemorate: 纪念
-anniversary: 周年
-repatriate: 遣送、遣返
-outbreak: 爆发  名词: 发作、发病、暴乱
-epicentre: 震中心、集中点
-henceforth: 今后
-poem: 诗
-credential: 凭据
-strace: 痕迹
-repair: 修理、纠正、恢复、弥补
-stale: 陈旧、过时
-promotion: 晋升、推广
-elapsed: 过去
-gotta: 必须去  相当于'have got to'
-strength: 力量、实力、强度
-strengthen: 加强
-unity: 统一、个体、团结、
-faith: 信仰、新年、信心
-enbrace: 接收、信奉  动词: 拥抱
-monent: 时刻
-journey: 旅程、旅行  动词: 出游、游历
-worth: 财产、财富  形容词: 值得的、有...的价值 
-miracle: 奇迹 
-wind: 风  动词: 缠绕
-palace: 宫殿
-honest(adj): 诚实的、正直的、努力(工作)的
-to be honest: 老实说
-automation: 自动化
-warehousing: 仓库 
-profit: 利润、盈利  动词: 赢利
-chip: 芯片
-trick: 特技、手法
-associative: 关联、联合的、结合的
-interference: 干涉、妨碍、冲突
-ret: 退回
-negative: 否定   形容词: 负   动词: 否定
-complexity: 复杂、复杂性
-respectively: 分别
-backtrack: 回溯
-permutation: 排列
-challenge: 挑战
-collapsar: 黑洞
-attack: 攻击、进攻  动词: 攻击
-indicator: 指示符、标志、指针  网络: 指标
-pause: 暂停、停顿
-percentage: 百分比、百分率
-bursty: 突发的、突发性
-smooth: 平整的、平滑的
-ownership: 所有权
-eventual: 最终的
-retina: 视网膜   网络: 视网膜屏 
-spare: 备用品  形容词: 不用的、闲置的、备用的   网络: 多余的、空闲的、节约
-casual: 随便的、非正式的
-visualization: 可视化
-plague: 瘟疫、鼠疫   动词: 麻烦、大灾
-hardware: 硬件
-frontend: 前端
-unreachable: 无法到达
-hunter: 猎人
-involve: 涉及
-brevity: 简洁
-leverage: 杠杆作用、优势   动词: 利用
-in addition to: 此外、除了
-tertiary: 第三    备注: 和third同义
-underage: 未成年
-thermal: 热的、热量的   网络: 热力
-Thermal Design Power: 热设计功耗
-communist: 共产主义者  网络: 共产党员
-privacy: 隐私
-tunnel: 隧道、管道
-sentiment: 情绪、情感 
-ray: 光纤
-homelab: 家庭实验室
-pronounce: 发音 
-nuisance: 讨厌
-accomplished: 完成的
-forset: 森林
-lossy: 有损的
-deflate: 放气、缩小
-border: 边界、边缘
-flooding: 洪水、充溢、泛滥  网络: 泛洪、淹没
-topology: 拓扑结构
-bandwidth: 带宽
-bid: 出价、投标
-solely: 仅仅、唯一地、纯粹
-controversy: 争议
-critical: 严重
-situation: 形势、情况
-forge: 锻造、伪造
-abbreviation: 缩写、简称
-scaffold: 脚手架
-rely: 依靠、信任 
-disordered: 无序的、混乱的  网络: 发狂的
-regression: 退化、回归、倒退
-bluetooth: 蓝牙
-donate: 捐赠
-wizard: 男巫、行家、奇才  形容词: 出色的、魔术的
-camel: 骆驼
-autonomous: 自治的、自主的   网络: 自主性
-prompt: 提示、提示符  动词: 提示、促使  形容词: 迅速、敏捷、准时
-turnaround: 简要的  网络: 简洁的、简短的
-press: 按、出版社、新闻界  动词: 榨取、坚持、推进、按下
-nature: 自然、本质、本性  网络: 性质、自然界、天性
-renewal: 更新、恢复、续订、复兴  网络: 续约
-annual: 每年、每年一次  
-contract: 合同、协议、感染  
-formal: 正式的、正规的   网络: 形式的、形式化
-facade: 正面、外表
-diverge: 偏离、分歧、分叉  网络: 发散
-modem: 调制解调器  网络: 猫(光猫)
-certified: 被认证的、有保证的、公认的   动词: 发证书给...  网络: 认证、经认证的
-fidelity: 忠诚、保真度、尽责
-penetration: 渗透、侵入、穿透 
-mine: 矿、矿山、矿井  动词: 开采、在...中开采
-pickaxe: 稿
-swing: 摇摆、挥动
-diamond: 钻石、菱形 
-grueling: 严罚、使极度疲劳的
-grueling one: 艰辛的、艰巨 
-shock: 休克、震惊、令人震惊的事  动词: 震动、打击、使气愤、使厌恶  形容词: 浓密的
-violence: 暴力、强暴、狂热、激情  网络: 强烈
-forever: 永远、经常、不断地、永无止境地
-extent: 程度、范围  网络: 长度、区间 
-bolt: 螺栓、螺钉、闪电  vt: 筛选  vi: 拴住、冲出、跳出  adv: 突然的、像箭似地、直立地 
-overhear: 偶然听到  网络: 偷听
-hissing: 嘶嘶声
-drop: 下降、丢弃、删除、放弃、倒下、退出
-tardy: 缓慢的、拖拉的、迟到的  网络: 迟延的
-stuck: 被卡住的、被...难住、不知所措
-craft: 工艺、手艺  动词: 精巧的制作、手工制作
-armour: 盔甲、装甲、防弹衣
-sword: 剑 
-torchlight: 手电筒、火把
-hone: 磨练
-whole: 整个、整体、全部 
-prowl: 徘徊、潜行  网络: 在门外徘徊 
-revenge: 复仇、报复 
-warrior: 战士、勇士
-blade: 刀片、桨叶
-soil: 泥土  动词: 弄脏
-bring: 带来、引来、导致  网络: 拿来、携带
-unicom: 联通
-multimedia: 多媒体
-power: 功率、力量、权力、强国  动词: 推动
-radiated: 辐射、放射、发散、显出 
-federal: 联邦的、联盟的 
-commission: 委员会、佣金  动词: 委任  网络: 手续费
-medium: 媒介、手段、工具  adj: 中等的  网络: 媒体、介质
-beacon: 灯塔、灯标、警示灯
-cable: 电缆
-passive: 被动的、消极的、冷漠的
-active: 积极的、活跃的、有效的、敏捷的
-ocean: 海洋 
-transparent: 透明的、易识破的、透明模式 
-stash: 隐藏、存放、藏身处
-shelve: 搁置、解雇
-upstream: 上游 
-advertisement: 广告、宣传
-denied: 否认、拒绝  网络: 拒绝访问、已拒绝
-nonce: 随机数、目前  adj: 只是用一次的
-kind: 种类、方式、天性  形容词: 仁慈的、体贴的、善良的
-applicant: 申请人、求职者
-inception: 起始、开端、初期
-termination: 终止、结束、末端   网络: 终端、协议的终止
-couple: 几个、一对
-coupler: 耦合器、联结器
-pick: 选择  网络: 采摘、拾取
-shovel: 铲子  动词: 铲出
-Every single day and the whole night: 每天每夜
-premium: 保险费、奖金、额外费用  形容词: 优质的、昂贵的  网络: 溢价、奖品
-zip: 拉链、速度   动词: 拉上拉链、压缩   网络: 压缩文件
-wee hours
-return: 返回、回报、收益  动词: 恢复  网络: 归还、回归
-piece: 片、一块、部分  动词: 拼凑、修补
-logocanary: 徽标
-cnnic(China internet Network Information Center): 中国网
-tracert: 路由跟踪
-defeat: 击败、废除、战胜
-attempt: 尝试、试图   动词: 进攻、尝试、冲击
-maintain: 维护、保持
-pulse: 脉搏   vi: (心脏)跳动、脉动、震动  vt: 使跳动
-homebrew: 自制
-term: 期限、术语   网络: 条款
-long term: 长期的、长期性
-tip: 尖端、小费、建议
-adoption: 采用
-announce: 宣布、发表
-redefine: 重新定义
-achieve: 取得、获得、实现、成功
-shuffle: 洗牌   网络: 随机播放
-audio: 音频、声卡、音效  adj: 声音的、听觉的
-hoodie: 连帽衫、卫衣
-abandon: 放弃、抛弃、废弃  名词: 放肆、任性、狂热
-nill: 不愿、拒绝
-nillable: 空、字段值是否能为空、控制限定
-rate: 速度、比率、价格  动词: 评价、评估  网络: 速率、费率、费用
-representation: 表现、代表、描述、陈述   网络: 表示
-particular: 讲究、挑剔、不寻常的  名词: 细节、详细资料、特色  网络: 特殊的、特别的、特定的
-capitalize: 把...首字母大写、变卖资产、变现   网络: 资本化、首字大写、利用
-consecutive: 连续的
-insure: 投保、给...保险、接受投保   网络: 保证、确保
-insured: 被保险人  网络: 受保人
-insurer: 承保人、保险公司
-holder: 持有者
-ticket: 票、入场卷、车票   动词: 售票、给...门票、发出交通罚单   网络: 罚单、票价、机票 
-telephone: 电话  动词: 给某人打电话  网络: 联系电话
-peccancy: 违章、犯罪
-loyalty: 忠诚、忠实   网络: 忠诚度、客户忠诚度
-mileage: 英里里程、好处、利益  网络: 里程数、
-vehicle: 车辆、工具、交通工具  网络: 载体、运载工具
-transgress: 超越、违反(法律)  vi: 犯法
-endorsement: 认可、背书  网络: 批单、签注(署)
-pure: 纯的、纯净的  网络: 纯洁
-risk: 风险、危险、保险额、被保险的人或物  动词: 使...冒风险
-beneficiary: 受益人、遗产继承人   网络: 收款人
-purchase: 购买、采购  网络: 进货
-ineffectual: 无能的、软弱的  网络: 无效的、徒劳无益的
-exhaust: 耗尽、使精疲力尽  名词: 排气管、废气  网络: 用尽、排气装置
-scale: 数值范围、比例尺、规模  动词: 攀登  网络: 缩放、规模
-exhaust scale: 排量
-scalable: 可扩展的
-scale out: 向外扩展
-fuel: 燃料、燃油  动词: 给...加油  网络: 汽油
-rack: 架子、支架、颈脊肉  动词: 使痛苦不堪 
-percent: 百分比、百分数、百分之一
-four percent: 百分之四
-improvement: 改进、改善  网络: 进步、改良
-affiliate: 分公司、附属机构  动词: 加入、为...工作、与...有关  网络: 联合
-gearbox: 变速箱  网络: 变速器、减速箱
-exemption: 免除、免税  网络: 免税额、免检、解除 
-bureau: 办公室、书桌   网络: 办事处、局
-settle: 定居、结算、停留、确定   网络: 解决、安排
-nation: 国家、民族
-nationality: 国籍、民族
-derate: 减税、降低金额  网络: 减免、降低额定值
-street: 街道  网络: 马路、街区
-alphabetically: 按字母顺序
-typing: 打字  动词: 按类型把...归类  网络: 分类
-compose: 组成、创作(音乐)  网络: 组合、构成、写作
-composed: 镇静、镇定、平静  网络: 沉着的、安详
-hint: 提示、暗示、窍门  动词: 透露、示意  网络: 线索、提示信息
-algorithm: 算法、计算程序
-recognition: 识别、认识、承人、认可  网络: 认出、赏识
-coerce: 强迫、胁迫、迫使  网络: 强制、压制、要挟
-possible: 可能、能做到、合理的  名词: 合适的人  网络: 可能性
-extension: 延申、延长、延期  网络: 扩展
-argue: 争论、争辩、表明、证明  网络: 辩论、说服、主张
-arbitration: 仲裁  网络: 公断、调停、仲裁条款
-deduct: 减去  网络: 扣除
-deductible: 免赔额  adj: 可扣除的、可减免的  网络: 扣除额
-deduction: 推理、扣(减)除  网络: 扣除额、推导
-displacement: 移位、替代  网络: 位移、排量、置换
-shoot: 幼苗、嫩芽、拍摄  动词: 射击、发射  网络: 射门、投篮、开枪
-ecdemic: 外地的、外来的
-motor: 汽车、马达、发动机、摩托  adj: 有引擎的、机动车的  动词: 乘(驾)车旅行
-coin: 硬币  动词: 创造
-discount: 折扣  动词: 低估
-middleware: 中间件
-franchiser: 特许人、经销商
-energy: 精力、活力、能量  网络: 能力、精力充沛
-marriage: 合并、结婚
-driving: 驾驶、开车、驱动  adj: 推进的
-payload: 有效载荷、负载
-wheel: 车轮、汽车  动词: 旋转、转动  网络: 方向盘
-throughout: 自始至终、在...期间、遍及...地区(场所)  adv: 到处、全部  网络: 吞吐率、始终
-each other: 彼此
-instantly: 立即、立刻  网络: 即刻
-duty: 责任、职责、义务、税收  网络: 关税
-finance: 金融、财务、资金  动词: 为...供给资金  网络: 财经、财务部
-financing: 理财
-province: 省份
-proposer: 提议人、申请人、投保人
-issuer: 发行人
-portrait: 肖像、半身照、标本
-recognise: 认出、承认、认可
-agreement: 协议、同意、契约  网络: 一致、协议书
-seat: 座位、臀部、所在地、场所  动词: 坐、使就坐
-approve: 批准、赞成、同意  网络: 认可
-catarc(China Automotive Technology and Research Center): 中国汽车技术研究中心
-chassis: 底座、底盘
-emission: 排放、辐射、排放物、发行  网络: 发射、散发
-oil: 油、石油、燃油、润滑油
-passenger: 旅客、乘客、碍手碍脚的人   网络: 过路人
-glass: 玻璃、玻璃杯、镜子  网络: 眼睛
-facturer: 制造商
-accommodation: 住宿、住处、和解  网络: 适应、调节、顺应
-engage: 雇佣、保证、约定
-selective: 选择性的、有选择的、严格筛选的  网络: 有选择性的、挑剔的
-ignite: 点燃、(使)燃烧  网络: 点火、引燃、燃点
-theft: 偷窃  网络: 失窃
-carrying: 运输  adj: 运输的  网络: 携带
-fee: 报酬、咨询费  网络: 佣金、费用、收费
-district: 区、地区、区域  动词: 把...分区  网络: 县
-inquire: 询问、打听、调查  网络: 查询、询价
-sell: 出售、转让、出卖  名词: 欺骗   网络: 销售、卖出
-inappropriate: 不适用的、不适合的、不宜
-computable: 可计算的
-revision: 修订、修改、校对
-divisible: 可除、可被整除的
-without: 没有、缺少、在外面
-impossible: 不可能的、很难对付的
-generate: 生成
-pacific: 平静的、和平的、太平洋
-secret: 秘密、关键  adj: 秘密的、机密的、神秘的
-belong: 属于
-distributor: 经销商、批发商、分发者  网络: 发行人
-proportion: 比例、部分、比率、均衡
-special: 特别的、特殊的、专门的、特产
-disjunction: 分离、分裂  网络: 脱节
-evaluation: 评估、估价、赋值
-industry: 工业、行业、勤劳  网络: 产业
-lookup:	查找、看望、抬头
-agriculture: 农业	
-decapitalize: 减少资本、撤资
-convenience: 方便、便利、公测  网络: 便利性
-docket: 标签、议程、法院积案清单  动词: 在...上附件签条  网络: 摘要、记事表
-rank: 等级、级别、排、军衔  动词: 排列、把...分等级  adj: 难闻的、极端的、讨厌的  网络: 排名
-fatal: 致命的、毁灭性的、严重的
-postgraduate: 研究生
-take up: 占用、拿起、举起
-graduation: 毕业、刻度、分度
-gist: 要点、主旨、大意
-catcher: 捕获器、收集器、捕捉者
-incorrectly: 不正确的、错误地
-idle: 空闲、闲置的、懒惰的
-graceful: 优雅的
-hand shake: 握手
-enclosing: 把...围起来、围绕、装入
-fully: 充分地、彻底的、完全的
-fallback: 后退、回退
-fill: 填充、填满、充分
-layout: 布局、规划、设计、布置
-sift: 筛分、审查
-deny: 否认、拒绝、克制
-decide: 决定、下决心、解决、裁决
-neutral: 中性的、持平的
-integration: 积分、整合、集成、结合、一体化
-value with time: 时间价值
-amend: 修正、修改、改正、修订、改良
-compute: 计算、估算、求出、推断e
-dispute: 纠纷、争端
-experiment: 实验、试验	
-traverse: 遍历、穿过
-tweak: 调整
-effort: 努力、尽力、尝试
-lexer: 词法分析器
-manipulation: 操纵、控制、手法
-trivial: 不重要的、无价值的、平常的
-survivor [sər'vaɪvər]:  幸存者
-shallow: 浅的、肤浅的、表面的
-techie: 技术员
-interview: 面试、会见、接见
-wonderful: 精彩的、令人高兴的
-nerd: 书呆子
-passphrase: 密码、口令
-uber: 超级
-impeachment: 弹劾
-survive: 生存、幸存、生还
-odd: 奇数的、古怪的
-contiguous: 连续的、相邻的
-utilization: 利用率
-publication: 出版物
-guestbook: 留言簿
-advice: 建议、指导、通知、劝告
-transmit: 发送、传递
-deviation: 偏差、误差
-horrible: 可怕
-volatile: 易变的、不稳定的
-testimonial: 感言
-awesome: 极好的
-vote: 投票
-cohort: 同伙、队列
-classic: 经典
-award: 授予、奖赏
-lexical: 词法
-sentence: 句子
-assertive: 断定的、肯定的
-reasonable: 合理
-donut: 甜甜圈
-massive: 庞大的
-course: 课程
-discourse: 话语、论文、谈话、演讲
-supervisor: 主管
-workload: 工作量
-participant: 参与者
-majority: 多数
-sophisticate(d): 复杂的、先进的
-proof: 证明、验证
-replication: 复制
-relay: 传达、转发、中继
-hybird: 混合的
-mining: 挖掘
-syntax: 语法
-taught: 教导
-zone: 区
-reveal: 显示、透露
-successive: 连续的
-elastic: 有弹性的
-initiative: 倡议 
-orchestration: 编排
-fluentd: 流利的
-reliably: 可靠地
-journald: 日记
-explore: 探索
-eliminate: 消除、排除
-reverse: 逆转
-manipulate: 操纵
-alarm: 报警、警告
-indeed: 确实
-above: 在...之上、以上
-prohibited: 禁止的
-caveat: 警告
-caveats: 注意事项
-alert: 警报
-recoverable: 可恢复的
-migrate: 迁移、转移
-hit: 命中、击中
-occupy: 占有、占据
-daily: 日常
-preferentially: 优先地
-reactivity: 反应性
-relevance: 关联
-teaser: 预告片
-quarter: 季度、一刻钟("四分之一"的意思)
-correction: 更正、纠正
-miserably: 悲惨的
-synonym: 同义字
-ingest: 摄取、摄入
-drone: 无人机
-flexible: 灵活
-crumble: 崩溃
-phonetic: 语音的
-revenue: 收入
-beneath: 下面
-costars: 配角、合演者
-humongou: 巨大的
-malware: 恶意软件
-desirable characteristics: 
-resilience: 弹性、弹力
-govern: 控制
-governance: 治理
-evictor: 驱逐者
-slogan: 口号、标语、广告语
-adopted: 被采纳 
-integrity: 完整性
-fine granularity: 细粒度
-partial: 部分的
-consensus: 共识
-hence: 因此、从此 
-skew: 扭曲、倾斜、偏移
-peer: 同辈、同行人、凝视、对等
-swarm: 一大群
-avalanche: 雪崩
-refined: 精炼的、优雅的
-spawn: 引发、导致
-justification: 
-intelligent: 智能
-bonus: 奖金
-sensible: 明智的、合理的
-sight: 看见、视觉、眼界 
-snippet: 片段 
-tolerance: 容差
-fault tolerance: 容错
-quorum: 法定人数
-election: 选举
-synod: 宗教会议
-central: 中央
-inhuman: 不人道
-enterprise: 
-accomplish: 达到、完成
-invent: 发明
-scalability: 可扩展性
-columnar: 柱状、纵列
-statable: 可控的
-tedious: 乏味
-inspired: 启发
-deliver: 交付、传递
-deliverable: 可交付的
-portable: 便携的
-diseased: 患病的
-dying: 垂死
-breed: 品种
-simplified: 简化的
-culture: 文化
-rare: 罕见
-indefinitely: 无限的
-probe: 探测
-vectorized: 向量化
-commercial: 商业的
-mention: 提到
-roughly: 大概
-vertical: 垂直
-solicite: 请求、恳求、要求
-advert: 广告
-promotional: 促销 
-shocking: 令人震惊的、骇人听闻的
-accident: 意外、意外事故
-downside: 缺点
-repeater: 中继器
-raspberry pi: 树莓派
-slack: 松弛的  懈怠、偷懒
-whisk: 搅拌
-fusion: 融合
-foundation: 基础
-incubation: 孵化 
-pseudo: 伪的、冒充的
-dispose: 处理、部署
-discord: 不和谐、不和、异议
-brute: 蛮力、牲畜
-resilient: 弹性的
-manifesto: 宣言
-mediation: 调停、中介、仲裁 
-exercises: 练习题、演习
-valuable: 有价值的
-sadly: 可悲地、不幸
-potentiall: 可能地、大概地、潜在的
-regrets: 遗憾
-wallpaper: 墙纸、壁纸
-compliant: 符合的、兼容 
-lenient: 宽容
-emulate: 模拟
-scrape: 刮、擦痕
-side-effect: 副作用
-concern: 关心、关注
-stitch: 缝
-incident: 事件
-junior: 初级
-drag: 拖动
-encounters: 遇到
-spamming: 垃圾邮件
-robust: 强大的
-robustness: 健壮性
-essential: 要点
-wiretap: 窃听
-approach: 方法
-clinic: 诊所
-emulator: 仿真器
-instructor: 讲师
-conquer: 征服
-appreciate: 欣赏
-furthermore: 此外
-fundamentally: 从根本上
-the rest of: 其余的
-incubate: 孵化
-honestly: 老实说
-retuning: 调整
-applet: 小程序
-inventory: 库存 
-circuit: 电路
-symmetric: 对称
-ecosystem: 生态系统
-benefits: 好处
-drawbacks: 弊端
-treat: 对待
-dealt: 处理
-virtually: 几乎
-subtle: 微妙的
-obvious: 明显的
-even: 甚至、即使、其实、平滑的、使平均
-wayback: 回溯
-ample: 丰富、大量
-radius: 半径
-monotonically: 单调、单调地
-infeasible: 不可行的
-endeavor: 努力
-academic: 学术
-heavily: 大量
-parcel: 包裹
-tolerant: 宽容
-fault-tolerant: 容错
-arrive: 到达
-mutate: 变异、转变
-adhere: 坚持
-horizontal: 水平的
-constantly: 不断地、时常
-worst: 最坏的
-fulfilled: 完成、满意的
-occasional: 偶尔
-imagine: 想像
-inspiration: 灵感、启发
-wipe: 擦拭
-excellent: 出色的
-straightforward: 直截了当
-arguably: 可以说
-tend: 趋向
-portability: 可移植性
-productivity: 生产力
-terminology: 术语、词汇
-prohibition: 禁令、禁止
-silently: 默默地
-polymorphism: 多态性
-responsibility: 责任
-segregation: 隔离、分离
-mental: 心理
-cautious: 谨慎
-idempotent: 幂等
-directive: 指令
-turn: 转向、转变
-turn out: 事实证明
-obviously: 明显地
-meaningful: 有意义的
-monolith: 单体
-monolithic: 整体的
-enrolled: 已学习
-perprtual: 永久
-fundamental: 基础、基本原理
-demystify: 弄清楚
-recap: 回顾
-agnostic: 不可知的、无关的
-sole: 唯一
-ideal: 理想的
-climb: 爬、攀登
-throttle: 节流阀
-tight: 紧密
-seize: 抓住、捉住
-remedy: 补救、弥补
-formerly: 以前、原来
-aftermath: 后果
-opaque: 不透明
-brightness: 亮度
-rough: 粗糙、粗略
-mindset: 心态
-cooperation: 合作
-disclaimer: 免责声明
-derivative: 衍生物
-actor: 演员、参与者、行动者
-viral: 病毒式
-collaborators: 合作者、协作者
-choreography: 协同式
-newsletter: 通讯
-unfettered: 无限制的、不受约束的
-fringe: 边缘
-perspective: 看法
-inferior: 较差的、劣等的
-coalesce: 合并、结合、联合
-misunderstood: 遭误解的、被误解的
-emphasis: 重点、强调
-heal: 恢复
-properly: 正常地
-pirate: 盗版、海盗
-hybrid: 混合式、杂种
-zombie: 僵尸
-adjustment: 调整
-therefore: 因此
-hiring: 招聘
-analogous: 类似的
-preemptive: 抢占式
-fallible: 易变的
-interoperability: 互通性
-brain: 脑、头脑
-trial: 试验、试用
-mature: 成熟、成年
-premature: 过早
-jitter: 抖动
-identical: 一摸一样
-overlap: 重叠、叠加
-compliance: 合规、履约、遵守
-obviate: 避免、预防、消除
-seamlessly: 无缝地
-tolerate: 容忍、宽容
-afford: 负担得起、提供、给予
-milestone: 里程碑
-endanger: 危害
-more prone: 更容易
-clutter: 杂乱
-accelerate: 加速、促进
-inform: 通知、告知
-dedicated: 专用的
-reside: 属于、驻留
-deactivate: 解散、停用
-suitable: 合适的
-rudimentary: 基础的、初步的
-enlist: 征召、报名
-summit: 峰会
-disruptive: 干扰、破坏性
-corruption: 腐败、堕落
-data corruption: 数据损坏
-escape: 逃脱、逃逸、逃离
-emergency: 紧急情况
-gauge: 仪表、标准、厚度
-backport: 向后移植
-underpinning: 支撑、基础
-detachable: 可拆卸
-decouple: 解耦
-confer: 赋予
-liberate: 解放、释放
-assumption: 假设
-maintenance: 维护
-deposit: 存储
-timekeeping: 计时
-defect: 缺陷
-forest: 森林
-bypass: 绕过、避开
-absorb: 吸收
-bulletin: 报告
-continuation: 持续、连续性
-squash: 塞入
-narrative: 叙述
-wrote: 写作
-catalog: 目录
-together: 一起
-intensive: 密集的、加强的
-repetitive: 反复的
-snappy: 精炼的
-massively: 大量地
-confidence: 信心、信任
-transitivity: 转义
-rage: 狂暴
-utilize: 利用
-pivotal: 关键的、核心的
-spatial: 空间的
-citation: 引用文献
-tune: 调节
-tier: 层、行、级、阶
-occupation: 职业
-disclosure: 公开
-vulnerability: 漏洞、缺陷
-tricky: 棘手的、复杂的
-restaurant: 饭店
-ecology: 生态
-percolator: 过滤器
-commutative: 可交换的
-annoying: 恼人的、讨厌的
-unfortunately: 可惜、很遗憾
-fortunately: 幸好
-lack: 缺少
-anomaly: 异常
-countermeasures: 对策、对抗措施、应对措施
-accountability: 问责、责任制
-intrinsic: 内在的
-numerous: 很多的、众多
-regardless: 不管、不顾
-humble: 卑微、谦逊
-opinion: 意见、观点
-eventually: 最终
-comprehensive: 综合的、全面的、广泛的
-simulator: 模拟
-intuitive: 直觉的、直观的
-collaboration: 合作
-playback: 回放
-prematurely: 过早的(地)
-landing: 着陆、登陆
-landing page: 首页
-brace: 大括号
-alphanumeric: 字母数字
-experience: 体验、经历
-notion: 概念
-extremely: 非常、极其
-invite: 请求、邀请
-congestion: 阻塞、充血
-dialyzer: 透析器
-excuse: 原谅
-telemetry: 遥测
-mentione: 提及、说起
-broadly: 广泛、广义
-intended: 预期、打算
-polyglot: 多种语言
-resemble: 类似
-gather: 聚集、采集、收集
-treatment: 治疗、处理
-lifespan: 寿命、生命周期
-responsible: 负责、有责任
-severity: 严重、苛刻
-drastically: 彻底地、大幅度地
-caution: 谨慎、警告
-uncertainty: 不确定性、犹豫、迟疑
-saturation: 饱和度
-silence: 沉默
-budget: 预算
-forecast: 预测
-evolutionary: 演变的
-accuracy: 精确、准确
-diversity: 多元化
-eventuate: 导致、结果为
-economy: 经济
-departure: 出发、启程
-aircraft: 飞机、飞行器
-cohesion: 内聚
-advisory: 警告
-pyramid: 金字塔
-industrial: 工业的
-scientific: 科学的
-medical: 医学的
-angle: 角度
-ingress: 入口
-defense: 防御
-malicious: 恶意的
-alarm: 警报、闹钟
-Fine-grained: 细粒度
-builtin: 内置
-incredible: 不可思议
-unprecedented: 史无前例的
-stunning: 极好的
-extraordinary: 特别的、意想不到的
-satisfaction: 满意度、满意
-synopsis: 总览、概要
-prove: 证明
-closure: 闭包
-lexical: 词汇、语法
-positive: 正的、肯定、确信、积极的
-perusal: 熟读、阅览
-breadcrumb: 面包屑
-forcible: 强行的
-evidence: 证据
-pile: 堆积
-retro: 复古、怀旧
-earnings: 收入、工资
-tactical: 战术、策略性
-workbench: 工作台
-caption: 标题、说明文字
-funding: 资金、经费、基金、资助
-acoustic: 原声的
-puzzle: 难题、疑问
-extravagant: 奢侈
-frankly: 
-widget: 小工具
-teammate: 队友
-indentation: 缩进
-asterisk: 星号
-excellence: 卓越、精益求精
-compromise: 妥协、折衷
-equilibrium: 平衡、均衡
-bottleneck: 瓶颈
-vintage: 复古
-opposite: 对立面、反面
-sensor: 感应器
-nomenclature: 命名法
-analogue: 类似物 
-will power: 意志力
-elegant: 
-callout: 标注
-gallery: 画廊、图册
-accidental: 
-resupply: 补给
+adjective 											形容词
+adverb 												副词
+verb 												动词
+noun 												名词
+intransitive verb(vi) 								不及物动词
+transitive verb(vt) 								及物动词 
+preposition					 						介词
+argument										 	论据
+expression										 	表示、表现、表达
+operation										 	操作、运营
+disable										 	 	禁用、使残废
+important										 	重要的
+various										 		各种各样的
+specified										 	指定
+influence										 	对..有影响、影响力
+behavior										 	行为
+through										 		通过
+similar										 		相似
+resolver										 	媒介、旋转变压器
+retrieval										 	恢复
+strategy										 	策略
+declared										 	宣布、断言
+calcuator										 	计算器
+region										 		区域、行政区
+inherited										 	继承
+declare										 		声明
+minimal												最小的
+disruption											中断、分裂
+argument										 	论据.  一般在编程中称为"参数"
+delegate										 	代表
+assignable										 	可归属的、可分配的
+assign										 		赋值
+concrete										 	具体的
+lead												领导、引导
+imporssible											不可能、做不到
+provider											提供者(商)
+inject												注入
+under												根据、不足、小于、在...下面  adj: 较低的、下面的
+support												支持
+condition											条件
+strength 											力量
+strengths											优势
+batch												批量
+dynamic												动态
+disallowed											不允许的
+platform											平台
+explain												解释
+persent												目前
+producer											生产者
+fix													修理、固定
+remark												备注
+perhap												也许
+slightest											丝毫
+outage												停电
+compatible											兼容
+optional											可选择的
+reconciliation										和解
+aspect												方面、侧面、详情
+original											原始的
+cascade												级联
+revert												恢复、回归
+grow											 	增长、发展
+dissect	      										解剖
+growth												成长值
+charge												收费、控诉、充电  名词: 费用、指示、控告
+recharge											补给、充值
+member												成员、会员
+third												第三
+grade												等级
+company												公司
+transaction											交易
+digest												消化、吸收  名词: 文摘
+native												本地的
+summary												总结、摘要、概要
+since												自从、以后
+feature												特征 
+assist												帮助
+unified												统一的
+outside												在外面
+inside												在里面
+sidebar												侧边栏
+summary												概要、总结
+routing												路由
+confirm												确认
+features											特征
+wireless										 	无线、无线电
+publish												宣布
+exchange											交换
+mandatory											强制的;受委托的   备注: 一般理解为必填
+reward												奖励
+trigger												触发
+invoice												发票
+qualified											有资格的
+browser												浏览器
+past												过去的
+predicate											谓语、(dsl中表示断言)
+balance												平衡、余额
+aware												意识到、觉察
+which												哪一个
+taint 												污点
+receive												收到
+typically											典型的、通常
+contain												包含
+compare												比较
+durable												持久的、耐用的
+iterable											可迭代的
+iteration											迭代
+recover												恢复
+reject												拒绝
+completed											完整的
+incompleted											不完整的
+remote												远程的
+remoting											远程处理
+procedure											程序
+reply												回复
+deprecated											不赞成、反对(在Java中该注解表示'即将废弃'的意思)
+brand												品牌
+due													由于、适当的  网络: 到期的、预期的、应付的 
+detect												检测
+verification										验证、检验、证明、确认
+during												在..期间   
+weight										 		重量、重任、体重  动词: 加重于、使负重
+lightweight										 	轻量化
+precious										 	珍贵的、宝贝的
+balance										 		平衡
+broker										 		中间人、经纪人  动词: 协商
+channel										 		通道、渠道
+protocol										 	协议
+delivery										 	交货、传送
+contrast										 	对比
+complement										 	补充
+navigation										 	导航
+deep										 		深的
+holiday										 		假期
+destination										 	目标、目的
+matching										 	匹配
+editors										 		编辑
+conversion										 	转换
+pull	 											拉
+push	 											推
+correlation	 										相关性
+level	 											水平
+triggered	 										触发
+edge	 											边缘、优势
+sale	 											卖
+gift	 											礼物、赠品
+fraction	 										分数
+extract 											提取、获得
+combine 											结合
+combination 										组合、结合
+goal 												目标
+profile 											简介
+fail 												失败
+recycle 											回收
+restore 											还原
+bullet 												子弹
+successor 											继承人
+opposite 											对立面、反面
+sensor 												感应器
+nomenclature 										命名法
+postpone 											延迟
+statement 											陈述
+crash 												崩溃
+mirrored 											镜像
+delay			 									延迟、推迟 
+envelope 											信封
+cluster 											群
+master 												主人
+slave 												奴隶
+policy 												政策、策略、保险单
+acknowledge 										承认
+disk 												磁盘、硬盘
+automatic 											自动的
+manual 												手动的
+coordinator 										协调员
+Guarenteed 											守卫
+multicast 											组播
+mnesia 												记忆缺失
+promote 											促进
+failover 											故障转移
+cancel 												取消
+notification 										通知
+poison 												毒药
+mock 												嘲弄、愚弄(在开发中通常为"模拟")
+offline 											离线
+online 												在线
+define 												定义
+simultaneously 										同时
+fetch 												取出
+bags 												袋子
+alternate 											交替的
+phase 												阶段
+introduction 										介绍
+bottom 												底部
+divide 												分(除)
+subtract 											减去
+multiply 											乘
+banner 												标语
+increment 											增长
+capacity 											容量
+access 												入口、接近
+reduce 												减少
+folder 												目录
+previous 											以前的、在...之前
+rotate 												旋转、轮换
+threshold 											门槛
+stable 												稳定的
+remaining 											剩下的
+fancy 												设想
+stuff 												东西、材料  动词: 填满
+natural 											自然的
+annotate 											注释
+biography											个人履历
+vary												改变、多样化
+pointcut 											切入点
+specify 											指定
+lifecyle 											生命周期
+notice 												通知、注意
+atomic 												原子的
+swap 												交换
+tablet 												药片
+technology 											技术
+neural 												神经(名词)
+firmware											固件
+provided 											假如
+wanner 												想要
+audit 												审计
+purge 												净化、清除
+extractor 											萃取器、抽油烟机、提取器
+logistics 											物流
+freight 											运费
+emit 												发出、发射、发行
+gap 												缺口
+snapshot 											快照  动词: 乱射
+undo 												解开
+redo 												重做
+storage 											仓库、存储
+archives 											档案(存档)
+repeat 												重复
+repeatable 											可重复的
+pessimistic 										悲观的
+optimistic 											乐观的
+multiversion 										多版本
+satisfied 											满意的
+roll 												卷、名单  动词: 滚动、转动  
+segment 											环节、段、部分
+fault 												故障、缺点、过错
+intersect 											交叉、 相交(集合里的)
+spin 												旋转
+spinlock 											自旋锁
+simulate 											模拟
+acquire 											获得、学到
+release 											释放
+ride 											 	骑、乘
+race 												比赛
+free 												自由的
+scan 												扫描
+range 												范围
+optimize 											优化
+optimizer 											优化器
+statistics 											统计学
+cost 												成本
+increase 											增加
+putty 												油灰
+unsafe 												不安全的
+compressed 											压缩的
+sample 												样品
+sampling 											采样
+upgrade 											升级
+cyclic 												循环的
+signal 												信号
+ensure 												确保
+bucket 												水桶
+report 												报告
+usage 												使用
+stride 												步幅、进展
+transfer 											转移
+advance 											提前、预先、推进、前进
+absent 												缺席的、缺少
+bound 												跳跃
+reservation 										预定、保留
+reentrant 											可重入的、再进去
+full 												满的
+fair 												公平的
+nanoseconds 										纳秒
+half 												一半
+efficient 											有效率的
+bulk 												大量的
+chance 												机会
+interactive 										交互、互动
+chance 												机会
+secrecy 											保密
+lagging 											滞后
+accommodate 										适应、迁就
+terminates 											终止
+dummyNode 											哑节点
+garbage 											垃圾
+marker 												标记
+skill 												技能
+shared 												共享的
+postscripts 										附言
+appendix											附录
+overview 											概述
+logical 											符合逻辑的
+established 										已建立的
+pipeline 											管道
+league 												联盟
+legends 											传说
+consultation 										咨询
+symbol 												符号
+temporary 											暂时的
+effect 												影响、作用、效果  动词: 使...发生、实现  网络: 结果
+effective 											有效的
+confusion 											混淆、困惑
+descendant 											后裔、后代
+ancestor 											祖先
+distance 											距离
+enhancement 										偏移量、增强
+proposal 											提议、建议  网络: 方案、提案、投标
+walkthrough 										演练(预排).在JAVA注释中能碰到、表示的意思是阐述代码执行结果对应的含义.
+staturate 											渗透
+fork 												叉
+steal 												偷窃
+passion 											激情、热情 
+candidate 											候选人  网络: 求职者、候补者
+subject 											主语
+predicate 											谓语
+object 												宾语
+accessibility 										可访问能力、可访问性
+notation 											符号
+anti 												反
+antipattern 										反模式
+array 												数组
+assertion 											断言
+wildcard 											通配符
+callback 											回调
+colon 												冒号
+exception 											异常、例外
+inspection 											检查、查看  网络: 检验、审查
+comparator 											比较器
+composition 										复合
+implementation 										实施、履行
+covariant 											协变的
+decorator 											装饰者
+defensive 											防守的
+delegation 											委托
+deserializing 										反序列化
+design 												设计
+idiom 												习语
+encapsulation 										封装
+erasure 											擦除
+chaining 											链锁
+explicit 											明确的、显式的
+extend 												扩展
+field 												域
+guard 												守卫
+guardian 											守护者
+generic 											泛型、通用
+generification 										泛型化
+idiom 												习惯用法、模式
+immutable 											不可变的
+implement 											实现(用作动词)
+implementation 										实现(用作名词)
+inheritance 										继承
+interface 											接口
+variant 											变体、变种  adj: 不一致的、易变的  网络： 变量、不同
+invariant 											不可变的
+member 												成员
+mixin 												混合类型
+module 												模块
+mutator 											设值方法
+object 												对象
+obsolete 											过时的
+overload 											重载
+override 											覆盖
+parameterized 										参数化
+performance 										性能
+postcondition 										后置条件
+precondition 										前提条件
+violation 											违反
+primitive 											基本类型
+recur 												重现
+recursive 											递归的
+redundant 											冗余
+reflection 											反射机制
+register 											注册、寄存器
+reifiable 											可具体化的
+reified 											具体化的
+remainder 											求余
+strict 												严格
+restricted 											受限制的
+safety 												安全性
+semantic 											语义的
+serializing 										序列化
+signature 											签名
+singleton 											独生子、独身
+skeletal 											骨骼的
+transition 											过渡
+state 												状态  动词: 说明、规定
+stateless 											无状态的
+stateful 											有状态的
+subclassing 										子类化
+subtyping 											子类型化
+synthetic 											合成的
+infer 												推断、推测
+typesafe 											类型安全
+retention 											保留、保持
+motivation 											动机
+invasiveness										入侵性
+intention 											意向、目的  网络: 动机
+unintentional 										无意的
+cumbersome											繁琐
+preferable											优选
+problematic											有问题
+exponential 										指数
+exponentiation 										求幂
+heterogeneous 										异构的
+migration 											迁移移民
+compatibility 										兼容性
+typically 											典型地
+clause 												条款(这个在SQL报错里经常看的到)
+decision 											决策、决定、果断、决心(源自SpringData TX中一个字段的注释)
+propagate 											传播
+propagation 										传播(源自Transaction注解)
+appropriate 										合适的、适当的(源自SpringData TX中事务管理器的一个方法名)
+concrete 											混凝土、具体的
+decorator 											装饰者
+compound 											复合
+duplicate 											复制品、重复的意思
+agile 												敏捷的
+duration 											持续时间
+legacy 												遗产
+hystrix 											豪猪
+standard 											标准
+criteria 											标准
+conversion 											转换
+aggressive 											有侵略性的
+purpose 											目的
+series 												系列
+shared 												共享的
+independent 										独立
+dependent 											依赖
+consider 											考虑
+indicate 											表明
+cursor 												光标
+trace 												痕迹
+detach 												派遣、分离、脱离
+subscribe 											订阅
+screen 												屏幕
+evaluating 											评估
+sharding 											分片、碎片
+logic 												逻辑
+determine 											决定、确定
+cause 												原因
+done 												完成
+comma 												逗号
+cardinality 										基数
+manual 												手动
+intermediate 										中间的
+compensate 											补偿
+camel 												骆驼
+repository 											仓库
+draft 												草稿、草案
+diagram 											图表
+compensation 										补偿
+related 											相关的
+normal 												正常的、标准的、一般
+expect 												期待
+presentation 										报告、介绍
+textual 											文本
+finite 												有限的
+reactive 											反应性、有反应的
+guide 												指导、指南
+always 												总是
+setup 												设置
+applicable 											可应用的、适用
+prudence											谨慎
+least 												最小的、最少的
+pressure 											压力、压强
+echo 												回声
+weekly 												每周的
+feedback 											反馈
+tiny 												小 
+jammer 												干扰器
+carry 												携带
+fleet 												舰队、车队  adj: 快速的 
+terminal 											终端
+conflict 											冲突
+contact 											联系
+fake 												伪造的
+compiler 											编译程序、编著者
+skipped 											跳过
+hire 												雇佣
+coroutine 											携程
+correct 											校正
+ambiguous 											摸棱两可的
+precision 											精确、细致  网络: 精确度、精密度
+patch 												补丁
+boards 												主板
+mutex 												互斥
+overlooked 											忽略
+necessary 											必要
+guess 												猜测
+frequently											经常、频繁的
+arrangement											安排
+below 												下面、以下、在...下面
+supplied 											提供
+assists 											帮助
+navigate 											导航
+occur 												发生
+occurred 											发生了
+broken 												破碎的
+feature 											特征
+unsigned 											未签名的、无符号的
+recipe												食谱
+machine 											原始的
+occupancy											占用
+still 												仍然
+surveyor											测量员
+scenario 											脚本
+rounding 											舍入
+radix 												基数
+glad 												高兴
+glue												胶水
+refactor 											重构
+assemble 											聚集、收集、组装 
+successor 											接班人
+inbound 											入站
+outbound 											出站
+agent 												代理人
+contribution 										贡献
+collect 											收集
+characteristics 									特点、特性
+supplier 											提供
+accumulator 										累加器
+combiner 											结合
+finisher 											整理
+cost 												常数
+division 											除法
+remainder 											取余、剩余
+negate 												取反、否定
+verbose 											详细的
+engineer 											工程师
+engineering 										工程学、工程
+engine 												引擎
+hotspot 											热点
+tenured 											终身
+generation 											代
+parallel 											平行
+sweep 												扫描
+tracing 											查找、跟踪器
+verbose 											啰嗦的、详细
+minor 												较小的、次要
+major 												重大的、主要  动词: 主修(major in)  名词: 成年人 
+troubleshooting 									故障排除
+leak 												泄露
+permanent 											永久的
+edian 												字节序
+descriptor 											描述符
+our 												我们的
+preference 											偏爱
+cap 												帽子
+reckon												估计
+initialCaps 										首字母大写
+hierarchy 											阶层  
+analysis 											分析
+analytical 											分析型 
+aggregate 											总数、总计. JVM中称为'聚合量'  动词: 聚集
+scalar 												标量
+assign 												分配
+precursor 											先导、前身
+captain 											队长
+kernel 												内核
+heavyweight 										重量级
+champions 											冠军 
+hardcode 											硬编码
+allocation 											分配
+caught 												抓住、捕获
+conference 											会议
+remind 												提醒
+suspect 											嫌疑人
+instead 											相反、代替
+accumulate 											积累、堆积
+validate 											验证
+invalidate 											废止
+isolation 											隔离
+registry 											注册处
+registrar 											注册员
+prover 												证明者
+perpetual 											永久、永动的
+additional 											额外
+fragment 											碎片
+fragments 											片段
+moderator 											主席、版主
+roaming 											漫游
+absoulte 											绝对
+discriminator 										鉴别
+vendor 												供应商、小贩  网络: 卖主、厂商
+enhance 											增强
+deferred 											延迟
+pending 											待定
+relation 											关系(和pending组成pending relation就是'待定关系')
+underlying 											底层
+recent 												最近 
+affected 											受影响
+immediately 										立即
+seem 												似乎
+soon 												不久、快
+eviction 											赶出
+retrieve 											找回  动词: 回收
+dirty 												脏
+integrate 											集成、整合
+solve 												解决
+almost 												几乎、差不多
+plain 												朴素、简朴
+circle 												圈、圈子
+comrade 											同志
+introspect 											反思
+introspector 										内部检查、内省
+inversion 											反转
+proper 												正确、合适、适当
+dummy 												假
+praise 												赞美、表扬
+civilization 										文明
+communication 										通讯、交通、交际
+motivate 											刺激
+basically 											基本地、本质上
+eager 												渴望的
+sensitive 											敏感
+insensitive 										不敏感
+exceed 												超过、突破
+via 												通过
+external 											外部
+actual 												实际
+government 											政府
+prevent 											防止、阻止
+thankless 											费力不讨好
+instantiate 										实例
+instant 											瞬间
+pioneer 											先锋
+meant 												意味者
+left 												剩下
+intentionally 										故意地	
+deliberately										故意地
+tokenize 											令牌化
+place 												地点、地方
+carousel 											旋转木马(谷歌中文翻译: 轮播)
+frequency 											频率
+related 											相关的
+compression 										压缩
+understanda 										理解
+confusing 											扑朔迷离、混乱
+cover 												覆盖
+coverage 											覆盖率
+sequential 											顺序
+bias 												偏差、偏见、偏心
+associativity 										关联性
+theory 												理论
+seed 												种子
+familiar 											亲切、熟
+sink 												下沉(动词)、水槽(名词)
+cancellation 										消除
+technique 											技术、技巧、手法
+preserve 											保留
+athlete 											运动员
+athletic 											竞技
+tutorial 											教程
+manner												方式
+alley 												胡同、巷
+ourselves 											我们自己
+reliable 											可靠
+tripped 											跳闸
+viable 												可行
+impact 												影响
+relative 											相对
+inquiry												询问、询价
+large 												大
+prime 												动:填装 形:最初的
+quality 											质量
+assurance 											保险
+avoid 												避免
+typeahead											输入提示、输入建议
+partition 											划分、分割   网络: 分区
+estimate 											估计
+note 												动:注意 名:笔记 
+derive 												派生
+materialize 										物化 动词:赋与实质、物质化
+chaos 												混沌
+degradation											降级
+monster 											怪物
+plane 												平面
+protable 											便捷
+wars 												战争
+oriented 											面向、以...为方向
+capable 											能、能干、有资格
+internal 											内部
+correspond 											对应
+corresponding 										相应
+scratch 											刮、划伤
+mentor 												导师
+few 												少数
+expert 												专家
+conclude 											得出结论
+realize 											实现、明白、意识
+detector 											探测器
+underneath 											在...下面
+equivalent 											相等
+enforce 											执行
+synthetic 											合成的
+locate 												定位
+component 											零件
+reporter 											记者
+absolute 											绝对
+recurse 											递归
+transformed 										改造
+early 												早
+guarantee 											保证
+suppress 											压制
+contrary 											相反
+initialization 										初始化
+instantiation 										实例化
+typically 											一般
+populate 											填充
+despite 											尽管
+disposable 											一次性
+preferred 											首选
+whether 											是否
+shortcut 											捷径 
+adaptive 											自适应
+smart 												聪明
+embedded 											嵌入式
+canonical 											典范、规范
+externally 											外部
+destruction 										毁坏、拆开
+perform 											履行、执行
+desire 												想要、期望
+expectation 										期望
+internationalization 								国际化
+frozen 												冻结的
+introspection 										内省、自我检查
+might 												威力  助动词: 或、可能  网络: 能力、势力
+theme 												主题、话题
+capability 											能力、性能
+following 											形容词:以下、之后  名词:跟随
+ability 											能力
+fledged 											成熟
+given 												特定
+mainly 												主要
+against 											介词: 反对、针对  动词: 与...对抗
+bollocks 											胡说
+obscenties 											猥亵
+obscenity 											意淫
+upfront 											前期
+afterward 											之后、然后
+thus 												从而、因此、所以
+internationalization 								国际化  俗称:i18n i和n是首尾字母、18是中间的字母数
+zh_CN 												中文_中国  需要"语言类型"和"国家|地区的类型"才可以确定一个特定类型的本地化信息
+zh_TW 												中文_台湾
+currency 											货币
+hierarchical 										分层的、阶级式
+bundle 												束、包、包裹
+desktop 											桌面
+publisher 											出版者
+multicaster 										多路广播
+retriever 											猎犬
+alternative 										其他的、两者挑一的
+participate 										参加、加入、插足
+escalate 											升级
+devil 												魔鬼
+eligible 											合格
+expose 												暴露
+avaiable 											可得到、可用的
+infrastructure 										基础设施
+alliance 											联盟、同伙
+season 												季节
+proceed 											继续
+obtain 												获得  作为方法名可以表示些get之外的操作.比如obtainDataSource()方法做了非空处理
+shadow 												阴影、暗影
+footer 												页脚
+mass 												块、堆、大多数  形容词: 群众的
+kit 												套件
+material 											材料、素材、物品
+voice 												语音、发言权
+facilities 											设备
+conformant 											符合性
+translator 											解释、转化、翻译者
+truncation 											截断
+composite 											综合、合成
+reach 												达到、到达、收到  名词: 范围、区域  网络: 抵达  
+shed 												棚子  动词: 洒、散出、掉
+tear 												动词: 撕、扯  名词: 眼泪、窟窿
+recognize 											认识、辨认
+recognized 											认可
+render 												给予
+renderer 											渲染器
+convenient 											方便、便于
+basis 												基础
+rapid 												快速、急促  名词: 激流
+primary 											主要、初级、第一
+further 											进一步
+regular 											定期、规则、常规的
+kick 												踢
+implicitly 											隐式
+precedence 											优先权
+official 											官方
+demand 												需求
+autowire 											自动装配
+suggest 											建议、暗示、提议
+pinned 												置顶
+sibling 											兄弟、姐妹
+direct 												直接
+thought 											思想、心思、意念
+honor 												荣誉、荣幸、尊敬
+privilege 											特权
+respond 											响应
+instrument 											检测、仪器、工具
+shift 												转移
+shot 												射击、开枪、注射
+practice 											实践
+fade 												褪色
+away 												远离
+recursion 											递归
+properyly 											正确、合适
+training 											训练
+institution 										机构、制度
+outsourcing 										外包
+CV 													简历
+distribution 										分配
+purchasing 											购买
+assistance 											帮助
+aim 												目标、目的、宗旨
+relational 											相关的
+qualifier 											预选赛
+progress 											进展
+tamper												纂改
+shape 												形状  动词: 塑造
+tax 												税收  动词: 罚款、捐
+damage 												损坏、破坏、伤害
+extensive 											广泛的、广阔的、大量的  网络: 宽广
+spread 												波及、蔓延
+inventor 											发明家
+conversation 										会话、议论
+operator 											操作员、运算符
+attention											注意力 
+society 											社会、协会
+creativity											创造力
+advantage 											优点、好处
+mechanism 											机制
+survey 												调查
+weaver 												编织者、纺织者
+backward											落后
+amplification										放大、扩大
+potential 											潜在   名词: 潜力
+fractal 											分形
+pretty 												漂亮
+forum 												论坛
+activates 											使...活动(活跃)、激活
+individual 											个人、个别、单个
+relevant 											相关的
+arbitrary 											任意的、随意、肆意
+transport 											运输、传输
+stage 												阶段、舞台、期
+community 											社区
+obfuscator 											混淆器
+ultimate 											最终、终极  名词: 最好的事务
+powerful 											强大
+cipher 												密码、暗号
+suite 												套房、套
+period 												时期、周期
+spent 												花费
+stolen 												偷、窃取
+retain 												保留
+struggle 											斗争、奋斗
+blame												责备
+occupy 												占据、占有
+analyze 											分析
+analyzer 											分析仪
+mount 												安装
+ring 												环
+chat 												聊天室、交谈
+latency 											潜伏、延迟
+classifier 											分类器
+snack 												小吃
+apparent 											明显的
+objective 											目的
+concept 											概念
+therefore 											因此、所以
+persistent 											持久的、简直的
+persistence 										坚持不懈
+curious 											好奇
+shame 												耻辱、羞辱  动词: 抹黑
+collision 											碰撞、冲突
+whatever 											任何、无论如何、随你
+vibes 												气氛
+available 											有空、可用的
+aligned 											对齐的
+trail 												落后
+slash 												消减、砍
+backslash 											反斜杠
+inspect 											检查
+trend 												趋势、潮流
+prepare 											准备
+consume 											消费、耗尽
+prupose 											目的 
+assume 												假设
+insight 											洞察力、眼光
+intense 											激烈
+adopt 												采用
+problematic 										有问题的
+histo 												历史
+yearn 												向往、渴望
+equality 											平等
+exact 												精确
+incoming 											传入
+accurate 											准确
+consistency 										一致性
+inconsistency 										不一致、矛盾
+waste 												浪费
+poor 												较差的、贫困
+contributon 										贡献
+adult 												成人
+elderly 											老年  名词: 长者
+postal 												邮政
+outcome 											结果、效果、结局
+fresh 												新鲜的、新的
+license 											许可证、执照、授权
+female 												女的、雌
+male 												男
+spam 												垃圾邮件
+mistake 											垃圾邮件
+arrange 											安排、整理、编排
+misc 												杂项
+advanced 											高级的、先进的
+activation 											激活
+grid 												格子、格网
+flip 												翻转
+scratchpad 											暂存器、便签
+flame 												火焰
+salary 												薪水
+portfolio 											作品集
+pepper 												胡椒
+appear 												出现  网络: 看起来、露面
+disappear消											失
+appearance 											外观
+tradition 											传统
+negotiate 											交涉、商议
+depth 												深度
+infinity 											无穷
+clash 												冲突
+sponsor 											赞助  名词: 发起人
+indented 											缩进
+insted 												插入
+scared 												害
+upon 												在...之上
+certain 											某些、肯定
+popup 												弹出
+permit 												允许  名词: 许可证  网络: 执照、通行证
+permission 											许可、批准、许可证  网络: 允许、权限、同一
+unless 												除非、除外
+marshal 											编排
+stick 												粘贴、插入
+principal 											负责人
+broadcast 											广播
+conclusion 											结论、结束
+clue 												线索
+peak 												顶点、顶峰
+malformed 											格式错误
+complaint 											申诉、抱怨
+narrow 												狭窄的、勉强的、精确的、有限的、仔细的  动词: 限制、缩小
+grab 												抓住、夺取
+introduce 											介绍
+emoji 												表情符号
+benchmark 											基准测试
+burn 												燃烧
+percent 											百分之...、百分比
+arithmetic 											算术
+interrupt 											打断、插嘴
+prison 												监狱
+government 											政府
+slight 												轻微
+motivate 											激励
+encouraging 										鼓舞人心的
+neglect 											忽略、疏忽
+underestimated 										被低估
+naivety 											天真
+reinforce 											加强
+recruit 											招聘
+several 											一些、几个
+inspire 											启发
+observation 										观察
+fancy 												精美的
+ultimately 											最终
+prospective 										预期
+employer 											雇主
+flashy 												浮华
+expensive 											昂贵
+skill 												技能、技巧
+able 												能够
+tinkering 											修补
+regularly 											经常
+consistent 											一致的
+technical 											技术
+afraid 												害怕
+opportunity 										机会
+personality 										个性
+controversial 										有争议的
+guidance 											指导
+doubt 												怀疑
+associate 											关联
+particular 											特定的
+slogan 												口号
+hinder 												阻碍
+social 												社会的
+seriously 											认真的
+perception 											感觉、看法
+recruiter 											招聘者
+emphasize 											注重
+represent 											代表
+attract 											吸引
+tidy 												整洁
+colleague 											同事
+messy 												凌乱
+impressive 											令人印象深刻的、优秀
+exciting 											激动
+gonna 												将要
+acceptance 											验收
+bulkhead 											隔板
+insurance 											保险、保险业、保险费  网络: 保险单
+average 											平均
+warmup 												暖身、预热
+throughput 											吞吐量
+complex 											复杂
+measure 											测量、程度、尺寸  动词: 测量、估量
+considerations 										注意事项
+strongly 											强烈地
+archetype 											原型
+drastic 											剧烈的
+brief 												简要
+fluent 												流利、流畅
+stink 												发臭  名词: 臭气
+claim 												要求
+discuss 											讨论
+ethical 											道德的
+electronic 											电子
+figure 												数字、人物、图形
+histogram 											直方图
+junk 												垃圾、废物
+reserve 											预定
+ephemeral 											短暂的
+transient 											短暂的、易变的
+disqus 												争议
+deploy 												部署
+deployer 											部署者
+research 											研究、考证
+colver 												三叶草
+heart 												心脏
+flatten 											展平
+maturity 											成熟度
+roundRobin 											轮询
+seek												寻找
+conjunction 										结合
+letter 												信、字母
+distinguish 										区分
+expansion 											扩张、扩充
+insurance 											保险
+boilerplate											样板
+organ 												机构、器官、风琴
+demonstrate 										演示、示范
+instruction 										指令
+typo 												错字
+plate 												盘子、牌子、碟
+traffic 											交通、运输、贸易  动词: 贩卖
+either 												要么   形容词: 二者之一
+neither 											二者都不
+handy 												便利、简便
+legal 												合法的、法定的、法律
+commerce 											商业
+sticky 												黏
+treause 											宝藏
+partner 											伙伴、搭档
+midware 											中间件
+clarify 											澄清、阐明
+fuzzy 												模糊的、失真的
+constraint 											约束
+metrics 											指标、度量
+extra 												额外、外加
+tbremoting 											迁移
+replica 											复制品、仿制品
+replicate 											复制
+unreachable 										无法到达
+mabifest 											清单
+enthusiast 											爱好者
+hypertext 											超文本
+enterprise 											企业
+idempotency 										幂等
+distributed 										分布式
+cleartext 											明文
+negotiation 										谈判、协商
+stock 												股票、库存 
+quantity 											数量
+sold 												已售出
+minimum 											最低限度、最少
+insufficient 										不足、不够
+classify 											分类、归类
+essential 											必要、必不可少、要领、基本的
+essentially 										本质上
+tulip 												郁金香
+spliterator 										分离器、分流器
+abort 												中断、终止、异常终止
+emotional 											情绪化
+wireless 											无线、无线电
+transmission 										传输
+ethernet 											以太网络
+reassembled 										重新组装
+rather 												宁可、宁愿
+protection 											保护
+revocation 											撤销、废除 
+revoke												撤销
+trust 												信任
+premaster 											大师
+elliptic 											椭圆形
+curve 												曲线 动词: 弯曲
+cryptography 										密码学
+issue 												问题、发出、发行、发布  动词: 发出、发布
+issuer 												发行人
+issuance 											发行、颁布、发布、签发
+bachelor 											单身汉
+graduate 											毕业
+bootcamp 											训练营、新兵训练营
+kitchen 											厨房
+apartment 											公寓
+insist 												坚持
+copay 												共付额
+discard 											丢弃
+denote 												表示
+journal 											日志、刊物
+incubator 											孵化器
+patent 												专利
+literature 											文献
+utility 											实用
+culture 											文化
+canteen 											食堂
+separator 											分隔器
+improve 											提高、改善
+periodically 										定期地
+gray 												灰色
+facilitate 											促进、方便、便利
+coordinate 											坐标  动词: 协调、配合
+definitive 											权威的
+compete 											竞争
+principle 											原理、原则
+diagnostic 											诊断
+rise 												上升
+protest 											抗议
+paywall												付费专区
+surrogate 											替代
+compact 											紧凑 动词: 压紧 名词: 合约、合同
+dive 												潜水
+comfortable 										自在、安逸
+uncomfortable 										不舒服、不自然、别扭
+law 												法、法律
+citizenship 										国籍、公民权、公民身份
+granularity 										粒度
+collation 											校对   网络: 排序规则、排序方式
+accent 												口音、重音
+abuse 												滥、欺骗
+donation 											捐款 
+glossary 											词汇表
+infimum 											极少
+supermum 											最高
+direction 											方向
+destiny 											命运
+thumbnail 											缩略图
+intersection 										路口、交集
+fanout 												扇出
+heuristic 											启发式 
+device 												设备
+leaf 												叶子
+recalc 												重新计算
+certificate 										证书
+semi 												半
+weedout 											淘汰
+loose 												松散  名词: 放任
+congrats 											恭喜
+netease 											网易
+expand 												扩大
+bisection 											二等分
+estimation 											估算
+refine 												提炼
+realm 												领域
+recovery 											复原
+slot 												插槽  动词: 跟踪
+freelancer 											自由职业者
+credit 												信用、信誉、学分  动词: 相信、信任
+earn 												赚、挣
+gain 												获得、赢得
+nevertheless 										但是
+distinct 											不同、明显
+focus 												焦点、专注  动词: 集中
+rest 												休息、其余
+huge 												巨大的、无限的
+phantom 											幻影、幻象
+wide 												宽	
+directly 											直截了当
+satirize 											讽刺、嘲笑
+forbidden 											禁止的、被禁止
+despise 											讨厌、鄙视、瞧不起
+quote 												报价、引述  名词: 引号
+quotes 												引号
+cumber 												阻碍、累赘
+siege 												围城
+deity 												神
+will 												将、将要、将会  名词: 意志、遗嘱
+dare 												敢、用于   
+stair 												楼梯、阶梯
+commemorate 										纪念
+interpreter											解释者
+anniversary 										周年
+exploit												利用、开发
+repatriate 											遣送、遣返
+outbreak 											爆发  名词: 发作、发病、暴乱
+epicentre 											震中心、集中点
+henceforth 											今后
+poem 												诗
+credential 											凭据
+strace 												痕迹
+repair 												修理、纠正、恢复、弥补
+stale 												陈旧、过时
+conserve											保存、节省
+promotion 											晋升、推广
+elapsed 											过去
+gotta 												必须去  相当于'have got to'
+strength 											力量、实力、强度
+strengthen 											加强
+unity 												统一、个体、团结、
+faith 												信仰、新年、信心
+enbrace 											接收、信奉  动词: 拥抱
+monent 												时刻
+journey 											旅程、旅行  动词: 出游、游历
+worth 												财产、财富  形容词: 值得的、有...的价值 
+miracle 											奇迹 
+wind 												风  动词: 缠绕
+palace 												宫殿
+honest 												诚实的、正直的、努力(工作)的
+automation 											自动化
+warehousing 										仓库 
+profit 												利润、盈利  动词: 赢利
+chip 												芯片
+trick 												特技、手法
+associative 										关联、联合的、结合的
+interference 										干涉、妨碍、冲突
+ret 												退回
+negative 											否定   形容词: 负   动词: 否定
+complexity 											复杂、复杂性
+respectively 										分别
+backtrack 											回溯
+permutation 										排列
+challenge 											挑战
+collapsar 											黑洞
+attack 												攻击、进攻  动词: 攻击
+indicator 											指示符、标志、指针  网络: 指标
+pause 												暂停、停顿
+percentage 											百分比、百分率
+bursty 												突发的、突发性
+smooth 												平整的、平滑的
+ownership 											所有权
+eventual 											最终的
+retina 												视网膜   网络: 视网膜屏 
+spare 												备用品  形容词: 不用的、闲置的、备用的   网络: 多余的、空闲的、节约
+casual 												随便的、非正式的
+visualization 										可视化
+plague 												瘟疫、鼠疫   动词: 麻烦、大灾
+hardware 											硬件
+frontend 											前端
+unreachable 										无法到达
+hunter 												猎人
+involve 											涉及
+brevity 											简洁
+leverage 											杠杆作用、优势   动词: 利用
+tertiary 											第三    备注: 和third同义
+underage 											未成年
+thermal 											热的、热量的   网络: 热力
+communist 											共产主义者  网络: 共产党员
+privacy 											隐私
+tunnel 												隧道、管道
+sentiment 											情绪、情感 
+ray 												光纤
+homelab 											家庭实验室
+pronounce 											发音 
+nuisance 											讨厌
+accomplished 										完成的
+forset 												森林
+lossy 												有损的
+deflate 											放气、缩小
+border 												边界、边缘
+flooding 											洪水、充溢、泛滥  网络: 泛洪、淹没
+topology 											拓扑结构
+bandwidth 											带宽
+bid 												出价、投标
+solely 												仅仅、唯一地、纯粹
+cab 												计程车
+controversy 										争议
+critical 											严重
+situation 											形势、情况
+forge 												锻造、伪造
+abbreviation 										缩写、简称
+scaffold 											脚手架
+rely 												依靠、信任 
+disordered 											无序的、混乱的  网络: 发狂的
+regression 											退化、回归、倒退
+bluetooth 											蓝牙
+donate 												捐赠
+wizard 												男巫、行家、奇才  形容词: 出色的、魔术的
+camel 												骆驼
+autonomous 											自治的、自主的   网络: 自主性
+prompt 												提示、提示符  动词: 提示、促使  形容词: 迅速、敏捷、准时
+turnaround 											简要的  网络: 简洁的、简短的
+press 												按、出版社、新闻界  动词: 榨取、坚持、推进、按下
+nature 												自然、本质、本性  网络: 性质、自然界、天性
+renewal 											更新、恢复、续订、复兴  网络: 续约
+annual 												每年、每年一次  
+contract 											合同、协议、感染  
+formal 												正式的、正规的   网络: 形式的、形式化
+facade 												正面、外表
+diverge 											偏离、分歧、分叉  网络: 发散
+modem 												调制解调器  网络: 猫(光猫)
+certified 											被认证的、有保证的、公认的   动词: 发证书给...  网络: 认证、经认证的
+fidelity 											忠诚、保真度、尽责
+penetration 										渗透、侵入、穿透 
+mine 												矿、矿山、矿井  动词: 开采、在...中开采
+pickaxe 											稿
+swing 												摇摆、挥动
+diamond 											钻石、菱形 
+grueling 											严罚、使极度疲劳的
+shock 												休克、震惊、令人震惊的事  动词: 震动、打击、使气愤、使厌恶  形容词: 浓密的
+violence 											暴力、强暴、狂热、激情  网络: 强烈
+forever 											永远、经常、不断地、永无止境地
+extent 												程度、范围  网络: 长度、区间 
+bolt 												螺栓、螺钉、闪电  vt: 筛选  vi: 拴住、冲出、跳出  adv: 突然的、像箭似地、直立地 
+overhear 											偶然听到  网络: 偷听
+hissing 											嘶嘶声
+drop 												下降、丢弃、删除、放弃、倒下、退出
+tardy 												缓慢的、拖拉的、迟到的  网络: 迟延的
+stuck 												被卡住的、被...难住、不知所措
+craft 												工艺、手艺  动词: 精巧的制作、手工制作
+armour 												盔甲、装甲、防弹衣
+sword 												剑 
+torchlight 											手电筒、火把
+hone 												磨练
+whole 												整个、整体、全部 
+prowl 												徘徊、潜行  网络: 在门外徘徊 
+revenge 											复仇、报复 
+warrior 											战士、勇士
+blade 												刀片、桨叶
+soil 												泥土  动词: 弄脏
+bring 												带来、引来、导致  网络: 拿来、携带
+unicom 												联通
+multimedia 											多媒体
+power 												功率、力量、权力、强国  动词: 推动
+radiated 											辐射、放射、发散、显出 
+federal 											联邦的、联盟的 
+commission 											委员会、佣金  动词: 委任  网络: 手续费
+medium 												媒介、手段、工具  adj: 中等的  网络: 媒体、介质
+beacon 												灯塔、灯标、警示灯
+cable 												电缆
+passive 											被动的、消极的、冷漠的
+active 												积极的、活跃的、有效的、敏捷的
+ocean 												海洋 
+transparent 										透明的、易识破的、透明模式 
+stash 												隐藏、存放、藏身处
+shelve 												搁置、解雇
+upstream 											上游 
+advertisement 										广告、宣传
+denied 												否认、拒绝  网络: 拒绝访问、已拒绝
+nonce 												随机数、目前  adj: 只是用一次的
+kind 												种类、方式、天性  形容词: 仁慈的、体贴的、善良的
+applicant 											申请人、求职者
+inception 											起始、开端、初期
+termination 										终止、结束、末端   网络: 终端、协议的终止
+couple 												几个、一对
+coupler 											耦合器、联结器
+pick 												选择  网络: 采摘、拾取
+shovel 												铲子  动词: 铲出
+premium 											保险费、奖金、额外费用  形容词: 优质的、昂贵的  网络: 溢价、奖品
+zip 												拉链、速度   动词: 拉上拉链、压缩   网络: 压缩文件
+return 												返回、回报、收益  动词: 恢复  网络: 归还、回归
+piece 												片、一块、部分  动词: 拼凑、修补
+logocanary 											徽标
+tracert 											路由跟踪
+defeat 												击败、废除、战胜
+attempt 											尝试、试图   动词: 进攻、尝试、冲击
+maintain 											维护、保持
+pulse 												脉搏   vi: (心脏)跳动、脉动、震动  vt: 使跳动
+homebrew 											自制
+term 												期限、术语   网络: 条款
+tip 												尖端、小费、建议
+adoption 											采用
+announce 											宣布、发表
+redefine 											重新定义
+achieve 											取得、获得、实现、成功
+shuffle 											洗牌   网络: 随机播放
+audio 												音频、声卡、音效  adj: 声音的、听觉的
+hoodie 												连帽衫、卫衣
+abandon 											放弃、抛弃、废弃  名词: 放肆、任性、狂热
+nill 												不愿、拒绝
+nillable 											空、字段值是否能为空、控制限定
+rate 												速度、比率、价格  动词: 评价、评估  网络: 速率、费率、费用
+representation 										表现、代表、描述、陈述   网络: 表示
+particular 											讲究、挑剔、不寻常的  名词: 细节、详细资料、特色  网络: 特殊的、特别的、特定的
+capitalize 											把...首字母大写、变卖资产、变现   网络: 资本化、首字大写、利用
+consecutive 										连续的
+insure 												投保、给...保险、接受投保   网络: 保证、确保
+insured 											被保险人  网络: 受保人
+insurer 											承保人、保险公司
+holder 												持有者
+ticket 												票、入场卷、车票   动词: 售票、给...门票、发出交通罚单   网络: 罚单、票价、机票 
+telephone 											电话  动词: 给某人打电话  网络: 联系电话
+peccancy 											违章、犯罪
+loyalty 											忠诚、忠实   网络: 忠诚度、客户忠诚度
+mileage 											英里里程、好处、利益  网络: 里程数、
+vehicle 											车辆、工具、交通工具  网络: 载体、运载工具
+transgress 											超越、违反(法律)  vi: 犯法
+endorsement 										认可、背书  网络: 批单、签注(署)
+pure 												纯的、纯净的  网络: 纯洁
+risk 												风险、危险、保险额、被保险的人或物  动词: 使...冒风险
+beneficiary 										受益人、遗产继承人   网络: 收款人
+purchase 											购买、采购  网络: 进货
+ineffectual 										无能的、软弱的  网络: 无效的、徒劳无益的
+exhaust 											耗尽、使精疲力尽  名词: 排气管、废气  网络: 用尽、排气装置
+scale 												数值范围、比例尺、规模  动词: 攀登  网络: 缩放、规模
+scalable 											可扩展的
+fuel 												燃料、燃油  动词: 给...加油  网络: 汽油
+rack 												架子、支架、颈脊肉  动词: 使痛苦不堪 
+percent 											百分比、百分数、百分之一
+improvement 										改进、改善  网络: 进步、改良
+affiliate 											分公司、附属机构  动词: 加入、为...工作、与...有关  网络: 联合
+gearbox 											变速箱  网络: 变速器、减速箱
+exemption 											免除、免税  网络: 免税额、免检、解除 
+bureau 												办公室、书桌   网络: 办事处、局
+settle 												定居、结算、停留、确定   网络: 解决、安排
+nation 												国家、民族
+nationality 										国籍、民族
+derate 												减税、降低金额  网络: 减免、降低额定值
+street 												街道  网络: 马路、街区
+alphabetically 										按字母顺序
+typing 												打字  动词: 按类型把...归类  网络: 分类
+compose 											组成、创作(音乐)  网络: 组合、构成、写作
+composed 											镇静、镇定、平静  网络: 沉着的、安详
+hint 												提示、暗示、窍门  动词: 透露、示意  网络: 线索、提示信息
+algorithm 											算法、计算程序
+recognition 										识别、认识、承人、认可  网络: 认出、赏识
+coerce 												强迫、胁迫、迫使  网络: 强制、压制、要挟
+possible 											可能、能做到、合理的  名词: 合适的人  网络: 可能性
+extension 											延申、延长、延期  网络: 扩展
+argue 												争论、争辩、表明、证明  网络: 辩论、说服、主张
+arbitration 										仲裁  网络: 公断、调停、仲裁条款
+deduct 												减去  网络: 扣除
+deductible 											免赔额  adj: 可扣除的、可减免的  网络: 扣除额
+deduction 											推理、扣(减)除  网络: 扣除额、推导
+displacement 										移位、替代  网络: 位移、排量、置换
+shoot 												幼苗、嫩芽、拍摄  动词: 射击、发射  网络: 射门、投篮、开枪
+ecdemic 											外地的、外来的
+motor 												汽车、马达、发动机、摩托  adj: 有引擎的、机动车的  动词: 乘(驾)车旅行
+coin 												硬币  动词: 创造
+dug 												挖掘、研究
+discount 											折扣  动词: 低估
+middleware 											中间件
+franchiser 											特许人、经销商
+energy 												精力、活力、能量  网络: 能力、精力充沛
+disturb												打扰
+marriage 											合并、结婚
+driving 											驾驶、开车、驱动  adj: 推进的
+payload 											有效载荷、负载
+wheel 												车轮、汽车  动词: 旋转、转动  网络: 方向盘
+throughout 											自始至终、在...期间、遍及...地区(场所)  adv: 到处、全部  网络: 吞吐率、始终
+instantly 											立即、立刻  网络: 即刻
+duty 												责任、职责、义务、税收  网络: 关税
+finance 											金融、财务、资金  动词: 为...供给资金  网络: 财经、财务部
+financing 											理财
+province 											省份
+proposer 											提议人、申请人、投保人
+issuer 												发行人
+portrait 											肖像、半身照、标本
+recognise 											认出、承认、认可
+agreement 											协议、同意、契约  网络: 一致、协议书
+seat 												座位、臀部、所在地、场所  动词: 坐、使就坐
+approve 											批准、赞成、同意  网络: 认可
+chassis 											底座、底盘
+emission 											排放、辐射、排放物、发行  网络: 发射、散发
+oil 												油、石油、燃油、润滑油
+passenger 											旅客、乘客、碍手碍脚的人   网络: 过路人
+glass 												玻璃、玻璃杯、镜子  网络: 眼睛
+facturer 											制造商
+accommodation 										住宿、住处、和解  网络: 适应、调节、顺应
+engage 												雇佣、保证、约定、从事
+selective 											选择性的、有选择的、严格筛选的  网络: 有选择性的、挑剔的
+ignite 												点燃、(使)燃烧  网络: 点火、引燃、燃点
+theft 												偷窃  网络: 失窃
+carrying 											运输  adj: 运输的  网络: 携带
+fee 												报酬、咨询费  网络: 佣金、费用、收费
+district 											区、地区、区域  动词: 把...分区  网络: 县
+inquire 											询问、打听、调查  网络: 查询、询价
+sell 												出售、转让、出卖  名词: 欺骗   网络: 销售、卖出
+inappropriate 										不适用的、不适合的、不宜
+computable 											可计算的
+revision 											修订、修改、校对
+divisible 											可除、可被整除的
+without 											没有、缺少、在外面
+impossible 											不可能的、很难对付的
+generate 											生成
+pacific 											平静的、和平的、太平洋
+secret 												秘密、关键  adj: 秘密的、机密的、神秘的
+belong 												属于
+distributor 										经销商、批发商、分发者  网络: 发行人
+proportion 											比例、部分、比率、均衡
+special 											特别的、特殊的、专门的、特产
+disjunction 										分离、分裂  网络: 脱节
+evaluation 											评估、估价、赋值
+industry 											工业、行业、勤劳  网络: 产业
+lookup												查找、看望、抬头
+agriculture 										农业	
+decapitalize 										减少资本、撤资
+convenience 										方便、便利、公测  网络: 便利性
+docket 												标签、议程、法院积案清单  动词: 在...上附件签条  网络: 摘要、记事表
+rank 												等级、级别、排、军衔  动词: 排列、把...分等级
+fatal 												致命的、毁灭性的、严重的
+postgraduate 										研究生
+graduation 											毕业、刻度、分度
+gist 												要点、主旨、大意
+catcher 											捕获器、收集器、捕捉者
+incorrectly 										不正确的、错误地
+idle 												空闲、闲置的、懒惰的
+graceful 											优雅的
+enclosing 											把...围起来、围绕、装入
+fully 												充分地、彻底的、完全的
+fallback 											后退、回退
+fill 												填充、填满、充分
+layout 												布局、规划、设计、布置
+sift 												筛分、审查
+deny 												否认、拒绝、克制
+decide 												决定、下决心、解决、裁决
+neutral 											中性的、持平的
+integration 										积分、整合、集成、结合、一体化
+amend 												修正、修改、改正、修订、改良
+compute 											计算、估算、求出、推断e
+dispute 											纠纷、争端
+experiment 											实验、试验	
+traverse 											遍历、穿过
+tweak 												调整
+effort 												努力、尽力、尝试
+inevitable											不可避免的
+achievenemnt										成就
+lexer 												词法分析器
+manipulation 										操纵、控制、手法
+trivial 											不重要的、无价值的、平常的
+survivor 											幸存者
+shallow 											浅的、肤浅的、表面的
+techie 												技术员
+interview 											面试、会见、接见
+wonderful 											精彩的、令人高兴的
+nerd 												书呆子
+passphrase 											密码、口令
+uber 												超级
+impeachment 										弹劾
+survive 											生存、幸存、生还
+odd 												奇数的、古怪的
+contiguous 											连续的、相邻的
+utilization 										利用率
+publication 										出版物
+guestbook 											留言簿
+advice 												建议、指导、通知、劝告
+transmit 											发送、传递
+deviation 											偏差、误差
+horrible 											可怕
+volatile 											易变的、不稳定的
+testimonial 										感言
+awesome 											极好的
+vote 												投票
+cohort 												同伙、队列
+classic 											经典
+award 												授予、奖赏
+lexical 											词法
+sentence 											句子
+assertive 											断定的、肯定的
+reasonable 											合理
+donut 												甜甜圈
+massive 											庞大的
+course 												课程
+discourse 											话语、论文、谈话、演讲
+supervisor 											主管
+workload 											工作量
+participant 										参与者
+majority 											多数
+sophisticated 										复杂的、先进的
+proof 												证明、验证
+replication 										复制
+relay 												传达、转发、中继
+hybird 												混合的
+mining 												挖掘
+syntax 												语法
+taught 												教导
+zone 												区
+reveal 												显示、透露
+successive 											连续的
+elastic 											有弹性的
+initiative 											倡议 
+orchestration 										编排
+fluentd 											流利的
+reliably 											可靠地
+journald 											日记
+explore 											探索
+eliminate 											消除、排除
+reverse 											逆转
+manipulate 											操纵
+alarm 												报警、警告
+indeed 												确实
+above 												在...之上、以上
+prohibited 											禁止的
+caveat 												警告
+caveats 											注意事项
+alert 												警报
+recoverable 										可恢复的
+migrate 											迁移、转移
+hit 												命中、击中
+occupy 												占有、占据
+daily 												日常
+preferentially 										优先地
+reactivity 											反应性
+relevance 											关联
+teaser 												预告片
+quarter 											季度、一刻钟("四分之一"的意思)
+correction 											更正、纠正
+miserably 											悲惨的
+synonym 											同义字
+ingest 												摄取、摄入
+drone 												无人机
+flexible 											灵活
+crumble 											崩溃
+phonetic 											语音的
+revenue 											收入
+beneath 											下面
+costars 											配角、合演者
+humongou 											巨大的
+malware 											恶意软件 
+resilience 											弹性、弹力
+govern 												控制
+governance 											治理
+evictor 											驱逐者
+slogan 												口号、标语、广告语
+resignation											辞职
+adopted 											被采纳 
+integrity 											完整性
+partial 											部分的
+consensus 											共识
+hence 												因此、从此 
+skew 												扭曲、倾斜、偏移
+peer 												同辈、同行人、凝视、对等
+swarm 												一大群
+avalanche 											雪崩
+refined 											精炼的、优雅的
+spawn 												引发、导致
+justification 										理由
+intelligent 										智能
+bonus 												奖金
+sensible 											明智的、合理的
+sight 												看见、视觉、眼界 
+snippet 											片段 
+tolerance 											容差
+quorum 												法定人数
+election 											选举
+synod 												宗教会议
+central 											中央
+inhuman 											不人道
+enterprise 											企业
+accomplish 											达到、完成
+invent 												发明
+scalability 										可扩展性
+columnar 											柱状、纵列
+statable 											可控的
+tedious 											乏味
+inspired 											启发
+deliver 											交付、传递
+deliverable 										可交付的
+portable 											便携的
+diseased 											患病的
+dying 												垂死
+breed 												品种
+simplified 											简化的
+culture 											文化
+rare 												罕见
+indefinitely 										无限的
+probe 												探测、探针
+vectorized 											向量化
+commercial 											商业的
+mention 											提到
+macro												宏
+roughly 											大概
+vertical 											垂直
+solicite 											请求、恳求、要求
+advert 												广告
+promotional 										促销 
+shocking 											令人震惊的、骇人听闻的
+accident 											意外、意外事故
+downside 											缺点
+repeater 											中继器
+slack 												松弛的  懈怠、偷懒
+whisk 												搅拌
+fusion 												融合
+foundation 											基础
+incubation 											孵化 
+pseudo 												伪的、冒充的
+dispose 											处理、部署
+discord 											不和谐、不和、异议
+brute 												蛮力、牲畜
+paragraph											段落
+resilient 											弹性的
+manifesto 											宣言
+mediation 											调停、中介、仲裁 
+exercises 											练习题、演习
+valuable 											有价值的
+sadly 												可悲地、不幸
+potential 											可能地、大概地、潜在的
+awkward												尴尬的
+regrets 											遗憾
+wallpaper 											墙纸、壁纸
+compliant 											符合的、兼容 
+lenient 											宽容
+immedidate											即刻
+emulate 											模拟
+scrape 												刮、擦痕
+concern 											关心、关注
+stitch 												缝
+incident 											事件
+junior 												初级
+drag 												拖动
+encounter 											遇到
+robust 												强大的
+robustness 											健壮性
+essential 											要点
+wiretap 											窃听
+approach 											方法
+clinic 												诊所
+emulator 											仿真器
+instructor 											讲师
+conquer 											征服
+appreciate 											欣赏
+furthermore 										此外
+incubate 											孵化
+honestly 											老实说
+retuning 											调整
+applet 												小程序
+inventory 											库存 
+circuit 											电路
+symmetric 											对称
+ecosystem 											生态系统
+benefits 											好处
+drawbacks 											弊端
+treat 												对待
+dealt 												处理
+virtually 											几乎
+subtle 												微妙的
+disturbance											干扰
+obvious 											明显的
+pollution											污染
+even 												甚至、即使、其实、平滑的、使平均
+wayback 											回溯
+ample 												丰富、大量
+radius 												半径
+deduping											去重
+seckill												秒杀
+quad 												四边形
+monotonically 										单调、单调地
+infeasible 											不可行的
+endeavor 											努力
+academic 											学术
+heavily 											大量
+parcel 												包裹
+tolerant 											宽容
+arrive 												到达
+mutate 												变异、转变
+adhere 												坚持
+horizontal 											水平的
+constantly 											不断地、时常
+worst 												最坏的
+fulfilled 											完成、满意的
+occasional 											偶尔
+imagine 											想像
+inspiration 										灵感、启发
+sustained											持续
+gifted												天才
+wipe 												擦拭
+excellent 											出色的
+straightforward 									直截了当
+arguably 											可以说
+tend 												趋向
+portability 										可移植性
+productivity 										生产力
+terminology 										术语、词汇
+prohibition 										禁令、禁止
+silently 											默默地
+polymorphism 										多态性
+responsibility 										责任
+segregation 										隔离、分离
+mental 												心理
+cautious 											谨慎
+idempotent 											幂等
+directive 											指令
+turn 												转向、转变
+obviously 											明显地
+meaningful 											有意义的
+monolith 											单体
+monolithic 											整体的
+enrolled 											已学习
+perprtual 											永久
+fundamental 										基础、基本原理
+demystify 											弄清楚
+recap 												回顾
+agnostic 											不可知的、无关的
+sole 												唯一
+ideal 												理想的
+climb 												爬、攀登
+throttle 											节流阀
+tight 												紧密
+seize 												抓住、捉住
+remedy 												补救、弥补
+formerly 											以前、原来
+occupied											占据
+aftermath 											后果
+opaque 												不透明
+brightness 											亮度
+rough 												粗糙、粗略
+mindset 											心态
+cooperation 										合作
+disclaimer 											免责声明
+derivative 											衍生物
+actor 												演员、参与者、行动者
+viral 												病毒式
+collaborators 										合作者、协作者
+choreography 										协同式
+newsletter 											通讯
+unfettered 											无限制的、不受约束的
+fringe 												边缘
+perspective 										看法
+inferior 											较差的、劣等的
+coalesce 											合并、结合、联合
+misunderstood 										遭误解的、被误解的
+emphasis 											重点、强调
+heal 												恢复
+properly 											正常地
+pirate 												盗版、海盗
+hybrid 												混合式、杂种
+zombie 												僵尸
+adjustment 											调整
+therefore 											因此
+hiring 												招聘
+analogous 											类似的
+preemptive 											抢占式
+fallible 											易变的
+interoperability 									互通性
+brain 												脑、头脑
+trial 												试验、试用
+mature 												成熟、成年
+premature 											过早
+jitter 												抖动
+identical 											一摸一样
+overlap 											重叠、叠加
+overuse												过度使用
+bottlenecks											瓶颈
+arise 												发生
+compliance 											合规、履约、遵守
+obviate 											避免、预防、消除
+seamlessly 											无缝地
+webcam												摄像头
+tolerate 											容忍、宽容
+afford 												负担得起、提供、给予
+milestone 											里程碑
+endanger 											危害
+clutter 											杂乱
+accelerate 											加速、促进
+inform 												通知、告知
+dedicated 											专用的
+reside 												属于、驻留
+deactivate 											解散、停用
+suitable 											合适的
+rudimentary 										基础的、初步的
+enlist 												征召、报名
+summit 												峰会
+disruptive 											干扰、破坏性
+corruption 											腐败、堕落
+escape 												逃脱、逃逸、逃离
+emergency 											紧急情况
+gauge 												仪表、标准、厚度
+backport 											向后移植
+underpinning 										支撑、基础
+detachable 											可拆卸
+decouple 											解耦
+confer 												赋予
+liberate 											解放、释放
+assumption 											假设
+maintenance 										维护
+deposit 											存储
+timekeeping 										计时
+defect 												缺陷
+forest 												森林
+bypass 												绕过、避开
+absorb 												吸收
+bulletin 											报告
+continuation 										持续、连续性
+squash 												塞入
+narrative 											叙述
+wrote 												写作
+catalog 											目录
+together 											一起
+intensive 											密集的、加强的
+repetitive 											反复的
+snappy 												精炼的
+massively 											大量地、大规模地
+confidence 											信心、信任
+decline												拒绝
+transitivity 										转义
+rage 												狂暴
+utilize 											利用
+pivotal 											关键的、核心的
+spatial 											空间的
+citation 											引用文献
+tune 												调节
+tier 												层、行、级、阶
+occupation 											职业
+disclosure 											公开
+longitude											经度
+vulnerability 										漏洞、缺陷
+tricky 												棘手的、复杂的
+restaurant 											饭店
+ecology 											生态
+percolator 											过滤器
+commutative 										可交换的
+annoying 											恼人的、讨厌的
+unfortunately 										可惜、很遗憾
+fortunately 										幸好
+lack 												缺少
+anomaly 											异常
+countermeasures 									对策、对抗措施、应对措施
+accountability 										问责、责任制
+intrinsic 											内在的
+numerous 											很多的、众多
+regardless 											不管、不顾
+humble 												卑微、谦逊
+opinion 											意见、观点
+eventually 											最终
+comprehensive 										综合的、全面的、广泛的
+simulator 											模拟
+intuitive 											直觉的、直观的
+collaboration 										合作
+playback 											回放
+prematurely 										过早的(地)
+landing 											着陆、登陆
+brace 												大括号
+alphanumeric 										字母数字
+experience 											体验、经历
+notion 												概念
+extremely 											非常、极其
+invite 												请求、邀请
+congestion 											阻塞、充血
+dialyzer 											透析器
+excuse 												原谅
+telemetry 											遥测
+mentione 											提及、说起
+broadly 											广泛、广义
+intend 											预期、打算
+polyglot 											多种语言
+resemble 											类似
+gather 												聚集、采集、收集
+treatment 											治疗、处理
+lifespan 											寿命、生命周期
+responsible 										负责、有责任
+severity 											严重、苛刻
+drastically 										彻底地、大幅度地
+caution 											谨慎、警告
+uncertainty 										不确定性、犹豫、迟疑
+saturation 											饱和度
+silence 											沉默
+budget 												预算
+forecast 											预测
+evolutionary 										演变的
+accuracy 											精确、准确
+diversity 											多元化
+eventuate 											导致、结果为
+economy 											经济
+departure 											出发、启程
+aircraft 											飞机、飞行器
+cohesion 											内聚
+advisory 											警告
+pyramid 											金字塔
+industrial 											工业的
+scientific 											科学的
+medical 											医学的
+angle 												角度
+ingress 											入口
+egress												出口
+defense 											防御
+malicious 											恶意的
+alarm 												警报、闹钟
+builtin 											内置
+incredible 											不可思议
+unprecedented 										史无前例的
+stunning 											极好的
+extraordinary 										特别的、意想不到的
+satisfaction 										满意度、满意
+synopsis 											总览、概要
+prove 												证明
+closure 											闭包
+lexical 											词汇、语法
+positive 											正的、肯定、确信、积极的
+perusal 											熟读、阅览
+breadcrumb 											面包屑
+forcible 											强行的
+interoperability									互通性
+evidence 											证据
+pile 												堆积
+retro 												复古、怀旧
+earnings 											收入、工资
+tactical 											战术、策略性
+workbench 											工作台
+caption 											标题、说明文字
+funding 											资金、经费、基金、资助
+acoustic 											原声的
+puzzle 												难题、疑问
+extravagant 										奢侈
+frankly 											坦白说
+widget 												小工具
+teammate 											队友
+indentation 										缩进
+asterisk 											星号
+excellence 											卓越、精益求精
+compromise 											妥协、折衷
+equilibrium 										平衡、均衡
+bottleneck 											瓶颈
+vintage 											复古
+opposite 											对立面、反面
+sensor 												感应器
+nomenclature 										命名法
+mitigate											环节
+analogue 											类似物 
+elegant 											优雅的
+callout 											标注
+gallery 											画廊、图册
+accidental 											偶然
+resupply 											补给
+reshuffle 											重新洗牌、重组
+ascent 												上升
+boost 												提升
+arrow 												箭头
+bidirectional 										双向
+investment 											投资
+sprint 												冲刺 
+ideology 											思想
+memo 												备忘录、备注
+agenda 												议程
+discrete 											不连续的、离散的 
+convince 											说服、信服 
+waterfall 											瀑布
+substitution 										替换、取代
+manifest 											清单
+provisioner 										供应商
+orphan 												孤儿
+tutor 												导师
+flannel 											绒布
+halt 												停止、暂停、阻止、中断
+liveness 											活性
+readiness 											准备就绪、准备状态
+precise 											精确
+career 												职业、事业
+debounce 											去抖动 
+endangered 											濒危
+stuck 												被卡住 
+teapot												茶壶
+desirable											理想的
+supplemental										补充
+guarenteed multicast								安全组播
+random access										随机存取  
+tablet computer										平板电脑
+race condition										竞争条件
+especially when										尤其是
+temporary table										临时表
+work stealing										工作窃取
+access control										访问控制
+accessor method										访问方法
+adapter pattern										适配器模式
+binary compatibility								二进制兼容性
+callback framework									回调框架
+checked exception									受检异常
+bit field										 	位域
+code inspection										代码检验
+concrete strategy									具体策略
+copy constructor									拷贝构造器
+default access										缺省访问
+decorator pattern									装饰模式
+default constructor									缺省构造器
+defensive copy										保护性拷贝
+design pattern										设计模式
+documentation comment								文档注释
+dynamically cast									动态地转换
+enclosing instance									外围实例
+exception chaining									异常链
+exception translation								异常转换
+exported API										导出的API
+failure atomicity									失败原子性
+finalizer guardian									终结方法守卫者
+forwarding method									转发方法
+fuction object										函数对象
+function pointer									函数指针
+general contract									通用约定
+generic method										泛型方法
+implementation inheritance							实现继承
+information hiding									信息隐藏
+inner class										 	内部类
+interface inheritance								接口继承
+lazy initialization									延迟初始化
+marker annotation									标记接口
+marker interface									标记接口
+member class										成员类
+member interface									成员接口
+memory footprint									内存占用
+memory model										内存模型
+meta-annotation										元注解
+naming convention									命名惯例
+naming pattern										命名模式
+native method										本地方法
+native object										本地对象
+nested class										嵌套类
+non-reifiable										不可具体化的
+object pool										 	对象池
+object serialization								对象序列化
+obsolete reference									过期引用
+open call										 	开放调用
+operation code										操作码
+package-private										包级私有
+parameterized type									参数化的类型
+performance model									性能模型
+precondition violation								前提违例
+redundant field										冗余域
+reference type										引用类型
+rounding mode										舍入模式
+runtime exception									运行时异常
+scalar type										 	标量类型
+semantic compatibility								语义兼容性
+serialization proxy									序列化代理
+serialized form										序列化形式
+singleton pattern									单例模式
+skeletal implementation								骨架实现
+state transition									状态转变
+storage pool										存储池
+strategy enum										策略枚举
+strategy interface									策略接口
+strategy pattern									策略模式
+synthetic field										合成域
+thread group									 	线程组
+thread safety										线程安全性
+thread-safe										 	线程安全的
+type inference										类型推导
+type parameter										类型参数
+unchecked exception									未受检查异常
+untility class										工具类
+value class										 	值类
+value type										 	值类型
+virgin state										空白状态
+worker thread										工作线程
+wrapper class										包装类
+migration compatibility								移植兼容性
+bad smell										 	坏味道(可以用来形容代码的)
+inner peace										 	内心平和
+comma separated										逗号分隔
+at least										 	至少
+side effects										副作用
+method hierarchy									方法层次结构
+call hierarchy										调用层级结构
+type hierarchy										类型层级结构
+physical disgram									物理图
+in sum										 		综上所诉
+causal relationship									因果关系  例: the causal relationship between poverty and disease(贫穷与疾病的因果关系)
+camel case										 	驼峰命名法
+case sensitive										区分大小写
+limit exceeded										超出限制
+come up										 		上来、赶上、及
+if any										 		如果有的话
+prime number										素数 
+dangling resource									悬空资源
+from scratch										从头开始
+dependency injection								依赖注入
+thus far										 	迄今
+resource bundle										资源包
+stable infra										稳定的基础设施
+shed tears										 	声泪俱下
+screen shot										 	屏幕截图
+training institution								培训机构
+curriculum vitae									个人简历
+kick in										 		起作用
+fade away										 	消失
+ternary operator									三元运算符
+order to										 	为了
+in favor										 	赞成、支持、有利
+trail slash										 	斜线
+flow chart										 	流程图
+stand-alone										 	独立的、独立式
+narrow down										 	缩小范围
+particular											特定
+figure out										 	确定、了解
+plate number										车牌号
+place order										 	下单
+tidy up										 		整理
+tear down											拆除
+mess hall										 	食堂
+either way										 	无论哪种方式
+make sense										 	合理
+tech leader										 	技术负责人
+grueling one										艰辛的、艰巨
+wee hours										 	凌晨
+long term										 	长期的、长期性
+prior to          									在...之前
+prior 												事先的
+exhaust scale										排量
+scale out										 	向外扩展
+four percent										百分之四
+each other										 	彼此
+take up										 		占用、拿起、举起
+hand shake										 	握手
+fine granularity									细粒度
+raspberry pi										树莓派
+side-effect										 	副作用
+fault-tolerant										容错
+turn out										 	事实证明
+data corruption										数据损坏
+fine-grained										细粒度
+will power										 	意志力
+annotation type										注解类型
+anonymous class										匿名类
+raw type										 	原生态类型
+more prone										 	更容易
+cover pic											封面图片
+fancy stuff										 	花哨的东西
+is covered										 	被覆盖
+local class										 	局部类
+fault tolerance										容错
+landing page										首页
+no matching editors or conversion strategy found   	没有找到匹配的编辑器或转换策略
+the annotated element must be a number with in accepted range	 注释的元素必须是一个可接受范围内的数字
+maximum number of integeral digits accepted for this number		 此数字所接受的整数位数的最大数目
+maxumum number of fractional digits accepted for this number	 这个数字接受的最大位数
+their respective wrapper types				 		他们各自的包装类型
+load balance									 	负载均衡
+policy number			 							保单号
+e.g.:												例如
+i.e.:												那就是说、换句话说
+league of legends							 		英雄联盟
+convariant return type							 	协变返回类型
+custom serialized form							 	自定义的序列化形式
+double-check idiom							 		双重检查模式、双检查法
+explicit type parameter							 	显式的类型参数
+generic array creation							 	泛型数组创建
+generic singleton factory							泛型单例工厂
+int enum pattern							 		int枚举模式
+nonstatic member class							 	非静态的成员类
+restricted marker interface							有限制的标记接口
+serial version UID							 		序列版本UID
+service provider framework							服务提供者框架
+static factory method							 	静态工厂方法
+static member class								 	静态成员类
+stream unique identifier							流的唯一标识符
+top-level class							 			顶级类、顶层类
+to be honest							 			老实说
+in addition to							 			此外、除了
+thermal design power							 	热设计功耗
+the rest of							 				其余的
+inversion of controller							 	控制反转
+never makes sense							 		从来没有意义
+take advantage of							 		利用
+all in one							 				一体式
+just in time									 	及时
+on stack replacement								栈上替换
+make no sense							 			毫无意义
+is not practical							 		不切实际的
+the most frequent							 		最常见的
+whether or not							 			是不是、无论是否
+data-race-free							 			无数据竞争
+efficient bulk operation							高效批量操作
+chance to interact							 		互动机会
+jdk enhancement proposal							JDK增强方案
+bounded wildcard type							 	有限制的通配符类型
+boxed primitive type							 	基本包装类型
+recursive type bound							 	递归类型限制
+typesafe enum pattern							 	类型安全的枚举模式
+unbounded wildcard type							 	无限制的通配符类型
+unintentional object retention						无意识的对象保持
+typesafe heterogeneous container					类型安全的异构容器
+value with time							 			时间价值
+runs to complete sort 								运行到完成排序
+underneath the given element 						在给定元素下面
+the devil is in the details 						细节决定成败
+BTW(byte the way) 									顺便说一句
+transport layer security(TLS) 						传输层安全性协议
+secure sockets layer(SSL) 							安全套接层协议 
+YAGNI(you aren't gonna need it) 					你不会需要它
+high-level intermediate representaion 				高级中间代码
+state of the art 									最先进的
+AFK(away from keyboard) 							远离键盘、把手离开键盘.  代表长期或者永久的不能进行游戏
+come up to you 										来找你
+regradless of the fact 								无论事实如何
+API(Application Programming Interface) 				应用编程接口
+constant-specific class body 						特定于常量的类的主体
+constant-specific method implementation 			特定于常量的方法实现
+generic static factory method 						泛型静态工厂方法
+Every single day and the whole night 				每天每夜
+catarc(China Automotive Technology and Research Center) 	中国汽车技术研究中心
+cnnic(China internet Network Information Center) 	中国网
+those than can、do. those that can't、complain 		会做的人、做; 不会做的人、叫(抱怨)
+NB 													拉丁语"nota bene"的缩写,译成英文"note well"的意思,中文"特别注意"的意思
