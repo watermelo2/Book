@@ -144,6 +144,58 @@ Bigtable支持单行事务; 可以作为MapReduce的IO;
 为了减少memtable的读写冲突(主要是读取memtable的冲突),采用了'copy-on-write'来允许读操作和写操作同时进行
 
 
+## Spanner
+
+http://dblab.xmu.edu.cn/post/google-spanner/#introduction
+
+universe: 一份Spanner的部署
+zone: 部署管理、物理隔离的单位.  一个zone有一个zonemaster和几百到几千个spanserver。前者为spannerserver分配数据，
+后者向客户端提供数据服务。客户端使用每个zone的location proxy来定位给它分配的为其提供数据服务的spanserver。
+universe master和placement driver目前是单例。universe master主要是一个控制台，其显示了所有zone的状态信息，以用来交互式调试。
+placement driver分钟级地处理zone间的自动化迁移。placement driver定期与spanserver交互来查找需要移动的数据，以满足更新
+后的副本约束或进行负载均衡
+
+TrueTime使用两种形式的参考时间(原子钟,GPS),因为它们有不同的故障原因: GPS参考源的弱点有天线和接收器故障、本地无线电干扰、相关故
+障（例如，如闰秒处理不正确的设计故障、和欺骗等）、和GPS系统停机。原子时钟可能会以与GPS和彼此不相关的方式发生故障，且在长时间后会
+由于频繁错误而发生明显的漂移。
+
+Spanner Tablet和BigTable Tablet区别在于: BigTable Tablet需要按顺序排序,而Spanner Tablet没有这个要求,它只想将多个被频繁访问
+的目录整合到一起
+
+BigTable在应用中的一些毛病: 
+1. 缺少类似SQL的界面,缺少关系数据库拥有的丰富的功能
+2. 只支持单行事务,缺少跨行事务
+3. 需要在跨数据中心的多个副本间保持一致性
+Percolator是为了解决BigTable跨行事务的问题(通过两阶段锁),但付出的代价(可用性和性能问题)过于昂贵
+
+Spanner也是用两阶段锁来实现的,不同的是,Spanner会通过Paxos组来保存事务管理器的"状态",这样就不会在协调者出问题的时候所有参与者
+锁死的问题
+
+TrueTime系统的时间是经过投票得出来的(Marzullo算法探测和拒绝欺骗)
+
+当前使用的时钟的漂移比率是200微妙/秒,Daemon的投票间隔是30秒,所以偏移会在0~6ms之间变化,加上time master的1ms延迟,所以是1~7ms之间
+的变化
+
+假如事务开始时TrueTime API返回的时间是{t1, ε1}，此时真实时间在 t1-ε1到t1+ε1之间；事务结束时TrueTime API返回的时间是{t2,ε2}，
+此时真实时间在t2-ε2到t2+ε2之间。Spanner会在t1+ε1和t2-ε2之间选择一个时间点作为事务的时间戳(等到结束时间的最小值大于开始时间的最
+大值)，但这需要保证t1+ε1小于t2-ε2，为了保证这点，Spanner会在事务执行过程中等待，直到t2-ε2大于t1+ε1时才提交事务。由此可以推导出，
+Spanner中一个事务至少需要2ε的时间才能完成
+
+TrueTimeAPI的实现大体上类似于网络时间协议NTP，但只有两个层次。第一层次，服务器是拥有高精度计时设备的，每个机房若干台，大部分机器
+都装备了GPS 接收器，剩下少数机器是为GPS系统全部失效的情况而准备的，叫做“末日”服务器，装备了原子钟。所有的Spanner服务器都属于第二
+层，定期向多个第一层的时间服务器获取时间来校正本地时钟，先减去通信时间，再去除异常值，最后求交集
+
+GPS: 保持模式15ns，非保持模式30ns
+
+Spanner实现分布式事务主要思想是: 全局唯一的物理时间 + 所有机器等待到某一时间后再操作(读、写)
+
+只读事务的处理: 如果scope的值是由单个Paxos组来提供的,最简单的情况下(没有prepare的事务)直接用Sread=LastTS()就够了.
+如果scope的值是由多个Paxos组来提供的,在最复杂的情况下,需要由多个组的领导者来根据LastTS()协商得到Sread,Spanner当前实现了
+一个更加简单的选择,可以避免这么多次沟通: 让读操作在Sread=LastTS()时刻去执行.
+
+最后,将transaction management safe time由tablet的粒度细化到了row key range的粒度. 目的是为了在当事务卡在2PC过程中时,其它的
+读请求能读到比较新的快照点 
+
 
 
 

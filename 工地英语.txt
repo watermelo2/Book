@@ -2072,6 +2072,8 @@ discrete 											不连续的、离散的
 convince 											说服、信服 
 waterfall 											瀑布
 substitution 										替换、取代
+universe											宇宙
+refinement											细化
 manifest 											清单
 provisioner 										供应商
 orphan 												孤儿
