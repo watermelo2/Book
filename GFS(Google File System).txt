@@ -231,6 +231,7 @@ MIT 6.824: https://www.bilibili.com/video/BV1x7411M7Sf?p=22
 https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md
 https://github.com/OneSizeFitsQuorum/raft-thesis-zh_cn/blob/master/raft-thesis-zh_cn.md
 http://web.archive.org/web/20220602001243/https://niceaz.com/2018/11/03/raft-and-zab/
+https://www.zhihu.com/question/19787937/answer/583245468
 
 大多数选票的好处:
 1. 两次"大多数"里面至少有一台服务器是两个term中共有(重叠)的. 体现就是上一个leader所获得的选票也有部分来自这次的投票服务器
