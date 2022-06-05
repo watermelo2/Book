@@ -1,0 +1,52 @@
+# Redis
+
+## 《Redis设计与实现》
+
+asd
+
+asdsa
+
+
+
+ > 参考: [SkipList介绍以及使用Redis范围搜索等功能](https://elsef.com/2019/12/05/%E5%85%B3%E4%BA%8ESkipList/)、[ZipList介绍(之前没怎么看)](https://elsef.com/2019/12/06/%E5%85%B3%E4%BA%8EZipList/)
+
+#### 缓存雪崩  
+  
+由于原有缓存失效，新缓存未到期间(例如: 我们设置缓存时采用了相同的过期时间,在同一时刻出现大面积的缓存过期),所有原本应该访问缓存的请求都去查询数据库了,而对数据库CPU和内存造成巨大压力,严重的会造成数据库宕机.从而形成一系列连锁反应,造成整个系统崩溃.  
+
+#### 缓存穿透
+
+缓存穿透是指用户查询数据,在数据库没有,自然在缓存中也不会有.这样就导致用户查询的时候,在缓存中找不到,每次都要去数据库再查询一遍,然后返回空(相当于进行了两次无用的查询).这样请求就绕过缓存直接查数据库,这也是经常提的缓存命中率问题.
+
+#### 一致性Hash算法
+
+[介绍(CSDN)(暂时没找到更好的博客)](https://blog.csdn.net/xlgen157387/article/details/79544524)  
+
+#### Redis回收算法:LRU(最近最久未使用算法)
+
+[源码介绍(博客园)](http://www.cnblogs.com/WJ5888/p/4371647.html)
+
+#### Redis主从数据同步相关
+
+[Redis主从复制原理学习总结 - 运维笔记(博客园)](https://www.cnblogs.com/kevingrace/p/5685332.html)
+
+#### "限流"实现代码
+
+[Redis官方文档](https://redis.io/commands/incr)
+
+需求: 限制用户在x秒内请求y次
+  
+```
+now = int(time.time())
+x = 60
+y = 10
+
+redis_key = str(now - (now % x)) // 主要代码
+
+count = client.incr(redis_key)
+
+if count >= y:
+```  
+
+缺点: 没有考虑到滑动窗口 
+
