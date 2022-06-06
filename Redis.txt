@@ -469,9 +469,100 @@ Sentinel每两秒一次通过命令连接向所有被监视的主和从发送命
 - `m_`: 如果正在监视的是主，那么这些参数记录的是主的信息；如果正在监视的是从，那么这些参数记录的是从正在复制的主的信息
   -- `m_epoch`: 主当前的配置纪元
 
-asd
+Sentinel同样会接收`PUBLISH__SENTINEL__:hello`频道的信息,用于知道以及被知道监控这个Redis实例的Sentinel
+PS: 等于这个机制会让Sentinel互相同步监控者的信息,所以配多个Sentinel的时候不需要手动配置对方
+
+当Sentinel通过频道信息发现一个新的Sentinel时,它不仅会为新Sentinel在sentinels字典中创建相应的实例
+结构,还会创建一个连向新Sentinel的命令连接,而新Sentinel也会同样创建连向这个Sentinel的命令连接,最终
+所有Sentinel会相互连接
+  使用命令连接相连的各个Sentinel可以通过向其他Sentinel发送命令请求来进行信息交换
+
+#### Sentinel检测主观下线状态
+
+频率: 一秒一次
+
+每个Sentinel配的主观下线配置(`down-after-milliseconds`)可能不同
+
+当接收到了足够数量的已下线判断后,Sentinel就会将从服务器判定为客观下线
+
+当主被判断客观下线时,监视这个下线的主的各个Sentinel会进行协商，选举出一个领头Sentinel(Leader)，并由它对
+下线主执行故障转移操作
+
+选领头Sentinel的规则和方法: 
+1. 每个Sentinel都有资格被选中
+2. 每次选举完后，纪元(epoch)会加一
+3. 每个人都有投票的机会，并且投了后在这个纪元里就不能改
+4. 每个发现主进入客观下线的Sentinel都会要求其他Sentinel将自己设置为局部领头
+5. 当一个Sentinel(Source)向另一个Sentinel(Target)发送SENTINEL is-master-down-by-addr命令，并且
+   命令中的`runid`参数不是`*`符号而是Source的运行ID时，表示Source要求Target将Source设置为Target的
+   局部Leader
+6. 设置局部领头是先到先得
+7. Target在接收到SENTINEL`is-master-down-by-addr`命令后将向Source返回一条命令回复，回复中的
+   `leader_runid`参数和`leader_epoch`参数分别记录了Target的局部Leader的运行ID和配置纪元
+8. Source在接收到Target返回的命令回复之后会检查回复中`leader_epoch`参数的值和自己的配置纪元
+   是否相同，如果相同那么Source继续取出回复中的`leader_runid`参数，如果`leader_runid`值和Source
+   的运行ID一致，那么表示Target将Source设置成了局部Leader
+9. 如果有某个Sentinel被半数以上的Sentinel设置成了局部Leader,那么这个Sentinel就成为了领头
+   Sentinel
+10. 因为Leader产生需要半数以上Sentinel的支持，并且每个Sentinel在每个配置纪元里面只能设置一次
+   局部Sentinel，所以在一个配置纪元里里面出现一个Leader
+11. 如果在限定时限内没有一个Sentinel被选举为Leader，那么将在一段时间之后再次进行选举，直到选出Leader
+
+PS: 看起来就是Raft的模式
 
 
+#### 故障转移
+
+Leader Sentinel将对已下线的主执行故障转移操作:
+1. 在已下线主服务器属下的所有从里,挑出一个从并将其转移为主
+2. 将已下线主的属下的所有从的主改为这个新的主
+3. 将已下线的主设置为新的主的从
+
+新的主怎么挑选出来的: 
+1. 删除列表中所有处于下线或断线状态的从
+2. 删除列表中最近五秒内没有回复过Leader的INFO命令的从
+3. 删除所有与已下线主连接断开超过`down-after-millseconds`*10毫秒内的从. 
+   PS: 这步保证列表中剩余的从都没有过早地与主断开. 换句话说,列表中剩余的从保存的数据都是比较新的
+4. 根据从的优先级排序
+5. 相同最高优先级的从会根据"复制偏移量"再排序
+6. 如果"最高优先级"、"复制偏移量"都一样,根据ID顺序排并取最小
+
+## 集群
+
+#### 集群模式下的函数
+
+集群模式下的`serverCron`函数还会调用特有的`clusterCron`函数. 它会负责执行在集群模式下需要执行的
+常规操作，例如向集群中其他节点发送Gossip消息，检查节点是否断线，检查是否需要对下线节点进行自动故障
+转移等
+
+#### 集群数据结构
+
+redisClient结构和clusterLink结构的相同之处在于它们都有自己的套接字描述符和输入、输出缓冲区，这两个
+结构的区别在于redisClient结构中的套接字和缓冲区是用于连接客户端的，而clusterLink结构中的套接字和
+缓冲区是用于连接节点的
+
+#### Cluster命令实现
+
+1. A --> B: 发送MEET消息
+2. B --> A: 返回PONG消息
+3. A --> B: 返回PING消息
+
+之后,节点A会将节点B的信息通过Gossip协议传播给集群中的其他节点，让其他节点也与节点B进行握手，最终
+经过一段时间之后，节点B会被集群中的所有节点认识
+
+#### 槽指派
+
+集群通过分片的方式来保存键值对: 集群的整个数据库被分为16384个槽(slot),数据库中的每个键都属于这16384
+槽的其中一个,集群中的每个节点都可以处理0个或最多16384个槽
+  当数据库中的16384个槽都有节点在处理时，集群处于上线状态(ok); 相反地，如果数据库中有任何一个槽没得到
+处理，那么集群处于下线状态(fail)
+
+每个集群节点负责的槽都会互相转告给其它节点
+
+
+
+
+PS: 16384二级制表示为`0100 0000 0000 0000`
 
 
 ## 其它
