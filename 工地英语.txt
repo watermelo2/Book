@@ -1821,7 +1821,9 @@ turn 												转向、转变
 obviously 											明显地
 meaningful 											有意义的
 monolith 											单体
-monolithic 											整体的
+monolithic 											整体的、单片
+theorem												定理、法则
+drift												漂移
 enrolled 											已学习
 perprtual 											永久
 fundamental 										基础、基本原理
