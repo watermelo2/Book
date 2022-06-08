@@ -188,6 +188,8 @@ Redis定期删除会限制每次检查"键"、"数据库"的数量
 
 触发时机: 配置的定期(BGSABE)或手动执行(SAVE)
 
+适合场景: 冷备份(定期备份)
+
 "定期"的默认配置:
 ```
 save 900 1		# If at least 1 key is changed within 900 seconds, a snapshot will be taken
