@@ -1012,8 +1012,8 @@ buf_free全局变量: 用来指明后续写入的redo日志应该写入到log bu
 
 flush链表刷新到磁盘是从链表后面开始往前刷新.
 
-我记得在mysql技术内幕里面讲过,重做日志块的大小和磁盘扇区大小一样,都是512字节了,因此重做日志的写入可以保证原子性,
-不需要doublewrite技术. TODO
+我记得在mysql技术内幕里面讲过,redo log块的大小和磁盘扇区大小一样,都是512字节了,因此重做日志的写入可以保证原子性,
+不需要doublewrite技术.
 ==========================================================================================
 
 ------------------------------------------------------------------------------------------
@@ -1317,7 +1317,7 @@ mysql慢查询日志(slow-query-log):
 	在实际执行中,还牵扯到操作系统缓存Buffer何时同步到文件系统中,所以MySQL支持用户自定义在Commit时如何将log buffer 中的日志刷到log file中,通过变量innodb_flush_log_at_trx_Commit的值来决定.在log buffer中的内容称为脏日志.(全局
 	搜下log buffer)
 
-	如果要严格保证数据不丢失,必须得保证innodb_flush_log_at_trx_commit配置为1. 
+	  如果要严格保证数据不丢失,必须得保证innodb_flush_log_at_trx_commit配置为1. 
 	  如果配置成0,则redo log即使标记为commit状态了,由于此时redo log处于redo log buffer中,如果断电,
 	redo log buffer内存中的数据会丢失,此时如果恰好buffer pool中的脏页也还没有刷新到磁盘,而redo log也丢失了,
 	所以在MySQL重启后,由于丢失了一条redo log,因此就会丢失一条redo log对应的重做日志,这样断电前提交的那一次事

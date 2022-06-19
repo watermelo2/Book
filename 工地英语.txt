@@ -20,10 +20,12 @@ preposition					 						介词
 argument										 	论据
 expression										 	表示、表现、表达
 operation										 	操作、运营
+perk												津贴
 disable										 	 	禁用、使残废
 important										 	重要的
 various										 		各种各样的
 specified										 	指定
+inflate												膨胀
 influence										 	对..有影响、影响力
 behavior										 	行为
 through										 		通过
