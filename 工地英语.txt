@@ -478,6 +478,7 @@ draft 												草稿、草案
 diagram 											图表
 compensation 										补偿
 bait 												诱饵
+envoy												使者
 related 											相关的
 normal 												正常的、标准的、一般
 expect 												期待
