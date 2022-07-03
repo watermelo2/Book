@@ -460,6 +460,8 @@ cursor 												光标
 trace 												痕迹
 detach 												派遣、分离、脱离
 subscribe 											订阅
+farewell 											告别
+travel												旅行
 screen 												屏幕
 evaluating 											评估
 sharding 											分片、碎片
@@ -491,6 +493,8 @@ always 												总是
 setup 												设置
 applicable 											可应用的、适用
 prudence											谨慎
+rude 												无礼
+bless 												保佑
 least 												最小的、最少的
 pressure 											压力、压强
 echo 												回声
@@ -1167,6 +1171,7 @@ compete 											竞争
 principle 											原理、原则
 diagnostic 											诊断
 rise 												上升
+tidying												整理
 protest 											抗议
 paywall												付费专区
 surrogate 											替代
@@ -1303,7 +1308,10 @@ sentiment 											情绪、情感
 ray 												光纤
 homelab 											家庭实验室
 pronounce 											发音 
+noob         										小白
 nuisance 											讨厌
+symptom												症状
+justice												公正、正义
 accomplished 										完成的
 forset 												森林
 lossy 												有损的
@@ -1984,7 +1992,7 @@ excuse 												原谅
 telemetry 											遥测
 mentione 											提及、说起
 broadly 											广泛、广义
-intend 											预期、打算
+intend 												预期、打算
 polyglot 											多种语言
 resemble 											类似
 gather 												聚集、采集、收集
