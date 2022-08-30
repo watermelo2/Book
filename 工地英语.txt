@@ -882,6 +882,7 @@ transport 											运输、传输
 stage 												阶段、舞台、期
 community 											社区
 obfuscator 											混淆器
+tombstone  											墓碑
 ultimate 											最终、终极  名词: 最好的事务
 powerful 											强大
 cipher 												密码、暗号
@@ -1964,6 +1965,7 @@ annoying 											恼人的、讨厌的
 unfortunately 										可惜、很遗憾
 fortunately 										幸好
 lack 												缺少
+lacking 											不足
 anomaly 											异常
 countermeasures 									对策、对抗措施、应对措施
 accountability 										问责、责任制
