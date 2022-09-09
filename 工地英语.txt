@@ -1966,6 +1966,9 @@ unfortunately 										可惜、很遗憾
 fortunately 										幸好
 lack 												缺少
 lacking 											不足
+thaw												解冻
+wallet												钱包
+preamble											前言
 anomaly 											异常
 countermeasures 									对策、对抗措施、应对措施
 accountability 										问责、责任制
