@@ -214,7 +214,8 @@ Spanner实现分布式事务主要思想是: 全局唯一的物理时间 + 所�
 
 ## Chubby
 
-https://storage.googleapis.com/pub-tools-public-publication-data/pdf/c64be13661eaea41dcc4fdd569be4858963b0bd3.pdf
+https://storage.googleapis.com/pub-tools-public-publication-data/pdf/c64be13661eaea41dcc4fdd569be4858963b0bd3.pdf、
+https://www.slideshare.net/romain_jacotin/the-google-chubby-lock-service-for-looselycoupled-distributed-systems
 
 TODO 直接看Zookeeper
 
