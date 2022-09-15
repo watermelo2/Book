@@ -1,0 +1,17 @@
+#lang sicp
+
+// 我写的,是错的
+(define (repeated f repeat)
+  (cond ((< repeat 1) (lambda(x) (x)))
+        (else (lambda(x) (f ((repeated f (- repeat 1)) x))))))
+
+(define (square x) (* x x)) 
+(define (compose f g) (lambda (x) (f (g x)))) 
+
+// 答案
+ (define (repeat f n) 
+    (if (< n 1) 
+        (lambda (x) x) 
+        (compose f (repeat f (- n 1))))) 
+
+((repeated square 2) 5)

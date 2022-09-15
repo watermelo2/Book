@@ -1,0 +1,17 @@
+#lang sicp
+
+(define (double f)
+  (lambda (x) (f(f x))))
+
+(define (inc n)
+  (+ n 1))
+
+
+(((double (double double)) inc) 5) => 21
+
+从左往右分别叫: d1、d2、d3
+
+d3可以看作二进制`10`,那么`double double`其实就是做了个平方,也就是二进制`100`,将它们的结果再double就是再平方.也就是二进制`1000`,
+等于8次`inc`
+
+

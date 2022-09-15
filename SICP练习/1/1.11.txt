@@ -1,0 +1,13 @@
+#lang sicp
+(define (f-recursion n)
+  (cond ((< n 3) n)
+        (else (+ (f-recursion(- n 1)) (* 2 (f-recursion(- n 2))) (* 3 (f-recursion(- n 3)))))))
+
+// 这个不是自己写的,抄的答案,有点难看懂,需要看解析
+// https://sicp.readthedocs.io/en/latest/chp1/11.html
+ (define (f n) 
+   (define (f-i a b c count) 
+     (cond ((< n 3) n) 
+           ((<= count 0) a) 
+           (else (f-i (+ a (* 2 b) (* 3 c)) a b (- count 1))))) 
+   (f-i 2 1 0 (- n 2)))

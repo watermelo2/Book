@@ -1,0 +1,4 @@
+#lang sicp
+(define (two-max-numeric-sum x y z)
+   (if (> x y) (+ x (cond ((> y z) y) (else z))) (+ y (cond ((> x z) x) (else z)))))
+(two-max-numeric-sum 3 1 3)

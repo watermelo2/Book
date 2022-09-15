@@ -1,0 +1,19 @@
+#lang sicp
+
+(define (* a b)
+  (if (= b 0)
+      0
+      (+ a (* a (- b 1)))))
+
+// 这个编译不通过的,没有特定的解释器
+(define (* a b)
+  (cond ((or (= a 0) (= b 0)) 0)
+        ((= a 1) b)
+        ((= b 1) a)
+        (if (even? b)
+            (* (double a) (halve b))
+            (+ b (* a (- b 1)))))
+  (define (even? n)
+    (= (remainder n 2) 0))
+  (define (remainder x y)
+    (halve x y)))

@@ -1,0 +1,1 @@
+`square`函数是对数字n求平方,改成`* procedure procedure`形式后会将n求两次

@@ -80,7 +80,9 @@ charge												收费、控诉、充电  名词: 费用、指示、控告
 recharge											补给、充值
 member												成员、会员
 third												第三
+devise												设计
 grade												等级
+fist												拳头
 company												公司
 transaction											交易
 digest												消化、吸收  名词: 文摘
