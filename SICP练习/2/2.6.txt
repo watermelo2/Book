@@ -1,0 +1,18 @@
+#lang sicp
+
+(define zero (lambda (f) (lambda (x) x)))
+(define (add-1 n) (lambda (f) (lambda (x) (f ((n f) x)))))
+
+;; 代换 (define one (add-1 zero))
+(define one (lambda(f) (lambda(x) (f x))))
+(define two (lambda (f) (lambda (x) (f (f x))))) 
+
+;; procedure
+;; 我抄的,根本想不到这块.  m,n分别表示展开的次数(也是个逻辑符号,需要自己写解释器). 可以根据上面的`one`、`two`的规律能看得出来需要表示几就应用几次`f`,所以将其表示成过程就成了下面这个样子
+(define +
+    (lambda (m)
+        (lambda (n)
+            (lambda (f)
+                (lambda (x)
+                    (m f (n f x)))))))
+

@@ -86,6 +86,7 @@ fist												拳头
 company												公司
 transaction											交易
 digest												消化、吸收  名词: 文摘
+perimeter											周长(图形的周长)
 native												本地的
 summary												总结、摘要、概要
 since												自从、以后

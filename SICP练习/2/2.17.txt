@@ -1,0 +1,11 @@
+#lang sicp
+
+(define (last-pair lst)
+  (if (null? lst)
+      nil
+      (cond ((null? (cdr lst)) (car lst))
+            (else (last-pair (cdr lst))))))
+
+(define lst (list 1 2 3 4 5))
+(= (last-pair lst) 5)
+(null? (last-pair nil))

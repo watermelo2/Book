@@ -1,0 +1,10 @@
+#lang sicp
+
+(= (car (cons 1 2)) 1)
+
+(define (cdr z)
+	(z (lambda (p q) q)))
+
+
+`cons`会返回一个过程,过程会将过程中的参数`m`应用于`cons`的两个参数`x`、`y`,`cdr`过程只需要每次都返回第二个参数`y`就行了
+

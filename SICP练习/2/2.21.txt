@@ -1,0 +1,16 @@
+#lang sicp
+
+(define (map proc items)
+  (if (null? items)
+      nil
+      (cons (proc (car items))
+            (map proc (cdr items)))))
+            
+;; procedure            
+(define (square-list items)
+  (if (null? item)
+      null
+      (cons (square (car items)) (cdr items))))
+
+(define (square-list items)
+  (map (lambda(x) (square x)) items))
