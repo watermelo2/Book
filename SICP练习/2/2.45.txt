@@ -1,0 +1,29 @@
+#lang sicp
+
+;; procedure
+
+(define (split big-combiner small-combiner)
+  (lambda(painter n)
+    (if (= n 0)
+        painter
+        (let ((smaller ((split big-combiner smaller-combiner) painter (- n 1))))
+          (big-combiner painter
+                        (smaller-combiner smaller smaller))))))
+
+
+(define (split big-combiner small-combiner)
+  (define (inner painter n)
+    (if (= n 0)
+        painter
+        (let ((smaller (inner painter (- n 1))))
+          (big-combiner painter
+                        (smaller-combiner smaller smaller)))))
+  inner)
+
+(define up-split (split below beside))
+
+(define right-split (split beside below))
+
+
+
+

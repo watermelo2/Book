@@ -832,6 +832,7 @@ suggest 											建议、暗示、提议
 pinned 												置顶
 sibling 											兄弟、姐妹
 direct 												直接
+financial											金融
 thought 											思想、心思、意念
 honor 												荣誉、荣幸、尊敬
 privilege 											特权
