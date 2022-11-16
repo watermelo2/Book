@@ -105,6 +105,7 @@ publish												宣布
 exchange											交换
 mandatory											强制的;受委托的   备注: 一般理解为必填
 reward												奖励
+wage 												工资
 trigger												触发
 invoice												发票
 qualified											有资格的
@@ -826,10 +827,12 @@ kick 												踢
 implicitly 											隐式
 precedence 											优先权
 official 											官方
+inpatient											住院病人
 demand 												需求
 autowire 											自动装配
 suggest 											建议、暗示、提议
 pinned 												置顶
+consignment											寄售
 sibling 											兄弟、姐妹
 direct 												直接
 financial											金融
@@ -1007,7 +1010,7 @@ motivate 											激励
 encouraging 										鼓舞人心的
 neglect 											忽略、疏忽
 underestimated 										被低估
-naivety 											天真
+naive 												幼稚
 reinforce 											加强
 recruit 											招聘
 several 											一些、几个
@@ -1029,6 +1032,7 @@ afraid 												害怕
 opportunity 										机会
 personality 										个性
 controversial 										有争议的
+medicine											药物
 guidance 											指导
 doubt 												怀疑
 associate 											关联
@@ -1194,6 +1198,7 @@ donation 											捐款
 glossary 											词汇表
 infimum 											极少
 supermum 											最高
+terse 												简洁
 direction 											方向
 destiny 											命运
 thumbnail 											缩略图
@@ -1783,6 +1788,7 @@ circuit 											电路
 symmetric 											对称
 ecosystem 											生态系统
 benefits 											好处
+severance											遣散费
 drawbacks 											弊端
 treat 												对待
 dealt 												处理
@@ -1881,21 +1887,26 @@ properly 											正常地
 pirate 												盗版、海盗
 hybrid 												混合式、杂种
 zombie 												僵尸
+intranet 											内网
 adjustment 											调整
 therefore 											因此
 hiring 												招聘
 analogous 											类似的
+gas 												气体
 preemptive 											抢占式
 fallible 											易变的
 interoperability 									互通性
+coefficient											系数
 brain 												脑、头脑
 trial 												试验、试用
 mature 												成熟、成年
 premature 											过早
 jitter 												抖动
+politics											政治
 identical 											一摸一样
 overlap 											重叠、叠加
 overuse												过度使用
+exhausted											筋疲力尽的
 bottlenecks											瓶颈
 arise 												发生
 compliance 											合规、履约、遵守

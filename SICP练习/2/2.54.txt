@@ -1,0 +1,8 @@
+#lang sicp 
+
+;; procedure
+(define (meq? a b)
+  (cond ((and (null? a) (null? b)) true)
+        ((or (null? a) (null? b)) false)
+        ((eq? (car a) (car b)) true)
+        (else meq? (cdr a) (cdr b))))

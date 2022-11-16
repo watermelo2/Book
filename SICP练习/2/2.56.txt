@@ -1,0 +1,54 @@
+#lang sicp
+
+(define (variables? e) (symbol? e)) ;; e是变量吗
+(define (same-variables? a b) (and (variables? a) (variables? b) (eq? a b))) ;; a和b是同一个变量吗
+(define (sum? e) (and (pair? e) (eq? (car e) '+))) ;; e是和式吗
+(define (addend e) (cadr e)) ;; e的被加数
+(define (augend e) (caddr e)) ;; e的加数
+(define (make-sum a b)
+  (cond ((=number? a 0) b)
+        ((=number? b 0) a)
+        ((and (number? a)(number? b)) (+ a b))
+        (else (list '+ a b)))) ;; 构造起a1与a2的和式
+(define (=number? exp number) (and (number? exp) (= exp number)))
+(define (product? e) (and (pair? e) (eq? (car e) '*))) ;; e是乘式
+(define (multiplier e) (cadr e)) ;; e的被乘数
+(define (multiplicand e) (caddr e)) ;; e的乘数
+(define (make-product a b)
+  (cond ((or (=number? a 0) (=number? b 0)) 0)
+        ((=number? a 1) b)
+        ((=number? b 1) a)
+        ((and (number? a) (number? b)) (* a b))
+        (else (list '* a b)))) ;; 构造起a与b的乘式
+(define (exponentiation? e)
+  (and (pair? e) (eq? (car e) '**))) ;; e是幂数表达式吗
+(define (base e) (cadr e)) ;; 提取e的底数
+(define (exponent e) (caddr e)) ;; 提取e的幂数
+(define (make-exponentiation base exponent)
+  (cond ((= exponent 0) 1)
+        ((= exponent 1) base)
+        (else (list '** base exponent)))) ;; 构造base为底的exponent次幂式
+
+;; procedure
+
+(define (deriv exp var)
+  (cond ((number? exp) 0)
+        ((variables? exp)
+         (if (same-variables? exp var) 1 0))
+        ((sum? exp)
+         (make-sum (deriv (addend exp) var)
+                   (deriv (augend exp) var)))
+        ((product? exp)
+         (make-sum
+          (make-product (multiplier exp)
+                        (deriv (multiplicand exp) var))
+          (make-product (deriv (multiplier exp) var)
+                        (multiplicand exp))))
+        ((exponentiation? exp) (make-product (exponent exp) (make-exponentiation (base exp) (- (exponent exp) 1))))
+        (else
+         (error "unknown expression type -- deriv" exp))))
+
+(deriv '(+ x 3) 'x)
+(deriv '(* x y) 'x)
+(deriv '(* (* x y) (+ x 3)) 'x)
+(deriv '(** x 3) 'x)

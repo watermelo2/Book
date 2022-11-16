@@ -1,0 +1,16 @@
+#lang sicp
+
+(define (memq item x)
+  (cond ((null? x) false)
+        ((eq? item (car x)) x)
+        (else (memq item (cdr x)))))
+
+;; procedure
+
+(list 'a 'b 'c) ;; a b c
+(list (list 'george)) ;; 双层队列，最里面的队列的元素是george
+(cdr '((x1 x2) (y1 y2))) ;; (y1 y2)
+(cadr '((x1 x2) (y1 y2))) ;; x2
+(pair? (car '(a short list))) ;; false
+(memq 'red '((red shoes) (blue socks))) ;; false
+(memq 'red '(red shoes blue socks)) ;; (red shoes blue socks)

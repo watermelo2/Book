@@ -1,0 +1,1 @@
+解释器将程序解释成`(car '(qoute abracadabra))`
