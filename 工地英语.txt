@@ -124,6 +124,7 @@ durable												持久的、耐用的
 iterable											可迭代的
 iteration											迭代
 recover												恢复
+dimensional											维度
 reject												拒绝
 completed											完整的
 incompleted											不完整的
