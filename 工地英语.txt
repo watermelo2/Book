@@ -129,6 +129,8 @@ reject												拒绝
 completed											完整的
 incompleted											不完整的
 remote												远程的
+authorities											当局
+initiated											发起
 remoting											远程处理
 procedure											程序
 reply												回复
@@ -1190,6 +1192,7 @@ dive 												潜水
 comfortable 										自在、安逸
 uncomfortable 										不舒服、不自然、别扭
 law 												法、法律
+citizen  											公民
 citizenship 										国籍、公民权、公民身份
 granularity 										粒度
 collation 											校对   网络: 排序规则、排序方式
@@ -1764,7 +1767,9 @@ immedidate											即刻
 emulate 											模拟
 scrape 												刮、擦痕
 concern 											关心、关注
+concerns											顾虑、担忧
 stitch 												缝
+censored											审查
 incident 											事件
 junior 												初级
 drag 												拖动
@@ -1774,11 +1779,15 @@ robustness 											健壮性
 essential 											要点
 wiretap 											窃听
 approach 											方法
+outpouring											流露
+criticism											批评
+grievance											委屈、不平、怨气
 clinic 												诊所
 emulator 											仿真器
 instructor 											讲师
 conquer 											征服
 appreciate 											欣赏
+authoritarian										专制的
 furthermore 										此外
 incubate 											孵化
 honestly 											老实说
@@ -1932,6 +1941,10 @@ disruptive 											干扰、破坏性
 corruption 											腐败、堕落
 escape 												逃脱、逃逸、逃离
 emergency 											紧急情况
+censorship											审查制度
+according											根据
+directive											指示
+crackdown											镇压
 gauge 												仪表、标准、厚度
 backport 											向后移植
 underpinning 										支撑、基础
@@ -2050,6 +2063,13 @@ alarm 												警报、闹钟
 builtin 											内置
 incredible 											不可思议
 unprecedented 										史无前例的
+protests											抗议
+demonstrated										证明
+widespread											广泛
+easing												缓和
+pandemic											大流行
+frustration											挫折
+restriction											限制
 stunning 											极好的
 extraordinary 										特别的、意想不到的
 satisfaction 										满意度、满意
