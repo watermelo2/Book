@@ -1,0 +1,17 @@
+#lang sicp
+
+(define (make-monitored f)
+  (define (inc count)(+ count 1))
+  (define (dispatch input)
+    (let ((count 0))
+      (cond ((number? input) (begin (set! count (inc count)) (f input)))
+          ((eq? input 'how-many-calls?) count)
+          ((eq? 'reset-count) (begin (set! count 0) count)))))
+  dispatch)
+
+(define s (make-monitored sqrt))
+
+(s 100)
+(s 'how-many-calls?)
+ 
+

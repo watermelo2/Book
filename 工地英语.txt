@@ -120,6 +120,7 @@ receive												收到
 typically											典型的、通常
 contain												包含
 compare												比较
+scatter												分散
 durable												持久的、耐用的
 iterable											可迭代的
 iteration											迭代
@@ -1773,6 +1774,7 @@ censored											审查
 incident 											事件
 junior 												初级
 drag 												拖动
+
 encounter 											遇到
 robust 												强大的
 robustness 											健壮性
@@ -1825,11 +1827,17 @@ arrive 												到达
 mutate 												变异、转变
 adhere 												坚持
 horizontal 											水平的
+talent												人才
 constantly 											不断地、时常
 worst 												最坏的
+sourceforge											源码
+deserve												应得
 fulfilled 											完成、满意的
 occasional 											偶尔
 imagine 											想像
+infection											感染
+animation											动画片
+portable 											便携的
 inspiration 										灵感、启发
 sustained											持续
 gifted												天才
@@ -2263,6 +2271,8 @@ shed tears										 	声泪俱下
 screen shot										 	屏幕截图
 training institution								培训机构
 curriculum vitae									个人简历
+kick												踢
+digital												数字的、数码的
 kick in										 		起作用
 fade away										 	消失
 ternary operator									三元运算符

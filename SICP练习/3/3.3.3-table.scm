@@ -1,0 +1,56 @@
+#lang sicp
+
+;; assoc: https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-ref/Association-Lists.html
+;; 表格函数,返回表格指定元素的value(cdr)
+(define (lookup key table)
+  (let ((record (assoc key (cdr table))))
+    (if record
+        (cdr record)
+        false)))
+
+(define (assoc key records)
+  (cond ((null? records) false)
+        ((equals? key (caar records)) (car records))
+        (else (assoc key (cdr records)))))
+
+(define (make-table) (list '*table*))
+
+;; 用于双层表格结构检索value(cdr)
+;; 例:
+;;    match:
+;;        +: 43
+;;        -: 45
+(define (lookup key-1 key-2 table)
+  (let ((subtable (assoc key1 (cdr table))))
+    (if subtable
+        (let ((record (assoc key-2 (cdr subtable))))
+          (if record
+              (cdr record)
+              false))
+        false)))
+
+;; 双层表格插入
+(define (insert! key-1 key-2 value table)
+  (let ((subtable (assoc key-1 (cdr table))))
+    (if subtable
+        (let ((record (assoc ley-2 (cdr subtable))))
+          (if record
+              (set-cdr! record value)
+              (set-cdr! subtable
+                        (cons (cons key-2 value)
+                              (cdr subtable)))))
+        (set-cdr! table
+                  (cons (list key-1
+                              (cons key-2 value))
+                        (cdr table)))))
+  'ok)
+
+
+
+
+
+
+
+
+
+
