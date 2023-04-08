@@ -1,0 +1,9 @@
+#lang sicp
+
+(and (supervisor ?person (Bitdiddle Ben))
+     (address ?person ?where))
+(and (salary (Bigdiddle Ben) ?number)
+     (salary ?person ?amount))
+(and (supervisor ?person ?boss)
+     (not (job ?boss (computer . ?type)))
+     (job ?boss ?job))

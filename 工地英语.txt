@@ -1234,6 +1234,7 @@ nevertheless 										但是
 distinct 											不同、明显
 focus 												焦点、专注  动词: 集中
 rest 												休息、其余
+secretary											秘书
 huge 												巨大的、无限的
 phantom 											幻影、幻象
 wide 												宽	
