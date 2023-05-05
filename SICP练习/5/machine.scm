@@ -27,6 +27,8 @@
 
 (restore ⟨register-name⟩)
 
+;; 第一个参数是一个寄存器名字的表; 第二个参数是一个操作以及对应别名的表;
+;; 第三个是这个机器对应的控制器(controller);
 (define gcd-machine
   (make-machine
    '(a b t)
@@ -38,6 +40,11 @@
             (assign b (reg t))
             (goto (label test-b))
             gcd-done)))
+(set-register-contents! gcd-machine 'a 206) ;; 给机器寄存器设值
+(set-register-contents! gcd-machine 'b 40) ;; 给机器寄存器设值
+(start gcd-machine) ;; 启动机器
+(get-register-contents gcd-machine 'a) ;; 获取机器寄存器值: 2
+
 
 (define (make-machine register-names ops controller-text)
   (let ((machine (make-new-machine)))
@@ -156,6 +163,8 @@
      (update-insts! insts labels machine)
      insts)))
 
+;; 这个receive要关注的点在于它是一种有效的返回两个值的方式(技巧),这样就
+;; 不必专门做一个复合数据结构去保存它们
 (define (extract-labels text receive)
   (if (null? text)
       (receive '() '())
