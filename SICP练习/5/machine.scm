@@ -27,7 +27,8 @@
 
 (restore ⟨register-name⟩)
 
-;; 第一个参数是一个寄存器名字的表; 第二个参数是一个操作以及对应别名的表;
+;; 第一个参数是一个寄存器名字的表;
+;; 第二个参数是一个操作以及对应别名的表;
 ;; 第三个是这个机器对应的控制器(controller);
 (define gcd-machine
   (make-machine
