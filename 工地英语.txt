@@ -1665,6 +1665,9 @@ hit 												命中、击中
 occupy 												占有、占据
 daily 												日常
 preferentially 										优先地
+Rustaceans											Rust编程语言的用户
+derive 												派生
+trait 												特征
 reactivity 											反应性
 relevance 											关联
 teaser 												预告片
@@ -1763,6 +1766,7 @@ potential 											可能地、大概地、潜在的
 awkward												尴尬的
 regrets 											遗憾
 wallpaper 											墙纸、壁纸
+explicit                                            明确的、显示
 compliant 											符合的、兼容 
 lenient 											宽容
 immedidate											即刻
